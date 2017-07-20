@@ -42,4 +42,11 @@ typedef struct sockaddr {
 	uint8_t zero[8];
 };
 
+typedef struct rxPktBuffer_t {
+	struct sockaddr remoteInfo;
+	int remoteInfoLen;
+	uint8_t *pktData;
+	unsigned short pktDataLen;
+};
+
 #endif /* NET_H */

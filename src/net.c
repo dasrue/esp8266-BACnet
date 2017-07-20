@@ -30,10 +30,12 @@ SOFTWARE.
 	and the esp8266 UDP SDK.
 */
 
+#include <string.h>		// To provide memcpy
 #include "net.h"
 #include "espconn.h"
 
-struct espconn *socketStructs[MAX_NUM_SOCKETS];
+struct espconn *socketStructs[MAX_NUM_SOCKETS];		// Array of pointers to esp8266 sockets
+struct rxPktBuffer_t rxPktBuffer[MAX_NUM_SOCKETS];	// Array of receive data structures
 
 int sendto(
 	int socketNum,		
@@ -49,7 +51,7 @@ int sendto(
 	if(bacSocket->type!=ESPCONN_UDP)
 		return -21;		// Return if the socket is in the wrong mode (BACnet/IP uses UDP)
 	bacSocket->proto.udp->remote_port = target->port;
-	memcpy(&(bacSocket->proto.udp->remote_ip),target->ip,4);
+	memcpy(&(bacSocket->proto.udp->remote_ip[0]),target->ip,4);
 	int16_t packetStatus = espconn_sendto(bacSocket, data, dataLen)==0;
 	if(packetStatus==ESPCONN_OK)
 		return dataLen;			// If sending succeeded, return number of bytes sent
@@ -63,4 +65,32 @@ struct espconn * socketNumberToPointer(
 	if((socketNum >= MAX_NUM_SOCKETS)||(socketNum < 0))
 		return NULL;	// Return NULL if socket number is invalid
 	return socketStructs[socketNum];
+}
+
+void recv_callback(
+	void *arg,
+	char *pdata,
+	unsigned short len)
+{
+	struct espconn *thisSocket = arg;
+	struct sockaddr remoteInfo;
+	int socketNum;
+	for(socketNum = 0; socketNum < MAX_NUM_SOCKETS; socketNum++) {
+		if(socketStructs[socketNum]!=NULL) {
+			if(socketStructs[socketNum]->proto.udp->local_port==thisSocket->proto.udp->local_port) {
+				break;		// Once we find the socket related to the port of the data we rxed, then break.
+			}
+		}
+	}
+	if(socketNum==MAX_NUM_SOCKETS)	// Failed to find socket number
+		return;
+	rxPktBuffer[socketNum].pktDataLen=len;
+	remoteInfo->port = thisSocket->proto.udp->remote_port;
+	memcpy(remoteInfo->ip,thisSocket->proto.udp->remote_ip,4);
+	memcpy(rxPktBuffer[socketNum].remoteInfo,remoteInfo,sizeof(remoteInfo));
+	rxPktBuffer[socketNum].remoteInfoLen = sizeof(remoteInfo);
+	rxPktBuffer[socketNum].pktData = malloc(len);	// Remember to free the data once done
+	if(rxPktBuffer[socketNum].pktData==NULL)
+		return;
+	memcpy(rxPktBuffer[socketNum].pktData,pdata, len);
 }
