@@ -24,6 +24,7 @@
 #ifndef APDU_H
 #define APDU_H
 
+#include "c_types.h"	// Needed for ICACHE_FLASH_ATTR
 #include <stdbool.h>
 #include <stdint.h>
 #include "bacdef.h"
@@ -124,50 +125,50 @@ extern "C" {
         uint8_t invoke_id,
         uint8_t reject_reason);
 
-    void apdu_set_confirmed_ack_handler(
+    void ICACHE_FLASH_ATTR apdu_set_confirmed_ack_handler(
         BACNET_CONFIRMED_SERVICE service_choice,
         confirmed_ack_function pFunction);
 
-    void apdu_set_confirmed_simple_ack_handler(
+    void ICACHE_FLASH_ATTR apdu_set_confirmed_simple_ack_handler(
         BACNET_CONFIRMED_SERVICE service_choice,
         confirmed_simple_ack_function pFunction);
 
 /* configure reject for confirmed services that are not supported */
-    void apdu_set_unrecognized_service_handler_handler(
+    void ICACHE_FLASH_ATTR apdu_set_unrecognized_service_handler_handler(
         confirmed_function pFunction);
 
-    void apdu_set_confirmed_handler(
+    void ICACHE_FLASH_ATTR apdu_set_confirmed_handler(
         BACNET_CONFIRMED_SERVICE service_choice,
         confirmed_function pFunction);
 
-    void apdu_set_unconfirmed_handler(
+    void ICACHE_FLASH_ATTR apdu_set_unconfirmed_handler(
         BACNET_UNCONFIRMED_SERVICE service_choice,
         unconfirmed_function pFunction);
 
 /* returns true if the service is supported by a handler */
-    bool apdu_service_supported(
+    bool ICACHE_FLASH_ATTR apdu_service_supported(
         BACNET_SERVICES_SUPPORTED service_supported);
 
 /* Function to translate a SERVICE_SUPPORTED_ enum to its SERVICE_CONFIRMED_
  *  or SERVICE_UNCONFIRMED_ index.
  */
-    bool apdu_service_supported_to_index(
+    bool ICACHE_FLASH_ATTR apdu_service_supported_to_index(
         BACNET_SERVICES_SUPPORTED service_supported,
         size_t * index,
         bool * bIsConfirmed);
 
 
-    void apdu_set_error_handler(
+    void ICACHE_FLASH_ATTR apdu_set_error_handler(
         BACNET_CONFIRMED_SERVICE service_choice,
         error_function pFunction);
 
-    void apdu_set_abort_handler(
+    void ICACHE_FLASH_ATTR apdu_set_abort_handler(
         abort_function pFunction);
 
-    void apdu_set_reject_handler(
+    void ICACHE_FLASH_ATTR apdu_set_reject_handler(
         reject_function pFunction);
 
-    uint16_t apdu_decode_confirmed_service_request(
+    uint16_t ICACHE_FLASH_ATTR apdu_decode_confirmed_service_request(
         uint8_t * apdu, /* APDU data */
         uint16_t apdu_len,
         BACNET_CONFIRMED_SERVICE_DATA * service_data,
@@ -175,16 +176,16 @@ extern "C" {
         uint8_t ** service_request,
         uint16_t * service_request_len);
 
-    uint16_t apdu_timeout(
+    uint16_t ICACHE_FLASH_ATTR apdu_timeout(
         void);
-    void apdu_timeout_set(
+    void ICACHE_FLASH_ATTR apdu_timeout_set(
         uint16_t value);
-    uint8_t apdu_retries(
+    uint8_t ICACHE_FLASH_ATTR apdu_retries(
         void);
-    void apdu_retries_set(
+    void ICACHE_FLASH_ATTR apdu_retries_set(
         uint8_t value);
 
-    void apdu_handler(
+    void ICACHE_FLASH_ATTR apdu_handler(
         BACNET_ADDRESS * src,   /* source address */
         uint8_t * apdu, /* APDU data */
         uint16_t pdu_len);      /* for confirmed messages */
