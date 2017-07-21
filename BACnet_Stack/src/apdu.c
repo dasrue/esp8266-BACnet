@@ -111,7 +111,7 @@ static BACNET_SERVICES_SUPPORTED
 /* If they are not set, they are handled by a reject message */
 static confirmed_function Confirmed_Function[MAX_BACNET_CONFIRMED_SERVICE];
 
-void apdu_set_confirmed_handler(
+void ICACHE_FLASH_ATTR apdu_set_confirmed_handler(
     BACNET_CONFIRMED_SERVICE service_choice,
     confirmed_function pFunction)
 {
@@ -122,7 +122,7 @@ void apdu_set_confirmed_handler(
 /* Allow the APDU handler to automatically reject */
 static confirmed_function Unrecognized_Service_Handler;
 
-void apdu_set_unrecognized_service_handler_handler(
+void ICACHE_FLASH_ATTR apdu_set_unrecognized_service_handler_handler(
     confirmed_function pFunction)
 {
     Unrecognized_Service_Handler = pFunction;
@@ -133,7 +133,7 @@ void apdu_set_unrecognized_service_handler_handler(
 static unconfirmed_function
     Unconfirmed_Function[MAX_BACNET_UNCONFIRMED_SERVICE];
 
-void apdu_set_unconfirmed_handler(
+void ICACHE_FLASH_ATTR apdu_set_unconfirmed_handler(
     BACNET_UNCONFIRMED_SERVICE service_choice,
     unconfirmed_function pFunction)
 {
@@ -141,7 +141,7 @@ void apdu_set_unconfirmed_handler(
         Unconfirmed_Function[service_choice] = pFunction;
 }
 
-bool apdu_service_supported(
+bool ICACHE_FLASH_ATTR apdu_service_supported(
     BACNET_SERVICES_SUPPORTED service_supported)
 {
     int i = 0;
@@ -193,7 +193,7 @@ bool apdu_service_supported(
  * @param bIsConfirmed [out] True if index is a SERVICE_CONFIRMED_ type.
  * @return True if a match was found and index and bIsConfirmed are valid.
  */
-bool apdu_service_supported_to_index(
+bool ICACHE_FLASH_ATTR apdu_service_supported_to_index(
     BACNET_SERVICES_SUPPORTED service_supported,
     size_t * index,
     bool * bIsConfirmed)
@@ -231,7 +231,7 @@ bool apdu_service_supported_to_index(
 static confirmed_ack_function
     Confirmed_ACK_Function[MAX_BACNET_CONFIRMED_SERVICE];
 
-void apdu_set_confirmed_simple_ack_handler(
+void ICACHE_FLASH_ATTR apdu_set_confirmed_simple_ack_handler(
     BACNET_CONFIRMED_SERVICE service_choice,
     confirmed_simple_ack_function pFunction)
 {
@@ -264,7 +264,7 @@ void apdu_set_confirmed_simple_ack_handler(
     }
 }
 
-void apdu_set_confirmed_ack_handler(
+void ICACHE_FLASH_ATTR apdu_set_confirmed_ack_handler(
     BACNET_CONFIRMED_SERVICE service_choice,
     confirmed_ack_function pFunction)
 {
@@ -297,7 +297,7 @@ void apdu_set_confirmed_ack_handler(
 
 static error_function Error_Function[MAX_BACNET_CONFIRMED_SERVICE];
 
-void apdu_set_error_handler(
+void ICACHE_FLASH_ATTR apdu_set_error_handler(
     BACNET_CONFIRMED_SERVICE service_choice,
     error_function pFunction)
 {
@@ -307,7 +307,7 @@ void apdu_set_error_handler(
 
 static abort_function Abort_Function;
 
-void apdu_set_abort_handler(
+void ICACHE_FLASH_ATTR apdu_set_abort_handler(
     abort_function pFunction)
 {
     Abort_Function = pFunction;
@@ -315,13 +315,13 @@ void apdu_set_abort_handler(
 
 static reject_function Reject_Function;
 
-void apdu_set_reject_handler(
+void ICACHE_FLASH_ATTR apdu_set_reject_handler(
     reject_function pFunction)
 {
     Reject_Function = pFunction;
 }
 
-uint16_t apdu_decode_confirmed_service_request(
+uint16_t ICACHE_FLASH_ATTR apdu_decode_confirmed_service_request(
     uint8_t * apdu,     /* APDU data */
     uint16_t apdu_len,
     BACNET_CONFIRMED_SERVICE_DATA * service_data,
@@ -350,25 +350,25 @@ uint16_t apdu_decode_confirmed_service_request(
     return len;
 }
 
-uint16_t apdu_timeout(
+uint16_t ICACHE_FLASH_ATTR apdu_timeout(
     void)
 {
     return Timeout_Milliseconds;
 }
 
-void apdu_timeout_set(
+void ICACHE_FLASH_ATTR apdu_timeout_set(
     uint16_t milliseconds)
 {
     Timeout_Milliseconds = milliseconds;
 }
 
-uint8_t apdu_retries(
+uint8_t ICACHE_FLASH_ATTR apdu_retries(
     void)
 {
     return Number_Of_Retries;
 }
 
-void apdu_retries_set(
+void ICACHE_FLASH_ATTR apdu_retries_set(
     uint8_t value)
 {
     Number_Of_Retries = value;
@@ -381,7 +381,7 @@ void apdu_retries_set(
    When the initiation of communications is disabled,
    all APDUs shall be processed and responses returned as
    required... */
-static bool apdu_confirmed_dcc_disabled(
+static bool ICACHE_FLASH_ATTR apdu_confirmed_dcc_disabled(
     uint8_t service_choice)
 {
     bool status = false;
@@ -407,7 +407,7 @@ static bool apdu_confirmed_dcc_disabled(
    DISABLE_INITIATION, the responding BACnet-user shall
    discontinue the initiation of messages except for I-Am
    requests issued in accordance with the Who-Is service procedure.*/
-static bool apdu_unconfirmed_dcc_disabled(
+static bool ICACHE_FLASH_ATTR apdu_unconfirmed_dcc_disabled(
     uint8_t service_choice)
 {
     bool status = false;
@@ -439,7 +439,7 @@ static bool apdu_unconfirmed_dcc_disabled(
  * @param apdu [in] The apdu portion of the request, to be processed.
  * @param apdu_len [in] The total (remaining) length of the apdu.
  */
-void apdu_handler(
+void ICACHE_FLASH_ATTR apdu_handler(
     BACNET_ADDRESS * src,
     uint8_t * apdu,     /* APDU data */
     uint16_t apdu_len)
