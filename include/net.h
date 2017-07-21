@@ -35,18 +35,29 @@ SOFTWARE.
 
 #define MAX_NUM_SOCKETS 8
 
-typedef struct sockaddr {
+struct sockaddr {
 	int16_t family;
 	uint16_t port;
 	uint8_t ip[4];
 	uint8_t zero[8];
 };
 
-typedef struct rxPktBuffer_t {
+struct rxPktBuffer_t {
 	struct sockaddr remoteInfo;
 	int remoteInfoLen;
 	uint8_t *pktData;
 	unsigned short pktDataLen;
 };
+
+int ICACHE_FLASH_ATTR sendto(
+	int socketNum,		
+	const uint8_t *data,	// We don't modify data so ddeclare it as const.
+	int dataLen,
+	int flags,
+	const struct sockaddr *target,
+	int targetStructLen);
+
+struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
+	int socketNum);
 
 #endif /* NET_H */

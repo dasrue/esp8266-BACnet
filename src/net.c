@@ -30,14 +30,18 @@ SOFTWARE.
 	and the esp8266 UDP SDK.
 */
 
+#include "c_types.h"
 #include <string.h>		// To provide memcpy
+#include <stdlib.h>
 #include "net.h"
+#include "ip_addr.h"
 #include "espconn.h"
+#include "mem.h"
 
 struct espconn *socketStructs[MAX_NUM_SOCKETS];		// Array of pointers to esp8266 sockets
 struct rxPktBuffer_t rxPktBuffer[MAX_NUM_SOCKETS];	// Array of receive data structures
 
-int sendto(
+int ICACHE_FLASH_ATTR sendto(
 	int socketNum,		
 	const uint8_t *data,	// We don't modify data so ddeclare it as const.
 	int dataLen,
@@ -59,7 +63,7 @@ int sendto(
 		return packetStatus;	// Else return the error code (these are all negative)
 }
 
-struct espconn * socketNumberToPointer(
+struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
 	int socketNum)
 {
 	if((socketNum >= MAX_NUM_SOCKETS)||(socketNum < 0))
@@ -85,11 +89,11 @@ void recv_callback(
 	if(socketNum==MAX_NUM_SOCKETS)	// Failed to find socket number
 		return;
 	rxPktBuffer[socketNum].pktDataLen=len;
-	remoteInfo->port = thisSocket->proto.udp->remote_port;
-	memcpy(remoteInfo->ip,thisSocket->proto.udp->remote_ip,4);
-	memcpy(rxPktBuffer[socketNum].remoteInfo,remoteInfo,sizeof(remoteInfo));
+	remoteInfo.port = thisSocket->proto.udp->remote_port;
+	memcpy(remoteInfo.ip,thisSocket->proto.udp->remote_ip,4);
+	memcpy(&(rxPktBuffer[socketNum].remoteInfo),&remoteInfo,sizeof(remoteInfo));
 	rxPktBuffer[socketNum].remoteInfoLen = sizeof(remoteInfo);
-	rxPktBuffer[socketNum].pktData = malloc(len);	// Remember to free the data once done
+	rxPktBuffer[socketNum].pktData = os_malloc(len);	// Remember to free the data once done
 	if(rxPktBuffer[socketNum].pktData==NULL)
 		return;
 	memcpy(rxPktBuffer[socketNum].pktData,pdata, len);

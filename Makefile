@@ -9,7 +9,8 @@ LDLIBS = -nostdlib -Wl,--start-group -lmain -lnet80211 -lwpa -llwip -lpp -lphy -
 LDFLAGS = -Teagle.app.v6.ld
 PROJNAME = test
 
-SRCS = src/main.c \
+SRCS = 	src/main.c \
+	src/net.c \
 	$(BAC_SRC)/apdu.c
 
 OBJS = ${SRCS:.c=.o}
