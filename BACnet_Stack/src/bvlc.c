@@ -38,6 +38,10 @@
 #include "bacenum.h"
 #include "bacdcode.h"
 #include "bacint.h"
+#include "net.h"        /* custom per port */
+#include "c_types.h"
+#include "ip_addr.h"
+#include "espconn.h"
 #include "bvlc.h"
 #ifndef DEBUG_ENABLED
 #define DEBUG_ENABLED 0
@@ -145,8 +149,8 @@ static void bvlc_internet_to_bacnet_address(
     struct sockaddr_in *sin)
 {
     if (src && sin) {
-        memcpy(&src->mac[0], &sin->sin_addr.s_addr, 4);
-        memcpy(&src->mac[4], &sin->sin_port, 2);
+        os_memcpy(&src->mac[0], &sin->sin_addr.s_addr, 4);
+        os_memcpy(&src->mac[4], &sin->sin_port, 2);
         src->mac_len = (uint8_t) 6;
         src->net = 0;
         src->len = 0;
@@ -178,8 +182,8 @@ static int bvlc_encode_bip_address(
     int len = 0;
 
     if (pdu) {
-        memcpy(&pdu[0], &address->s_addr, 4);
-        memcpy(&pdu[4], &port, 2);
+        os_memcpy(&pdu[0], &address->s_addr, 4);
+        os_memcpy(&pdu[4], &port, 2);
         len = 6;
     }
 
@@ -202,8 +206,8 @@ static int bvlc_decode_bip_address(
     int len = 0;
 
     if (pdu) {
-        memcpy(&address->s_addr, &pdu[0], 4);
-        memcpy(port, &pdu[4], 2);
+        os_memcpy(&address->s_addr, &pdu[0], 4);
+        os_memcpy(port, &pdu[4], 2);
         len = 6;
     }
 
@@ -229,7 +233,7 @@ static int bvlc_encode_address_entry(
 
     if (pdu) {
         len = bvlc_encode_bip_address(pdu, address, port);
-        memcpy(&pdu[len], &mask->s_addr, 4);
+        os_memcpy(&pdu[len], &mask->s_addr, 4);
         len += 4;
     }
 
@@ -684,11 +688,11 @@ static bool bvlc_create_bdt(
     for (i = 0; i < MAX_BBMD_ENTRIES; i++) {
         if (npdu_length >= 10) {
             BBMD_Table[i].valid = true;
-            memcpy(&BBMD_Table[i].dest_address.s_addr, &npdu[pdu_offset], 4);
+            os_memcpy(&BBMD_Table[i].dest_address.s_addr, &npdu[pdu_offset], 4);
             pdu_offset += 4;
-            memcpy(&BBMD_Table[i].dest_port, &npdu[pdu_offset], 2);
+            os_memcpy(&BBMD_Table[i].dest_port, &npdu[pdu_offset], 2);
             pdu_offset += 2;
-            memcpy(&BBMD_Table[i].broadcast_mask.s_addr, &npdu[pdu_offset], 4);
+            os_memcpy(&BBMD_Table[i].broadcast_mask.s_addr, &npdu[pdu_offset], 4);
             pdu_offset += 4;
             npdu_length -= (4 + 2 + 4);
         } else {
@@ -800,20 +804,27 @@ int bvlc_send_mpdu(
     uint8_t * mtu,
     uint16_t mtu_len)
 {
-    struct sockaddr_in bvlc_dest = { 0 };
-
+   // struct sockaddr_in bvlc_dest = { 0 };
+    int sendStatus;
     /* assumes that the driver has already been initialized */
     if (bip_socket() < 0) {
         return 0;
     }
     /* load destination IP address */
-    bvlc_dest.sin_family = AF_INET;
-    bvlc_dest.sin_addr.s_addr = dest->sin_addr.s_addr;
-    bvlc_dest.sin_port = dest->sin_port;
-    memset(&(bvlc_dest.sin_zero), '\0', 8);
+    //bvlc_dest.sin_family = AF_INET;
+    //bvlc_dest.sin_addr.s_addr = dest->sin_addr.s_addr;
+    //bvlc_dest.sin_port = dest->sin_port;
+    //memset(&(bvlc_dest.sin_zero), '\0', 8);
     /* Send the packet */
-    return sendto(bip_socket(), (char *) mtu, mtu_len, 0,
-        (struct sockaddr *) &bvlc_dest, sizeof(struct sockaddr));
+    //return sendto(bip_socket(), (char *) mtu, mtu_len, 0,
+    //    (struct sockaddr *) &bvlc_dest, sizeof(struct sockaddr));
+    BACnetESPsocket.proto.udp->remote_port = dest->sin_port;
+    os_memcpy(BACnetESPsocket.proto.udp->remote_ip,(uint8_t*)&dest->sin_addr.s_addr,4);	// Copy ip address in.
+    sendStatus = espconn_sendto(&BACnetESPsocket, mtu, mtu_len);
+    if(sendStatus==ESPCONN_OK)
+		return mtu_len;
+	else
+		return sendStatus;
 }
 
 #if defined(BBMD_ENABLED) && BBMD_ENABLED
@@ -1491,7 +1502,7 @@ int bvlc_send_pdu(
     BVLC_length = (uint16_t) pdu_len + 4 /*inclusive */ ;
     mtu_len = 2;
     mtu_len += (uint16_t) encode_unsigned16(&mtu[mtu_len], BVLC_length);
-    memcpy(&mtu[mtu_len], pdu, pdu_len);
+    os_memcpy(&mtu[mtu_len], pdu, pdu_len);
     mtu_len += (uint16_t) pdu_len;
     return bvlc_send_mpdu(&bvlc_dest, mtu, mtu_len);
 }
@@ -1767,8 +1778,8 @@ static void bvlc_bacnet_to_internet_address(
 
     if (src && sin) {
         if (src->mac_len == 6) {
-            memcpy(&sin->sin_addr.s_addr, &src->mac[0], 4);
-            memcpy(&sin->sin_port, &src->mac[4], 2);
+            os_memcpy(&sin->sin_addr.s_addr, &src->mac[0], 4);
+            os_memcpy(&sin->sin_port, &src->mac[4], 2);
         }
     }
 
