@@ -106,7 +106,7 @@
 /* Configure from 1..255 for number of outstanding confirmed */
 /* requests available. */
 #if !defined(MAX_TSM_TRANSACTIONS)
-#define MAX_TSM_TRANSACTIONS 255
+#define MAX_TSM_TRANSACTIONS 0
 #endif
 /* The address cache is used for binding to BACnet devices */
 /* The number of entries corresponds to the number of */
