@@ -39,6 +39,7 @@
 #include "bip.h"
 #include "bvlc.h"
 #include "net.h"        /* custom per port */
+#include "c_types.h"
 #include "espconn.h"
 #if PRINT_ENABLED
 #include <stdio.h>      /* for standard i/o, like printing */
