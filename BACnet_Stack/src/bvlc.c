@@ -899,8 +899,8 @@ static void ICACHE_FLASH_ATTR bvlc_bdt_forward_npdu(
                 continue;
             }
             bvlc_send_mpdu(&bip_dest, mtu, mtu_len);
-            debug_printf("BVLC: BDT Sent Forwarded-NPDU to %s:%04X\n",
-                inet_ntoa(bip_dest.sin_addr), ntohs(bip_dest.sin_port));
+            /*debug_printf("BVLC: BDT Sent Forwarded-NPDU to %s:%04X\n",
+                inet_ntoa(bip_dest.sin_addr), ntohs(bip_dest.sin_port));*/
         }
     }
 
@@ -997,8 +997,8 @@ static void ICACHE_FLASH_ATTR bvlc_fdt_forward_npdu(
                 continue;
             }
             bvlc_send_mpdu(&bip_dest, mtu, mtu_len);
-            debug_printf("BVLC: FDT Sent Forwarded-NPDU to %s:%04X\n",
-                inet_ntoa(bip_dest.sin_addr), ntohs(bip_dest.sin_port));
+            /*debug_printf("BVLC: FDT Sent Forwarded-NPDU to %s:%04X\n",
+                inet_ntoa(bip_dest.sin_addr), ntohs(bip_dest.sin_port));*/
         }
     }
 
