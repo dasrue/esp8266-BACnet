@@ -5,6 +5,7 @@
 #include "ip_addr.h"
 #include "espconn.h"
 #include "user_interface.h"
+#include "bip.h"
 #include <string.h>
 
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
@@ -14,7 +15,7 @@ static volatile os_timer_t some_timer;
 static struct espconn testConn;
 static const char sendString[] = "Hello World!";
 
-void ICACHE_FLASH_ATTR some_timerfunc(void *arg)
+void some_timerfunc(void *arg)
 {
   //Do blinky stuff
   if (GPIO_REG_READ(GPIO_OUT_ADDRESS) & (1 << pin))
@@ -31,17 +32,6 @@ void ICACHE_FLASH_ATTR some_timerfunc(void *arg)
 	uint8_t remoteIP[] = {192,168,1,132};
 	os_memcpy(testConn.proto.udp->remote_ip, remoteIP, 4);
 	espconn_sendto(&testConn,sendString,strlen(sendString)+1);
-}
-
-void ICACHE_FLASH_ATTR user_set_station_config() {
-	char ssid[32] = "a";
-	char password[64] = "AForOriginal";
-	struct station_config stationConf;
-	
-	stationConf.bssid_set = 0;
-	os_memcpy(&stationConf.ssid, ssid, 32);
-	os_memcpy(&stationConf.password, password, 32);
-	wifi_station_set_config(&stationConf);
 }
 
 void ICACHE_FLASH_ATTR user_init()
@@ -65,6 +55,7 @@ void ICACHE_FLASH_ATTR user_init()
 	testConn.proto.udp = &testUDPinfo;
 	espconn_create(&testConn);
   // setup timer (500ms, repeating)
+	bip_init(0);
   os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
   os_timer_arm(&some_timer, 500, 1);
 }
