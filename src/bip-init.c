@@ -30,9 +30,9 @@ SOFTWARE.
 */
 
 #include "c_types.h"
+#include "ip_addr.h"
 #include "espconn.h"
 #include "osapi.h"
-#include "ip_addr.h"
 #include "net.h"
 #include "bip.h"
 
