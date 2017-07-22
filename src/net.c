@@ -33,6 +33,7 @@ SOFTWARE.
 #include <string.h>		// To provide memcpy
 #include "net.h"
 #include "espconn.h"
+#include "bip.h"
 
 struct espconn *socketStructs[MAX_NUM_SOCKETS];		// Array of pointers to esp8266 sockets
 struct rxPktBuffer_t rxPktBuffer[MAX_NUM_SOCKETS];	// Array of receive data structures
@@ -67,6 +68,102 @@ struct espconn * socketNumberToPointer(
 	return socketStructs[socketNum];
 }
 
+void bip_recv_callback(
+	void *arg,
+	char *pdata,
+	unsigned short len)
+{
+	struct espconn *thisSocket = arg;
+	struct sockaddr_in sin;
+	int function;
+	BACNET_ADDRESS src;
+	uint16_t i;
+
+	sin.sin_family = AF_INET;
+	sin.sin_port = thisSocket->proto.udp->remote_port;			// Copy over remote port
+	memcpy(sin.sin_addr,thisSocket->proto.udp->remote_ip,4);	// Copy over remote IP
+
+	if(len > MAX_MPDU)
+		return;
+
+    /* no problem, just no bytes */
+    if(len == 0)
+        return;
+
+    /* the signature of a BACnet/IP packet */
+    if (pdata[0] != BVLL_TYPE_BACNET_IP)
+        return;
+
+    if (bvlc_for_non_bbmd(&sin, pdata, len) > 0) {
+        /* Handled, usually with a NACK. */
+        return;
+    }
+
+    function = bvlc_get_function_code();        /* aka, pdu[1] */
+    if ((function == BVLC_ORIGINAL_UNICAST_NPDU) ||
+        (function == BVLC_ORIGINAL_BROADCAST_NPDU)) {
+        /* ignore messages from me */
+        if ((sin.sin_addr.s_addr == bip_get_addr()) &&
+            (sin.sin_port == bip_get_port())) {
+            len = 0;
+        } else {
+            /* data in src->mac[] is in network format */
+            src->mac_len = 6;
+            memcpy(&src->mac[0], &sin.sin_addr.s_addr, 4);
+            memcpy(&src->mac[4], &sin.sin_port, 2);
+            /* FIXME: check destination address */
+            /* see if it is broadcast or for us */
+            /* decode the length of the PDU - length is inclusive of BVLC */
+            (void) decode_unsigned16(&pdata[2], &len);
+            /* subtract off the BVLC header */
+            len -= 4;
+            if (len < MAX_MPDU) {
+                /* shift the buffer to return a valid PDU */
+                for (i = 0; i < len; i++) {
+                	pdata[i] = pdata[4 + i];
+                }
+            }
+            /* ignore packets that are too large */
+            /* clients should check my max-apdu first */
+            else {
+                len = 0;
+            }
+        }
+    } else if (function == BVLC_FORWARDED_NPDU) {
+        memcpy(&sin.sin_addr.s_addr, &pdata[4], 4);
+        memcpy(&sin.sin_port, &pdata[8], 2);
+        if ((sin.sin_addr.s_addr == bip_get_addr()) &&
+            (sin.sin_port == bip_get_port())) {
+            /* ignore messages from me */
+            len = 0;
+        } else {
+            /* data in src->mac[] is in network format */
+            src->mac_len = 6;
+            memcpy(&src->mac[0], &sin.sin_addr.s_addr, 4);
+            memcpy(&src->mac[4], &sin.sin_port, 2);
+            /* FIXME: check destination address */
+            /* see if it is broadcast or for us */
+            /* decode the length of the PDU - length is inclusive of BVLC */
+            (void) decode_unsigned16(&pdata[2], &len);
+            /* subtract off the BVLC header */
+            len -= 10;
+            if (len < MAX_MPDU) {
+                /* shift the buffer to return a valid PDU */
+                for (i = 0; i < len; i++) {
+                    pdata[i] = pdata[4 + 6 + i];
+                }
+            } else {
+                /* ignore packets that are too large */
+                /* clients should check my max-apdu first */
+                len = 0;
+            }
+        }
+    }
+    npdu_handler(&src, pdata, len);
+
+}
+
+#if 0
 void recv_callback(
 	void *arg,
 	char *pdata,
@@ -94,3 +191,4 @@ void recv_callback(
 		return;
 	memcpy(rxPktBuffer[socketNum].pktData,pdata, len);
 }
+#endif

@@ -35,11 +35,25 @@ SOFTWARE.
 
 #define MAX_NUM_SOCKETS 8
 
+#define AF_INET		2
+#define AF_INET6	10
+
+typedef struct in_addr {
+	uint32_t s_addr;
+};
+
 typedef struct sockaddr {
 	int16_t family;
 	uint16_t port;
 	uint8_t ip[4];
-	uint8_t zero[8];
+	//uint8_t zero[8];
+};
+
+typedef struct sockaddr_in {
+	uint16_t sin_family;
+	uint16_t sin_port;
+	struct in_addr sin_addr;
+	//uint8_t sin_zero[8];
 };
 
 typedef struct rxPktBuffer_t {
