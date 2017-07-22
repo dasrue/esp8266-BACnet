@@ -32,6 +32,7 @@
  -------------------------------------------
 ####COPYRIGHTEND####*/
 
+#include "c_types.h"
 #include <string.h>
 
 #include "bacdef.h"

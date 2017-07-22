@@ -32,6 +32,7 @@
  -------------------------------------------
 ####COPYRIGHTEND####*/
 
+#include "c_types.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>     /* for strlen */

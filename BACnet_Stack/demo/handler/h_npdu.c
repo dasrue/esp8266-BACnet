@@ -22,6 +22,8 @@
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *
 *********************************************************************/
+
+#include "c_types.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include "bacdef.h"
