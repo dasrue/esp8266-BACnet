@@ -66,6 +66,7 @@ struct rxPktBuffer_t {
 
 struct espconn BACnetESPsocket;
 
+#if 0
 int sendto(
 	int socketNum,		
 	const uint8_t *data,	// We don't modify data so ddeclare it as const.
@@ -73,13 +74,16 @@ int sendto(
 	int flags,
 	const struct sockaddr *target,
 	int targetStructLen);
+#endif
 
 void bip_recv_callback(
 	void *arg,
 	char *pdata,
 	unsigned short len);
 
+#if 0
 struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
 	int socketNum);
+#endif
 
 #endif /* NET_H */

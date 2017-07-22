@@ -42,6 +42,7 @@ SOFTWARE.
 //struct espconn *socketStructs[MAX_NUM_SOCKETS];		// Array of pointers to esp8266 sockets
 //struct rxPktBuffer_t rxPktBuffer[MAX_NUM_SOCKETS];	// Array of receive data structures
 
+#if 0
 int sendto(
 	int socketNum,		
 	const uint8_t *data,	// We don't modify data so ddeclare it as const.
@@ -50,6 +51,7 @@ int sendto(
 	const struct sockaddr *target,
 	int targetStructLen) 
 {
+
 	struct espconn *bacSocket = socketNumberToPointer(socketNum);
 	if(bacSocket==NULL)
 		return -20;		// Return if the socket doesn't exist
@@ -62,8 +64,12 @@ int sendto(
 		return dataLen;			// If sending succeeded, return number of bytes sent
 	else
 		return packetStatus;	// Else return the error code (these are all negative)
+
+	return -1;
 }
 
+#endif
+#if 0
 struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
 	int socketNum)
 {
@@ -71,6 +77,7 @@ struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
 		return NULL;	// Return NULL if socket number is invalid
 	return socketStructs[socketNum];
 }
+#endif
 
 void bip_recv_callback(
 	void *arg,
@@ -85,7 +92,7 @@ void bip_recv_callback(
 
 	sin.sin_family = AF_INET;
 	sin.sin_port = thisSocket->proto.udp->remote_port;			// Copy over remote port
-	memcpy(sin.sin_addr,thisSocket->proto.udp->remote_ip,4);	// Copy over remote IP
+	sin.sin_addr.s_addr = (uint32_t)thisSocket->proto.udp->remote_ip;	// Copy over remote IP
 
 	if(len > MAX_MPDU)
 		return;
@@ -112,9 +119,9 @@ void bip_recv_callback(
             len = 0;
         } else {
             /* data in src->mac[] is in network format */
-            src->mac_len = 6;
-            memcpy(&src->mac[0], &sin.sin_addr.s_addr, 4);
-            memcpy(&src->mac[4], &sin.sin_port, 2);
+            src.mac_len = 6;
+            os_memcpy(&src.mac[0], &sin.sin_addr.s_addr, 4);
+            os_memcpy(&src.mac[4], &sin.sin_port, 2);
             /* FIXME: check destination address */
             /* see if it is broadcast or for us */
             /* decode the length of the PDU - length is inclusive of BVLC */
@@ -134,17 +141,17 @@ void bip_recv_callback(
             }
         }
     } else if (function == BVLC_FORWARDED_NPDU) {
-        memcpy(&sin.sin_addr.s_addr, &pdata[4], 4);
-        memcpy(&sin.sin_port, &pdata[8], 2);
+        os_memcpy(&sin.sin_addr.s_addr, &pdata[4], 4);
+        os_memcpy(&sin.sin_port, &pdata[8], 2);
         if ((sin.sin_addr.s_addr == bip_get_addr()) &&
             (sin.sin_port == bip_get_port())) {
             /* ignore messages from me */
             len = 0;
         } else {
             /* data in src->mac[] is in network format */
-            src->mac_len = 6;
-            memcpy(&src->mac[0], &sin.sin_addr.s_addr, 4);
-            memcpy(&src->mac[4], &sin.sin_port, 2);
+            src.mac_len = 6;
+            os_memcpy(&src.mac[0], &sin.sin_addr.s_addr, 4);
+            os_memcpy(&src.mac[4], &sin.sin_port, 2);
             /* FIXME: check destination address */
             /* see if it is broadcast or for us */
             /* decode the length of the PDU - length is inclusive of BVLC */
