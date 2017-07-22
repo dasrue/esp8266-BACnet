@@ -39,6 +39,7 @@
 #include "bip.h"
 #include "bvlc.h"
 #include "net.h"        /* custom per port */
+#include "espconn.h"
 #if PRINT_ENABLED
 #include <stdio.h>      /* for standard i/o, like printing */
 #endif
@@ -150,10 +151,11 @@ int bip_send_pdu(
     uint8_t * pdu,      /* any data to be sent - may be null */
     unsigned pdu_len)
 {       /* number of bytes of data */
-    struct sockaddr_in bip_dest;
+    //struct sockaddr_in bip_dest;
     uint8_t mtu[MAX_MPDU] = { 0 };
     int mtu_len = 0;
-    int bytes_sent = 0;
+    int sendStatus;
+    //int bytes_sent = 0;
     /* addr and port in host format */
     struct in_addr address;
     uint16_t port = 0;
@@ -165,7 +167,7 @@ int bip_send_pdu(
     }
 
     mtu[0] = BVLL_TYPE_BACNET_IP;
-    bip_dest.sin_family = AF_INET;
+    //bip_dest.sin_family = AF_INET;
     if ((dest->net == BACNET_BROADCAST_NETWORK) || (dest->mac_len == 0)) {
         /* broadcast */
         address.s_addr = BIP_Broadcast_Address.s_addr;
@@ -187,9 +189,9 @@ int bip_send_pdu(
         /* invalid address */
         return -1;
     }
-    bip_dest.sin_addr.s_addr = address.s_addr;
-    bip_dest.sin_port = port;
-    memset(&(bip_dest.sin_zero), '\0', 8);
+    //bip_dest.sin_addr.s_addr = address.s_addr;
+    //bip_dest.sin_port = port;
+    //memset(&(bip_dest.sin_zero), '\0', 8);
     mtu_len = 2;
     mtu_len +=
         encode_unsigned16(&mtu[mtu_len],
@@ -198,11 +200,16 @@ int bip_send_pdu(
     mtu_len += pdu_len;
 
     /* Send the packet */
-    bytes_sent =
-        sendto(BIP_Socket, (char *) mtu, mtu_len, 0,
-        (struct sockaddr *) &bip_dest, sizeof(struct sockaddr));
-
-    return bytes_sent;
+    //bytes_sent =
+    //    sendto(BIP_Socket, (char *) mtu, mtu_len, 0,
+    //    (struct sockaddr *) &bip_dest, sizeof(struct sockaddr));
+    BACnetESPsocket.proto.udp->remote_port = port;
+    os_memcpy(BACnetESPsocket.proto.udp->remote_ip,address,4);	// Copy ip address in.
+    sendStatus = espconn_sendto(&BACnetESPsocket, mtu, mtu_len);
+    if(sendStatus==ESPCONN_OK)
+    	return mtu_len;
+    else
+    	return sendStatus;
 }
 
 /** Implementation of the receive() function for BACnet/IP; receives one
@@ -222,6 +229,7 @@ uint16_t bip_receive(
     uint16_t max_pdu,   /* amount of space available in the PDU  */
     unsigned timeout)
 {
+#if 0
     int received_bytes = 0;
     uint16_t pdu_len = 0;       /* return value */
     fd_set read_fds;
@@ -354,8 +362,9 @@ uint16_t bip_receive(
             }
         }
     }
-
     return pdu_len;
+#endif
+    return 0;
 }
 
 void bip_get_my_address(

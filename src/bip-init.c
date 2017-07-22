@@ -26,60 +26,34 @@ SOFTWARE.
 ####COPYRIGHTEND####*/
 
 /*
-	This file contains helper functions to bridge between the BACnet/IP stack
-	and the esp8266 UDP SDK.
+	This file contains the bip init function to intialise the bacnet ip stack.
 */
 
-#ifndef NET_H
-#define NET_H
+#include "c_types.h"
+#include "net.h"
+#include "bip.h"
 
-#define MAX_NUM_SOCKETS 8
+void ICACHE_FLASH_ATTR user_set_station_config() {
+	char ssid[32] = "test";
+	char password[64] = "test1234";
+	struct station_config stationConf;
 
+	stationConf.bssid_set = 0;
+	os_memcpy(&stationConf.ssid, ssid, 32);
+	os_memcpy(&stationConf.password, password, 32);
+	wifi_station_set_config(&stationConf);
+}
 
-#define AF_INET		2
-#define AF_INET6	10
-
-struct in_addr {
-	uint32_t s_addr;
-};
-
-struct sockaddr {
-	int16_t family;
-	uint16_t port;
-	uint8_t ip[4];
-	//uint8_t zero[8];
-};
-
-struct sockaddr_in {
-	uint16_t sin_family;
-	uint16_t sin_port;
-	struct in_addr sin_addr;
-	//uint8_t sin_zero[8];
-};
-
-struct rxPktBuffer_t {
-	struct sockaddr remoteInfo;
-	int remoteInfoLen;
-	uint8_t *pktData;
-	unsigned short pktDataLen;
-};
-
-struct espconn BACnetESPsocket;
-
-int sendto(
-	int socketNum,		
-	const uint8_t *data,	// We don't modify data so ddeclare it as const.
-	int dataLen,
-	int flags,
-	const struct sockaddr *target,
-	int targetStructLen);
-
-void bip_recv_callback(
-	void *arg,
-	char *pdata,
-	unsigned short len);
-
-struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
-	int socketNum);
-
-#endif /* NET_H */
+bool bip_init(
+		char *ifname)
+{
+	if(wifi_get_opmode()!=0x01)
+		wifi_set_opmode(0x01);		// Make sure we are in station mode.
+	user_set_station_config();		// Setup wifi.
+	BACnetESPsocket.type = ESPCONN_UDP;
+	BACnetESPsocket.recv_callback = bip_recv_callback;	// Setup the recv callback
+	if(bip_get_port()==0)
+		bip_set_port(0xBAC0);	// If port hasn't been initialised, set it to BACnet default.
+	BACnetESPsocket.proto.udp->local_port = bip_get_port();
+	espconn_create(&BACnetESPsocket);
+}

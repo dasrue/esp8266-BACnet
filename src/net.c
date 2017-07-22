@@ -39,10 +39,10 @@ SOFTWARE.
 #include "bip.h"
 #include "mem.h"
 
-struct espconn *socketStructs[MAX_NUM_SOCKETS];		// Array of pointers to esp8266 sockets
-struct rxPktBuffer_t rxPktBuffer[MAX_NUM_SOCKETS];	// Array of receive data structures
+//struct espconn *socketStructs[MAX_NUM_SOCKETS];		// Array of pointers to esp8266 sockets
+//struct rxPktBuffer_t rxPktBuffer[MAX_NUM_SOCKETS];	// Array of receive data structures
 
-int ICACHE_FLASH_ATTR sendto(
+int sendto(
 	int socketNum,		
 	const uint8_t *data,	// We don't modify data so ddeclare it as const.
 	int dataLen,
