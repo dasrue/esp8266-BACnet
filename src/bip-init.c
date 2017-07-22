@@ -32,6 +32,7 @@ SOFTWARE.
 #include "c_types.h"
 #include "ip_addr.h"
 #include "espconn.h"
+#include "user_interface.h"
 #include "osapi.h"
 #include "net.h"
 #include "bip.h"
