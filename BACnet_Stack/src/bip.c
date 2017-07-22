@@ -54,7 +54,7 @@ static uint16_t BIP_Port = 0;   /* this will force initialization in demos */
 /* IP Address - stored in network byte order */
 static struct in_addr BIP_Address;
 /* Broadcast Address - stored in network byte order */
-static struct in_addr BIP_Broadcast_Address;
+static struct in_addr BIP_Broadcast_Address = { 0xFFFFFFFF };
 
 /** Setter for the BACnet/IP socket handle.
  *
