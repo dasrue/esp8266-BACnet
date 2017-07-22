@@ -33,6 +33,10 @@ SOFTWARE.
 #ifndef NET_H
 #define NET_H
 
+#include "c_types.h"
+#include "ip_addr.h"
+#include "espconn.h"
+
 #define MAX_NUM_SOCKETS 8
 
 
