@@ -11,7 +11,17 @@ PROJNAME = test
 
 SRCS = 	src/main.c \
 	src/net.c \
-	$(BAC_SRC)/apdu.c
+	src/bip-init.c \
+	$(BAC_SRC)/apdu.c \
+	$(BAC_SRC)/bip.c \
+	$(BAC_SRC)/bacdcode.c \
+	$(BAC_SRC)/bacerror.c \
+	$(BAC_SRC)/bvlc.c \
+	$(BAC_SRC)/iam.c \
+	$(BAC_SRC)/bacint.c \
+	$(BAC_SRC)/npdu.c \
+	$(BAC_SRC)/tsm.c
+	
 
 OBJS = ${SRCS:.c=.o}
 
