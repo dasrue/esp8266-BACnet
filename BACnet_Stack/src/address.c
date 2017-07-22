@@ -31,6 +31,8 @@
  License.
  -------------------------------------------
 ####COPYRIGHTEND####*/
+
+#include "c_types.h"
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>

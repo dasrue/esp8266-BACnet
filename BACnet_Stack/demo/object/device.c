@@ -29,7 +29,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>     /* for memmove */
-#include <time.h>       /* for timezone, localtime */
+#include <sys/time.h>       /* for timezone, localtime */
 #include "bacdef.h"
 #include "bacdcode.h"
 #include "bacenum.h"
@@ -45,7 +45,7 @@
 #include "datalink.h"
 #include "address.h"
 /* os specfic includes */
-#include "timer.h"
+//#include "timer.h"
 /* include the device object */
 #include "device.h"
 #include "ai.h"
@@ -73,6 +73,8 @@
 
 
 #if defined(__BORLANDC__) || defined(_WIN32)
+#endif
+#if 1
 /* Not included in time.h as specified by The Open Group */
 /* Difference from UTC and local standard time */
 long int timezone;
@@ -107,6 +109,7 @@ static object_functions_t My_Object_Table[] = {
             NULL /* COV */ ,
             NULL /* COV Clear */ ,
         NULL /* Intrinsic Reporting */ },
+#if 0
     {OBJECT_ANALOG_INPUT,
             Analog_Input_Init,
             Analog_Input_Count,
@@ -383,6 +386,7 @@ static object_functions_t My_Object_Table[] = {
             NULL /* COV */ ,
             NULL /* COV Clear */ ,
         NULL /* Intrinsic Reporting */ },
+#endif
     {MAX_BACNET_OBJECT_TYPE,
             NULL /* Init */ ,
             NULL /* Count */ ,

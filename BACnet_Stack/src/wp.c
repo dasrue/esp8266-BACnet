@@ -31,6 +31,8 @@
  License.
  -------------------------------------------
 ####COPYRIGHTEND####*/
+
+#include "c_types.h"
 #include <stdint.h>
 #include "bacenum.h"
 #include "bacdcode.h"
