@@ -33,7 +33,7 @@
 ####COPYRIGHTEND####*/
 
 #include <string.h>
-
+#include "c_types.h"
 #include "bacdef.h"
 #include "bacdcode.h"
 #include "bacenum.h"
@@ -95,7 +95,7 @@
 /* from clause 20.1.2.4 max-segments-accepted */
 /* and clause 20.1.2.5 max-APDU-length-accepted */
 /* returns the encoded octet */
-uint8_t encode_max_segs_max_apdu(
+uint8_t ICACHE_FLASH_ATTR encode_max_segs_max_apdu(
     int max_segs,
     int max_apdu)
 {
@@ -141,7 +141,7 @@ uint8_t encode_max_segs_max_apdu(
 /* from clause 20.1.2.4 max-segments-accepted */
 /* and clause 20.1.2.5 max-APDU-length-accepted */
 /* returns the encoded octet */
-int decode_max_segs(
+int ICACHE_FLASH_ATTR decode_max_segs(
     uint8_t octet)
 {
     int max_segs = 0;
@@ -178,7 +178,7 @@ int decode_max_segs(
     return max_segs;
 }
 
-int decode_max_apdu(
+int ICACHE_FLASH_ATTR decode_max_apdu(
     uint8_t octet)
 {
     int max_apdu = 0;
@@ -211,7 +211,7 @@ int decode_max_apdu(
 
 /* from clause 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_tag(
+int ICACHE_FLASH_ATTR encode_tag(
     uint8_t * apdu,
     uint8_t tag_number,
     bool context_specific,
@@ -255,7 +255,7 @@ int encode_tag(
 
 /* from clause 20.2.1.3.2 Constructed Data */
 /* returns the number of apdu bytes consumed */
-int encode_opening_tag(
+int ICACHE_FLASH_ATTR encode_opening_tag(
     uint8_t * apdu,
     uint8_t tag_number)
 {
@@ -279,7 +279,7 @@ int encode_opening_tag(
 
 /* from clause 20.2.1.3.2 Constructed Data */
 /* returns the number of apdu bytes consumed */
-int encode_closing_tag(
+int ICACHE_FLASH_ATTR encode_closing_tag(
     uint8_t * apdu,
     uint8_t tag_number)
 {
@@ -303,7 +303,7 @@ int encode_closing_tag(
 
 
 
-int decode_tag_number(
+int ICACHE_FLASH_ATTR decode_tag_number(
     uint8_t * apdu,
     uint8_t * tag_number)
 {
@@ -326,7 +326,7 @@ int decode_tag_number(
 }
 
 /* Same as function above, but will safely fail if packet has been truncated */
-int decode_tag_number_safe(
+int ICACHE_FLASH_ATTR decode_tag_number_safe(
     uint8_t * apdu,
     uint32_t apdu_len_remaining,
     uint8_t * tag_number)
@@ -351,7 +351,7 @@ int decode_tag_number_safe(
     return len;
 }
 
-bool decode_is_opening_tag(
+bool ICACHE_FLASH_ATTR decode_is_opening_tag(
     uint8_t * apdu)
 {
     return (bool) ((apdu[0] & 0x07) == 6);
@@ -359,7 +359,7 @@ bool decode_is_opening_tag(
 
 /* from clause 20.2.1.3.2 Constructed Data */
 /* returns the number of apdu bytes consumed */
-bool decode_is_closing_tag(
+bool ICACHE_FLASH_ATTR decode_is_closing_tag(
     uint8_t * apdu)
 {
     return (bool) ((apdu[0] & 0x07) == 7);
@@ -367,7 +367,7 @@ bool decode_is_closing_tag(
 
 /* from clause 20.2.1.3.2 Constructed Data */
 /* returns the number of apdu bytes consumed */
-int decode_tag_number_and_value(
+int ICACHE_FLASH_ATTR decode_tag_number_and_value(
     uint8_t * apdu,
     uint8_t * tag_number,
     uint32_t * value)
@@ -415,7 +415,7 @@ int decode_tag_number_and_value(
 }
 
 /* Same as function above, but will safely fail if packet has been truncated */
-int decode_tag_number_and_value_safe(
+int ICACHE_FLASH_ATTR decode_tag_number_and_value_safe(
     uint8_t * apdu,
     uint32_t apdu_len_remaining,
     uint8_t * tag_number,
@@ -471,7 +471,7 @@ int decode_tag_number_and_value_safe(
 
 /* from clause 20.2.1.3.2 Constructed Data */
 /* returns true if the tag is context specific and matches */
-bool decode_is_context_tag(
+bool ICACHE_FLASH_ATTR decode_is_context_tag(
     uint8_t * apdu,
     uint8_t tag_number)
 {
@@ -482,7 +482,7 @@ bool decode_is_context_tag(
         (my_tag_number == tag_number));
 }
 
-bool decode_is_context_tag_with_length(
+bool ICACHE_FLASH_ATTR decode_is_context_tag_with_length(
     uint8_t * apdu,
     uint8_t tag_number,
     int *tag_length)
@@ -497,7 +497,7 @@ bool decode_is_context_tag_with_length(
 
 /* from clause 20.2.1.3.2 Constructed Data */
 /* returns the true if the tag matches */
-bool decode_is_opening_tag_number(
+bool ICACHE_FLASH_ATTR decode_is_opening_tag_number(
     uint8_t * apdu,
     uint8_t tag_number)
 {
@@ -509,7 +509,7 @@ bool decode_is_opening_tag_number(
 
 /* from clause 20.2.1.3.2 Constructed Data */
 /* returns the number of apdu bytes consumed */
-bool decode_is_closing_tag_number(
+bool ICACHE_FLASH_ATTR decode_is_closing_tag_number(
     uint8_t * apdu,
     uint8_t tag_number)
 {
@@ -522,7 +522,7 @@ bool decode_is_closing_tag_number(
 /* from clause 20.2.3 Encoding of a Boolean Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_boolean(
+int ICACHE_FLASH_ATTR encode_application_boolean(
     uint8_t * apdu,
     bool boolean_value)
 {
@@ -539,7 +539,7 @@ int encode_application_boolean(
 }
 
 /* context tagged is encoded differently */
-int encode_context_boolean(
+int ICACHE_FLASH_ATTR encode_context_boolean(
     uint8_t * apdu,
     uint8_t tag_number,
     bool boolean_value)
@@ -553,7 +553,7 @@ int encode_context_boolean(
     return len;
 }
 
-bool decode_context_boolean(
+bool ICACHE_FLASH_ATTR decode_context_boolean(
     uint8_t * apdu)
 {
     bool boolean_value = false;
@@ -565,7 +565,7 @@ bool decode_context_boolean(
     return boolean_value;
 }
 
-int decode_context_boolean2(
+int ICACHE_FLASH_ATTR decode_context_boolean2(
     uint8_t * apdu,
     uint8_t tag_number,
     bool * boolean_value)
@@ -587,7 +587,7 @@ int decode_context_boolean2(
 /* from clause 20.2.3 Encoding of a Boolean Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-bool decode_boolean(
+bool ICACHE_FLASH_ATTR decode_boolean(
     uint32_t len_value)
 {
     bool boolean_value = false;
@@ -602,20 +602,20 @@ bool decode_boolean(
 /* from clause 20.2.2 Encoding of a Null Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_null(
+int ICACHE_FLASH_ATTR encode_application_null(
     uint8_t * apdu)
 {
     return encode_tag(&apdu[0], BACNET_APPLICATION_TAG_NULL, false, 0);
 }
 
-int encode_context_null(
+int ICACHE_FLASH_ATTR encode_context_null(
     uint8_t * apdu,
     uint8_t tag_number)
 {
     return encode_tag(&apdu[0], tag_number, true, 0);
 }
 
-static uint8_t byte_reverse_bits(
+static uint8_t ICACHE_FLASH_ATTR byte_reverse_bits(
     uint8_t in_byte)
 {
     uint8_t out_byte = 0;
@@ -650,7 +650,7 @@ static uint8_t byte_reverse_bits(
 
 /* from clause 20.2.10 Encoding of a Bit String Value */
 /* returns the number of apdu bytes consumed */
-int decode_bitstring(
+int ICACHE_FLASH_ATTR decode_bitstring(
     uint8_t * apdu,
     uint32_t len_value,
     BACNET_BIT_STRING * bit_string)
@@ -680,7 +680,7 @@ int decode_bitstring(
     return len;
 }
 
-int decode_context_bitstring(
+int ICACHE_FLASH_ATTR decode_context_bitstring(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_BIT_STRING * bit_string)
@@ -701,7 +701,7 @@ int decode_context_bitstring(
 
 /* from clause 20.2.10 Encoding of a Bit String Value */
 /* returns the number of apdu bytes consumed */
-int encode_bitstring(
+int ICACHE_FLASH_ATTR encode_bitstring(
     uint8_t * apdu,
     BACNET_BIT_STRING * bit_string)
 {
@@ -728,7 +728,7 @@ int encode_bitstring(
     return len;
 }
 
-int encode_application_bitstring(
+int ICACHE_FLASH_ATTR encode_application_bitstring(
     uint8_t * apdu,
     BACNET_BIT_STRING * bit_string)
 {
@@ -745,7 +745,7 @@ int encode_application_bitstring(
     return len;
 }
 
-int encode_context_bitstring(
+int ICACHE_FLASH_ATTR encode_context_bitstring(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_BIT_STRING * bit_string)
@@ -763,7 +763,7 @@ int encode_context_bitstring(
 
 /* from clause 20.2.14 Encoding of an Object Identifier Value */
 /* returns the number of apdu bytes consumed */
-int decode_object_id(
+int ICACHE_FLASH_ATTR decode_object_id(
     uint8_t * apdu,
     uint16_t * object_type,
     uint32_t * instance)
@@ -779,7 +779,7 @@ int decode_object_id(
     return len;
 }
 
-int decode_object_id_safe(
+int ICACHE_FLASH_ATTR decode_object_id_safe(
     uint8_t * apdu,
     uint32_t len_value,
     uint16_t * object_type,
@@ -792,7 +792,7 @@ int decode_object_id_safe(
     }
 }
 
-int decode_context_object_id(
+int ICACHE_FLASH_ATTR decode_context_object_id(
     uint8_t * apdu,
     uint8_t tag_number,
     uint16_t * object_type,
@@ -810,7 +810,7 @@ int decode_context_object_id(
 
 /* from clause 20.2.14 Encoding of an Object Identifier Value */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_object_id(
+int ICACHE_FLASH_ATTR encode_bacnet_object_id(
     uint8_t * apdu,
     int object_type,
     uint32_t instance)
@@ -831,7 +831,7 @@ int encode_bacnet_object_id(
 /* from clause 20.2.14 Encoding of an Object Identifier Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_context_object_id(
+int ICACHE_FLASH_ATTR encode_context_object_id(
     uint8_t * apdu,
     uint8_t tag_number,
     int object_type,
@@ -850,7 +850,7 @@ int encode_context_object_id(
 /* from clause 20.2.14 Encoding of an Object Identifier Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_object_id(
+int ICACHE_FLASH_ATTR encode_application_object_id(
     uint8_t * apdu,
     int object_type,
     uint32_t instance)
@@ -870,7 +870,7 @@ int encode_application_object_id(
 
 /* from clause 20.2.8 Encoding of an Octet String Value */
 /* returns the number of apdu bytes consumed */
-int encode_octet_string(
+int ICACHE_FLASH_ATTR encode_octet_string(
     uint8_t * apdu,
     BACNET_OCTET_STRING * octet_string)
 {
@@ -896,7 +896,7 @@ int encode_octet_string(
 /* from clause 20.2.8 Encoding of an Octet String Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_octet_string(
+int ICACHE_FLASH_ATTR encode_application_octet_string(
     uint8_t * apdu,
     BACNET_OCTET_STRING * octet_string)
 {
@@ -921,7 +921,7 @@ int encode_application_octet_string(
 /* from clause 20.2.8 Encoding of an Octet String Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_context_octet_string(
+int ICACHE_FLASH_ATTR encode_context_octet_string(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_OCTET_STRING * octet_string)
@@ -945,7 +945,7 @@ int encode_context_octet_string(
 /* from clause 20.2.8 Encoding of an Octet String Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int decode_octet_string(
+int ICACHE_FLASH_ATTR decode_octet_string(
     uint8_t * apdu,
     uint32_t len_value,
     BACNET_OCTET_STRING * octet_string)
@@ -961,7 +961,7 @@ int decode_octet_string(
     return len;
 }
 
-int decode_context_octet_string(
+int ICACHE_FLASH_ATTR decode_context_octet_string(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_OCTET_STRING * octet_string)
@@ -989,7 +989,7 @@ int decode_context_octet_string(
 
 /* from clause 20.2.9 Encoding of a Character String Value */
 /* returns the number of apdu bytes consumed, or zero if failed */
-uint32_t encode_bacnet_character_string_safe(
+uint32_t ICACHE_FLASH_ATTR encode_bacnet_character_string_safe(
     uint8_t * apdu,
     uint32_t max_apdu,
     uint8_t encoding,
@@ -1012,7 +1012,7 @@ uint32_t encode_bacnet_character_string_safe(
     return apdu_len;
 }
 
-int encode_bacnet_character_string(
+int ICACHE_FLASH_ATTR encode_bacnet_character_string(
     uint8_t * apdu,
     BACNET_CHARACTER_STRING * char_string)
 {
@@ -1025,7 +1025,7 @@ int encode_bacnet_character_string(
 /* from clause 20.2.9 Encoding of a Character String Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_character_string(
+int ICACHE_FLASH_ATTR encode_application_character_string(
     uint8_t * apdu,
     BACNET_CHARACTER_STRING * char_string)
 {
@@ -1046,7 +1046,7 @@ int encode_application_character_string(
     return len;
 }
 
-int encode_context_character_string(
+int ICACHE_FLASH_ATTR encode_context_character_string(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_CHARACTER_STRING * char_string)
@@ -1069,7 +1069,7 @@ int encode_context_character_string(
 /* from clause 20.2.9 Encoding of a Character String Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int decode_character_string(
+int ICACHE_FLASH_ATTR decode_character_string(
     uint8_t * apdu,
     uint32_t len_value,
     BACNET_CHARACTER_STRING * char_string)
@@ -1087,7 +1087,7 @@ int decode_character_string(
     return len;
 }
 
-int decode_context_character_string(
+int ICACHE_FLASH_ATTR decode_context_character_string(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_CHARACTER_STRING * char_string)
@@ -1116,7 +1116,7 @@ int decode_context_character_string(
 /* from clause 20.2.4 Encoding of an Unsigned Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int decode_unsigned(
+int ICACHE_FLASH_ATTR decode_unsigned(
     uint8_t * apdu,
     uint32_t len_value,
     uint32_t * value)
@@ -1147,7 +1147,7 @@ int decode_unsigned(
     return (int) len_value;
 }
 
-int decode_context_unsigned(
+int ICACHE_FLASH_ATTR decode_context_unsigned(
     uint8_t * apdu,
     uint8_t tag_number,
     uint32_t * value)
@@ -1169,7 +1169,7 @@ int decode_context_unsigned(
 /* from clause 20.2.4 Encoding of an Unsigned Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_unsigned(
+int ICACHE_FLASH_ATTR encode_bacnet_unsigned(
     uint8_t * apdu,
     uint32_t value)
 {
@@ -1192,7 +1192,7 @@ int encode_bacnet_unsigned(
 /* from clause 20.2.4 Encoding of an Unsigned Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_context_unsigned(
+int ICACHE_FLASH_ATTR encode_context_unsigned(
     uint8_t * apdu,
     uint8_t tag_number,
     uint32_t value)
@@ -1219,7 +1219,7 @@ int encode_context_unsigned(
 /* from clause 20.2.4 Encoding of an Unsigned Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_unsigned(
+int ICACHE_FLASH_ATTR encode_application_unsigned(
     uint8_t * apdu,
     uint32_t value)
 {
@@ -1236,7 +1236,7 @@ int encode_application_unsigned(
 /* from clause 20.2.11 Encoding of an Enumerated Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int decode_enumerated(
+int ICACHE_FLASH_ATTR decode_enumerated(
     uint8_t * apdu,
     uint32_t len_value,
     uint32_t * value)
@@ -1252,7 +1252,7 @@ int decode_enumerated(
     return len;
 }
 
-int decode_context_enumerated(
+int ICACHE_FLASH_ATTR decode_context_enumerated(
     uint8_t * apdu,
     uint8_t tag_value,
     uint32_t * value)
@@ -1274,7 +1274,7 @@ int decode_context_enumerated(
 /* from clause 20.2.11 Encoding of an Enumerated Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_enumerated(
+int ICACHE_FLASH_ATTR encode_bacnet_enumerated(
     uint8_t * apdu,
     uint32_t value)
 {
@@ -1284,7 +1284,7 @@ int encode_bacnet_enumerated(
 /* from clause 20.2.11 Encoding of an Enumerated Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_enumerated(
+int ICACHE_FLASH_ATTR encode_application_enumerated(
     uint8_t * apdu,
     uint32_t value)
 {
@@ -1302,7 +1302,7 @@ int encode_application_enumerated(
 /* from clause 20.2.11 Encoding of an Enumerated Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_context_enumerated(
+int ICACHE_FLASH_ATTR encode_context_enumerated(
     uint8_t * apdu,
     uint8_t tag_number,
     uint32_t value)
@@ -1330,7 +1330,7 @@ int encode_context_enumerated(
 /* from clause 20.2.5 Encoding of a Signed Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int decode_signed(
+int ICACHE_FLASH_ATTR decode_signed(
     uint8_t * apdu,
     uint32_t len_value,
     int32_t * value)
@@ -1358,7 +1358,7 @@ int decode_signed(
     return (int) len_value;
 }
 
-int decode_context_signed(
+int ICACHE_FLASH_ATTR decode_context_signed(
     uint8_t * apdu,
     uint8_t tag_number,
     int32_t * value)
@@ -1379,7 +1379,7 @@ int decode_context_signed(
 /* from clause 20.2.5 Encoding of a Signed Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_signed(
+int ICACHE_FLASH_ATTR encode_bacnet_signed(
     uint8_t * apdu,
     int32_t value)
 {
@@ -1406,7 +1406,7 @@ int encode_bacnet_signed(
 /* from clause 20.2.5 Encoding of a Signed Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_signed(
+int ICACHE_FLASH_ATTR encode_application_signed(
     uint8_t * apdu,
     int32_t value)
 {
@@ -1424,7 +1424,7 @@ int encode_application_signed(
 /* from clause 20.2.5 Encoding of a Signed Integer Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_context_signed(
+int ICACHE_FLASH_ATTR encode_context_signed(
     uint8_t * apdu,
     uint8_t tag_number,
     int32_t value)
@@ -1452,7 +1452,7 @@ int encode_context_signed(
 /* from clause 20.2.6 Encoding of a Real Number Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_real(
+int ICACHE_FLASH_ATTR encode_application_real(
     uint8_t * apdu,
     float value)
 {
@@ -1467,7 +1467,7 @@ int encode_application_real(
     return len;
 }
 
-int encode_context_real(
+int ICACHE_FLASH_ATTR encode_context_real(
     uint8_t * apdu,
     uint8_t tag_number,
     float value)
@@ -1484,7 +1484,7 @@ int encode_context_real(
 /* from clause 20.2.7 Encoding of a Double Precision Real Number Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_double(
+int ICACHE_FLASH_ATTR encode_application_double(
     uint8_t * apdu,
     double value)
 {
@@ -1500,7 +1500,7 @@ int encode_application_double(
     return len;
 }
 
-int encode_context_double(
+int ICACHE_FLASH_ATTR encode_context_double(
     uint8_t * apdu,
     uint8_t tag_number,
     double value)
@@ -1518,7 +1518,7 @@ int encode_context_double(
 /* from clause 20.2.13 Encoding of a Time Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_time(
+int ICACHE_FLASH_ATTR encode_bacnet_time(
     uint8_t * apdu,
     BACNET_TIME * btime)
 {
@@ -1533,7 +1533,7 @@ int encode_bacnet_time(
 /* from clause 20.2.13 Encoding of a Time Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_time(
+int ICACHE_FLASH_ATTR encode_application_time(
     uint8_t * apdu,
     BACNET_TIME * btime)
 {
@@ -1548,7 +1548,7 @@ int encode_application_time(
     return len;
 }
 
-int encode_context_time(
+int ICACHE_FLASH_ATTR encode_context_time(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_TIME * btime)
@@ -1565,7 +1565,7 @@ int encode_context_time(
 /* from clause 20.2.13 Encoding of a Time Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int decode_bacnet_time(
+int ICACHE_FLASH_ATTR decode_bacnet_time(
     uint8_t * apdu,
     BACNET_TIME * btime)
 {
@@ -1577,7 +1577,7 @@ int decode_bacnet_time(
     return 4;
 }
 
-int decode_bacnet_time_safe(
+int ICACHE_FLASH_ATTR decode_bacnet_time_safe(
     uint8_t * apdu,
     uint32_t len_value,
     BACNET_TIME * btime)
@@ -1593,7 +1593,7 @@ int decode_bacnet_time_safe(
     }
 }
 
-int decode_application_time(
+int ICACHE_FLASH_ATTR decode_application_time(
     uint8_t * apdu,
     BACNET_TIME * btime)
 {
@@ -1611,7 +1611,7 @@ int decode_application_time(
 }
 
 
-int decode_context_bacnet_time(
+int ICACHE_FLASH_ATTR decode_context_bacnet_time(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_TIME * btime)
@@ -1636,7 +1636,7 @@ int decode_context_bacnet_time(
 /* from clause 20.2.12 Encoding of a Date Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_date(
+int ICACHE_FLASH_ATTR encode_bacnet_date(
     uint8_t * apdu,
     BACNET_DATE * bdate)
 {
@@ -1665,7 +1665,7 @@ int encode_bacnet_date(
 /* from clause 20.2.12 Encoding of a Date Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int encode_application_date(
+int ICACHE_FLASH_ATTR encode_application_date(
     uint8_t * apdu,
     BACNET_DATE * bdate)
 {
@@ -1681,7 +1681,7 @@ int encode_application_date(
 
 }
 
-int encode_context_date(
+int ICACHE_FLASH_ATTR encode_context_date(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_DATE * bdate)
@@ -1698,7 +1698,7 @@ int encode_context_date(
 /* from clause 20.2.12 Encoding of a Date Value */
 /* and 20.2.1 General Rules for Encoding BACnet Tags */
 /* returns the number of apdu bytes consumed */
-int decode_date(
+int ICACHE_FLASH_ATTR decode_date(
     uint8_t * apdu,
     BACNET_DATE * bdate)
 {
@@ -1710,7 +1710,7 @@ int decode_date(
     return 4;
 }
 
-int decode_date_safe(
+int ICACHE_FLASH_ATTR decode_date_safe(
     uint8_t * apdu,
     uint32_t len_value,
     BACNET_DATE * bdate)
@@ -1727,7 +1727,7 @@ int decode_date_safe(
 }
 
 
-int decode_application_date(
+int ICACHE_FLASH_ATTR decode_application_date(
     uint8_t * apdu,
     BACNET_DATE * bdate)
 {
@@ -1744,7 +1744,7 @@ int decode_application_date(
     return len;
 }
 
-int decode_context_date(
+int ICACHE_FLASH_ATTR decode_context_date(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_DATE * bdate)
@@ -1762,7 +1762,7 @@ int decode_context_date(
 
 
 /* returns the number of apdu bytes consumed */
-int encode_simple_ack(
+int ICACHE_FLASH_ATTR encode_simple_ack(
     uint8_t * apdu,
     uint8_t invoke_id,
     uint8_t service_choice)

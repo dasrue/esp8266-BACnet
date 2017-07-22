@@ -53,7 +53,7 @@
  * 			where the RPM data is to be stored.
  * @return The number of bytes decoded, or -1 on error
  */
-int rpm_ack_decode_service_request(
+int ICACHE_FLASH_ATTR rpm_ack_decode_service_request(
     uint8_t * apdu,
     int apdu_len,
     BACNET_READ_ACCESS_DATA * read_access_data)
@@ -201,7 +201,7 @@ int rpm_ack_decode_service_request(
 }
 
 /* for debugging... */
-void rpm_ack_print_data(
+void ICACHE_FLASH_ATTR rpm_ack_print_data(
     BACNET_READ_ACCESS_DATA * rpm_data)
 {
     BACNET_OBJECT_PROPERTY_VALUE object_value;  /* for bacapp printing */
@@ -294,7 +294,7 @@ void rpm_ack_print_data(
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_read_property_multiple_ack(
+void ICACHE_FLASH_ATTR handler_read_property_multiple_ack(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

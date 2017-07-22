@@ -82,7 +82,7 @@ static const int Analog_Value_Properties_Proprietary[] = {
     -1
 };
 
-void Analog_Value_Property_Lists(
+void ICACHE_FLASH_ATTR Analog_Value_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -97,7 +97,7 @@ void Analog_Value_Property_Lists(
     return;
 }
 
-void Analog_Value_Init(
+void ICACHE_FLASH_ATTR Analog_Value_Init(
     void)
 {
 	unsigned i;
@@ -135,7 +135,7 @@ void Analog_Value_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Analog_Value_Valid_Instance(
+bool ICACHE_FLASH_ATTR Analog_Value_Valid_Instance(
     uint32_t object_instance)
 {
     if (object_instance < MAX_ANALOG_VALUES)
@@ -146,7 +146,7 @@ bool Analog_Value_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Analog_Value_Count(
+unsigned ICACHE_FLASH_ATTR Analog_Value_Count(
     void)
 {
     return MAX_ANALOG_VALUES;
@@ -155,7 +155,7 @@ unsigned Analog_Value_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Analog_Value_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Analog_Value_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -164,7 +164,7 @@ uint32_t Analog_Value_Index_To_Instance(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Analog_Value_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Analog_Value_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_ANALOG_VALUES;
@@ -185,7 +185,7 @@ unsigned Analog_Value_Instance_To_Index(
  *
  * @return  true if values are within range and present-value is set.
  */
-bool Analog_Value_Present_Value_Set(
+bool ICACHE_FLASH_ATTR Analog_Value_Present_Value_Set(
     uint32_t object_instance,
     float value,
     uint8_t priority)
@@ -201,7 +201,7 @@ bool Analog_Value_Present_Value_Set(
     return status;
 }
 
-float Analog_Value_Present_Value(
+float ICACHE_FLASH_ATTR Analog_Value_Present_Value(
     uint32_t object_instance)
 {
     float value = 0;
@@ -216,7 +216,7 @@ float Analog_Value_Present_Value(
 }
 
 /* note: the object name must be unique within this device */
-bool Analog_Value_Object_Name(
+bool ICACHE_FLASH_ATTR Analog_Value_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -233,7 +233,7 @@ bool Analog_Value_Object_Name(
 }
 
 /* return apdu len, or BACNET_STATUS_ERROR on error */
-int Analog_Value_Read_Property(
+int ICACHE_FLASH_ATTR Analog_Value_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -465,7 +465,7 @@ int Analog_Value_Read_Property(
 }
 
 /* returns true if successful */
-bool Analog_Value_Write_Property(
+bool ICACHE_FLASH_ATTR Analog_Value_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
@@ -674,7 +674,7 @@ bool Analog_Value_Write_Property(
 }
 
 
-void Analog_Value_Intrinsic_Reporting(
+void ICACHE_FLASH_ATTR Analog_Value_Intrinsic_Reporting(
     uint32_t object_instance)
 {
 #if defined(INTRINSIC_REPORTING)

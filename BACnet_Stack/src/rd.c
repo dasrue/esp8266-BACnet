@@ -40,7 +40,7 @@
 /** @file rd.c  Encode/Decode Reinitialize Device APDUs */
 #if BACNET_SVC_RD_A
 /* encode service */
-int rd_encode_apdu(
+int ICACHE_FLASH_ATTR rd_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_REINITIALIZED_STATE state,
@@ -71,7 +71,7 @@ int rd_encode_apdu(
 #endif
 
 /* decode the service request only */
-int rd_decode_service_request(
+int ICACHE_FLASH_ATTR rd_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_REINITIALIZED_STATE * state,

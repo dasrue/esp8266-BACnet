@@ -67,7 +67,7 @@
  *  Build a ReadRange request packet.                                        *
  *****************************************************************************/
 
-int rr_encode_apdu(
+int ICACHE_FLASH_ATTR rr_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_READ_RANGE_DATA * rrdata)
@@ -147,7 +147,7 @@ int rr_encode_apdu(
  * Decode the received ReadRange request                                     *
  *****************************************************************************/
 
-int rr_decode_service_request(
+int ICACHE_FLASH_ATTR rr_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_READ_RANGE_DATA * rrdata)
@@ -295,7 +295,7 @@ int rr_decode_service_request(
  * Build a ReadRange response packet                                         *
  *****************************************************************************/
 
-int rr_ack_encode_apdu(
+int ICACHE_FLASH_ATTR rr_ack_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_READ_RANGE_DATA * rrdata)
@@ -354,7 +354,7 @@ int rr_ack_encode_apdu(
  * Decode the received ReadRange response                                    *
  *****************************************************************************/
 
-int rr_ack_decode_service_request(
+int ICACHE_FLASH_ATTR rr_ack_decode_service_request(
     uint8_t * apdu,
     int apdu_len,       /* total length of the apdu */
     BACNET_READ_RANGE_DATA * rrdata)

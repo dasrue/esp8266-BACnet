@@ -56,7 +56,7 @@
  *        objects and properties to be written.
  * @return invoke id of outgoing message, or 0 if device is not bound or no tsm available
  */
-uint8_t Send_Write_Property_Multiple_Request_Data(
+uint8_t ICACHE_FLASH_ATTR Send_Write_Property_Multiple_Request_Data(
 	uint32_t device_id,
 	BACNET_WRITE_ACCESS_DATA * write_access_data)
 {

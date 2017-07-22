@@ -35,7 +35,7 @@
 
 /* function to return true on Big-Endian architectures */
 /* (based on Harbison & Steele) */
-int big_endian(
+int ICACHE_FLASH_ATTR big_endian(
     void)
 {
     union {

@@ -40,7 +40,7 @@
 
 /** @file bacaddr.c  BACnet Address structure utilities */
 
-void bacnet_address_copy(
+void ICACHE_FLASH_ATTR bacnet_address_copy(
     BACNET_ADDRESS * dest,
     BACNET_ADDRESS * src)
 {
@@ -59,7 +59,7 @@ void bacnet_address_copy(
     }
 }
 
-bool bacnet_address_same(
+bool ICACHE_FLASH_ATTR bacnet_address_same(
     BACNET_ADDRESS * dest,
     BACNET_ADDRESS * src)
 {

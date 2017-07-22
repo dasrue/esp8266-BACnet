@@ -49,7 +49,7 @@
 /* returns the invoke ID for confirmed request, or zero on failure */
 
 
-uint8_t Send_Life_Safety_Operation_Data(
+uint8_t ICACHE_FLASH_ATTR Send_Life_Safety_Operation_Data(
     uint32_t device_id,
     BACNET_LSO_DATA * data)
 {

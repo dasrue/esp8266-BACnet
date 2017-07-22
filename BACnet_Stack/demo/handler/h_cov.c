@@ -88,7 +88,7 @@ static BACNET_COV_ADDRESS COV_Addresses[MAX_COV_ADDRESSES];
 *
 * @return true if valid address, false if not valid or not found
 */
-static BACNET_ADDRESS *cov_address_get(
+static BACNET_ADDRESS ICACHE_FLASH_ATTR *cov_address_get(
     int index)
 {
     BACNET_ADDRESS *cov_dest = NULL;
@@ -106,7 +106,7 @@ static BACNET_ADDRESS *cov_address_get(
  * Removes the address from the list of COV addresses, if it is not
  * used by other COV subscriptions
  */
-static void cov_address_remove_unused(void)
+static void ICACHE_FLASH_ATTR cov_address_remove_unused(void)
 {
     unsigned index = 0;
     unsigned cov_index = 0;
@@ -136,7 +136,7 @@ static void cov_address_remove_unused(void)
 *
 * @return index number 0..N, or -1 if unable to add
 */
-static int cov_address_add(
+static int ICACHE_FLASH_ATTR cov_address_add(
     BACNET_ADDRESS *dest)
 {
     int index = -1;
@@ -202,7 +202,7 @@ TimeRemaining [3] Unsigned,
 COVIncrement [4] REAL OPTIONAL
 */
 
-static int cov_encode_subscription(
+static int ICACHE_FLASH_ATTR cov_encode_subscription(
     uint8_t * apdu,
     int max_apdu,
     BACNET_COV_SUBSCRIPTION * cov_subscription)
@@ -299,7 +299,7 @@ static int cov_encode_subscription(
  *  @return How many bytes were encoded in the buffer, or -2 if the response
  *          would not fit within the buffer.
  */
-int handler_cov_encode_subscriptions(
+int ICACHE_FLASH_ATTR handler_cov_encode_subscriptions(
     uint8_t * apdu,
     int max_apdu)
 {
@@ -328,7 +328,7 @@ int handler_cov_encode_subscriptions(
 /** Handler to initialize the COV list, clearing and disabling each entry.
  * @ingroup DSCOV
  */
-void handler_cov_init(
+void ICACHE_FLASH_ATTR handler_cov_init(
     void)
 {
     unsigned index = 0;
@@ -350,7 +350,7 @@ void handler_cov_init(
     }
 }
 
-static bool cov_list_subscribe(
+static bool ICACHE_FLASH_ATTR cov_list_subscribe(
     BACNET_ADDRESS * src,
     BACNET_SUBSCRIBE_COV_DATA * cov_data,
     BACNET_ERROR_CLASS * error_class,
@@ -442,7 +442,7 @@ static bool cov_list_subscribe(
     return found;
 }
 
-static bool cov_send_request(
+static bool ICACHE_FLASH_ATTR cov_send_request(
     BACNET_COV_SUBSCRIPTION * cov_subscription,
     BACNET_PROPERTY_VALUE * value_list)
 {
@@ -524,7 +524,7 @@ static bool cov_send_request(
     return status;
 }
 
-static void cov_lifetime_expiration_handler(
+static void ICACHE_FLASH_ATTR cov_lifetime_expiration_handler(
     unsigned index,
     uint32_t elapsed_seconds,
     uint32_t lifetime_seconds)
@@ -587,7 +587,7 @@ static void cov_lifetime_expiration_handler(
  *
  * @param elapsed_seconds [in] How many seconds have elapsed since last called.
  */
-void handler_cov_timer_seconds(
+void ICACHE_FLASH_ATTR handler_cov_timer_seconds(
     uint32_t elapsed_seconds)
 {
     unsigned index = 0;
@@ -608,7 +608,7 @@ void handler_cov_timer_seconds(
     }
 }
 
-bool handler_cov_fsm(
+bool ICACHE_FLASH_ATTR handler_cov_fsm(
     void)
 {
     static int index = 0;
@@ -746,13 +746,13 @@ bool handler_cov_fsm(
     return (cov_task_state == COV_STATE_IDLE);
 }
 
-void handler_cov_task(
+void ICACHE_FLASH_ATTR handler_cov_task(
     void)
 {
     handler_cov_fsm();
 }
 
-static bool cov_subscribe(
+static bool ICACHE_FLASH_ATTR cov_subscribe(
     BACNET_ADDRESS * src,
     BACNET_SUBSCRIBE_COV_DATA * cov_data,
     BACNET_ERROR_CLASS * error_class,
@@ -800,7 +800,7 @@ static bool cov_subscribe(
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_cov_subscribe(
+void ICACHE_FLASH_ATTR handler_cov_subscribe(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

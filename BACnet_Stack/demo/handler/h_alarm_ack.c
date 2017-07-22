@@ -47,7 +47,7 @@
 
 static alarm_ack_function Alarm_Ack[MAX_BACNET_OBJECT_TYPE];
 
-void handler_alarm_ack_set(
+void ICACHE_FLASH_ATTR handler_alarm_ack_set(
     BACNET_OBJECT_TYPE object_type,
     alarm_ack_function pFunction)
 {
@@ -72,7 +72,7 @@ void handler_alarm_ack_set(
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_alarm_ack(
+void ICACHE_FLASH_ATTR handler_alarm_ack(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

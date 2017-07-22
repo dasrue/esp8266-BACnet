@@ -118,7 +118,7 @@ uint16_t iCurrent_Device_Idx = 0;
  * @return The index of this instance in the Devices[] array,
  *         or -1 if there isn't enough room to add this Device.
  */
-uint16_t Add_Routed_Device(
+uint16_t ICACHE_FLASH_ATTR Add_Routed_Device(
     uint32_t Object_Instance,
     BACNET_CHARACTER_STRING * sObject_Name,
     const char *sDescription)
@@ -156,7 +156,7 @@ uint16_t Add_Routed_Device(
  * @return Pointer to the requested Device Object data, or NULL if the idx
  *         is for an invalid row entry (eg, after the last good Device).
  */
-DEVICE_OBJECT_DATA *Get_Routed_Device_Object(
+DEVICE_OBJECT_DATA *ICACHE_FLASH_ATTR Get_Routed_Device_Object(
     int idx)
 {
     if (idx == -1)
@@ -177,7 +177,7 @@ DEVICE_OBJECT_DATA *Get_Routed_Device_Object(
  * @return Pointer to the requested Device Object BACnet address, or NULL if the idx
  *         is for an invalid row entry (eg, after the last good Device).
  */
-BACNET_ADDRESS *Get_Routed_Device_Address(
+BACNET_ADDRESS *ICACHE_FLASH_ATTR Get_Routed_Device_Address(
     int idx)
 {
     if (idx == -1)
@@ -198,7 +198,7 @@ BACNET_ADDRESS *Get_Routed_Device_Address(
  * @param my_address [out] Points to the currently active Device Object's
  * 							BACnet address.
  */
-void routed_get_my_address(
+void ICACHE_FLASH_ATTR routed_get_my_address(
     BACNET_ADDRESS * my_address)
 {
     if (my_address) {
@@ -225,7 +225,7 @@ void routed_get_my_address(
  *         meaning MAC broadcast, so it's an automatic match).
  *         Else False if no match or invalid idx is given.
  */
-bool Routed_Device_Address_Lookup(
+bool ICACHE_FLASH_ATTR Routed_Device_Address_Lookup(
     int idx,
     uint8_t address_len,
     uint8_t * mac_adress)
@@ -280,7 +280,7 @@ bool Routed_Device_Address_Lookup(
  *         Else False if no match or invalid idx is given; the cursor will
  *         be returned as -1 in these cases.
  */
-bool Routed_Device_GetNext(
+bool ICACHE_FLASH_ATTR Routed_Device_GetNext(
     BACNET_ADDRESS * dest,
     int *DNET_list,
     int *cursor)
@@ -352,7 +352,7 @@ bool Routed_Device_GetNext(
  * 		    an automatic match.
  *         Else False if not a reachable network.
  */
-bool Routed_Device_Is_Valid_Network(
+bool ICACHE_FLASH_ATTR Routed_Device_Is_Valid_Network(
     uint16_t dest_net,
     int *DNET_list)
 {
@@ -377,7 +377,7 @@ bool Routed_Device_Is_Valid_Network(
 
 /* methods to override the normal Device objection functions */
 
-uint32_t Routed_Device_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Routed_Device_Index_To_Instance(
     unsigned index)
 {
     index = index;
@@ -392,7 +392,7 @@ uint32_t Routed_Device_Index_To_Instance(
  * 			If the wildcard value (BACNET_MAX_INSTANCE), always matches.
  * @return True if Object ID matches the present Device, else False.
  */
-bool Routed_Device_Valid_Object_Instance_Number(
+bool ICACHE_FLASH_ATTR Routed_Device_Valid_Object_Instance_Number(
     uint32_t object_id)
 {
     bool bResult = false;
@@ -404,7 +404,7 @@ bool Routed_Device_Valid_Object_Instance_Number(
     return bResult;
 }
 
-bool Routed_Device_Name(
+bool ICACHE_FLASH_ATTR Routed_Device_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -423,7 +423,7 @@ bool Routed_Device_Name(
  * @return The length of the apdu encoded, or BACNET_STATUS_ERROR for error or
  * BACNET_STATUS_ABORT for abort message.
  */
-int Routed_Device_Read_Property_Local(
+int ICACHE_FLASH_ATTR Routed_Device_Read_Property_Local(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -464,7 +464,7 @@ int Routed_Device_Read_Property_Local(
     return (apdu_len);
 }
 
-bool Routed_Device_Write_Property_Local(
+bool ICACHE_FLASH_ATTR Routed_Device_Write_Property_Local(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
@@ -532,13 +532,13 @@ bool Routed_Device_Write_Property_Local(
  *
  * @return The Instance number of the currently active Device.
  */
-uint32_t Routed_Device_Object_Instance_Number(
+uint32_t ICACHE_FLASH_ATTR Routed_Device_Object_Instance_Number(
     void)
 {
     return Devices[iCurrent_Device_Idx].bacObj.Object_Instance_Number;
 }
 
-bool Routed_Device_Set_Object_Instance_Number(
+bool ICACHE_FLASH_ATTR Routed_Device_Set_Object_Instance_Number(
     uint32_t object_id)
 {
     bool status = true; /* return value */
@@ -559,7 +559,7 @@ bool Routed_Device_Set_Object_Instance_Number(
  * @param object_name [in] Character String for the new Object Name.
  * @return True if succeed in updating Object Name, else False.
  */
-bool Routed_Device_Set_Object_Name(
+bool ICACHE_FLASH_ATTR Routed_Device_Set_Object_Name(
     uint8_t encoding,
     const char *value,
     size_t length)
@@ -578,7 +578,7 @@ bool Routed_Device_Set_Object_Name(
     return status;
 }
 
-bool Routed_Device_Set_Description(
+bool ICACHE_FLASH_ATTR Routed_Device_Set_Description(
     const char *name,
     size_t length)
 {
@@ -600,7 +600,7 @@ bool Routed_Device_Set_Description(
  * the most common operation if changing object names and ids is
  * implemented.
  */
-void Routed_Device_Inc_Database_Revision(
+void ICACHE_FLASH_ATTR Routed_Device_Inc_Database_Revision(
     void)
 {
     DEVICE_OBJECT_DATA *pDev = &Devices[iCurrent_Device_Idx];
@@ -621,7 +621,7 @@ void Routed_Device_Inc_Database_Revision(
  *          just 1 if no apdu_buff was supplied and service is not supported,
  *          else 0 if service is approved for the current device.
  */
-int Routed_Device_Service_Approval(
+int ICACHE_FLASH_ATTR Routed_Device_Service_Approval(
     BACNET_CONFIRMED_SERVICE service,
     int service_argument,
     uint8_t * apdu_buff,

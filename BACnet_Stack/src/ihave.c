@@ -39,7 +39,7 @@
 
 /** @file ihave.c  Encode/Decode I-Have service */
 
-int ihave_encode_apdu(
+int ICACHE_FLASH_ATTR ihave_encode_apdu(
     uint8_t * apdu,
     BACNET_I_HAVE_DATA * data)
 {
@@ -73,7 +73,7 @@ int ihave_encode_apdu(
 #if BACNET_SVC_I_HAVE_A
 
 /* decode the service request only */
-int ihave_decode_service_request(
+int ICACHE_FLASH_ATTR ihave_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_I_HAVE_DATA * data)
@@ -119,7 +119,7 @@ int ihave_decode_service_request(
     return len;
 }
 
-int ihave_decode_apdu(
+int ICACHE_FLASH_ATTR ihave_decode_apdu(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_I_HAVE_DATA * data)

@@ -39,7 +39,7 @@
 
 /** @file h_upt.c  Handles Unconfirmed Private Transfer requests. */
 
-void handler_unconfirmed_private_transfer(
+void ICACHE_FLASH_ATTR handler_unconfirmed_private_transfer(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src)

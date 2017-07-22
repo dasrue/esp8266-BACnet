@@ -115,7 +115,7 @@ static const int Lighting_Output_Properties_Proprietary[] = {
  * @param pProprietary - pointer to list of int terminated by -1, of
  * BACnet proprietary properties for this object.
  */
-void Lighting_Output_Property_Lists(
+void ICACHE_FLASH_ATTR Lighting_Output_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -137,7 +137,7 @@ void Lighting_Output_Property_Lists(
  *
  * @return  true if the instance is valid, and false if not
  */
-bool Lighting_Output_Valid_Instance(
+bool ICACHE_FLASH_ATTR Lighting_Output_Valid_Instance(
     uint32_t object_instance)
 {
     unsigned int index;
@@ -155,7 +155,7 @@ bool Lighting_Output_Valid_Instance(
  *
  * @return  Number of Lighting Output objects
  */
-unsigned Lighting_Output_Count(
+unsigned ICACHE_FLASH_ATTR Lighting_Output_Count(
     void)
 {
     return MAX_LIGHTING_OUTPUTS;
@@ -169,7 +169,7 @@ unsigned Lighting_Output_Count(
  *
  * @return  object instance-number for the given index
  */
-uint32_t Lighting_Output_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Lighting_Output_Index_To_Instance(
     unsigned index)
 {
     uint32_t instance = 1;
@@ -188,7 +188,7 @@ uint32_t Lighting_Output_Index_To_Instance(
  * @return  index for the given instance-number, or MAX_LIGHTING_OUTPUTS
  * if not valid.
  */
-unsigned Lighting_Output_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Lighting_Output_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_LIGHTING_OUTPUTS;
@@ -210,7 +210,7 @@ unsigned Lighting_Output_Instance_To_Index(
  *
  * @return  present-value of the object
  */
-float Lighting_Output_Present_Value(
+float ICACHE_FLASH_ATTR Lighting_Output_Present_Value(
     uint32_t object_instance)
 {
     float value = 0.0;
@@ -240,7 +240,7 @@ float Lighting_Output_Present_Value(
  *
  * @return  priority-value of the object
  */
-static float Lighting_Output_Priority_Value(
+static float ICACHE_FLASH_ATTR Lighting_Output_Priority_Value(
     uint32_t object_instance,
     unsigned priority)
 {
@@ -267,7 +267,7 @@ static float Lighting_Output_Priority_Value(
  *
  * @return  true if the priority slot is active
  */
-static bool Lighting_Output_Priority_Active(
+static bool ICACHE_FLASH_ATTR Lighting_Output_Priority_Active(
     uint32_t object_instance,
     unsigned priority)
 {
@@ -294,7 +294,7 @@ static bool Lighting_Output_Priority_Active(
  *
  * @return  active priority 1..16, or 0 if no priority is active
  */
-unsigned Lighting_Output_Present_Value_Priority(
+unsigned ICACHE_FLASH_ATTR Lighting_Output_Present_Value_Priority(
     uint32_t object_instance)
 {
     unsigned index = 0; /* instance to index conversion */
@@ -324,7 +324,7 @@ unsigned Lighting_Output_Present_Value_Priority(
  *
  * @return  true if values are within range and present-value is set.
  */
-bool Lighting_Output_Present_Value_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Present_Value_Set(
     uint32_t object_instance,
     float value,
     unsigned priority)
@@ -355,7 +355,7 @@ bool Lighting_Output_Present_Value_Set(
  *
  * @return  true if values are within range and present-value is set.
  */
-bool Lighting_Output_Present_Value_Relinquish(
+bool ICACHE_FLASH_ATTR Lighting_Output_Present_Value_Relinquish(
     uint32_t object_instance,
     unsigned priority)
 {
@@ -386,7 +386,7 @@ bool Lighting_Output_Present_Value_Relinquish(
  *
  * @return  true if object-name was retrieved
  */
-bool Lighting_Output_Object_Name(
+bool ICACHE_FLASH_ATTR Lighting_Output_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -412,7 +412,7 @@ bool Lighting_Output_Object_Name(
  *
  * @return  true if lighting command was set
  */
-bool Lighting_Output_Lighting_Command_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Lighting_Command_Set(
     uint32_t object_instance,
     BACNET_LIGHTING_COMMAND *value)
 {
@@ -439,7 +439,7 @@ bool Lighting_Output_Lighting_Command_Set(
  *
  * @return true if lighting command was retrieved
  */
-bool Lighting_Output_Lighting_Command(
+bool ICACHE_FLASH_ATTR Lighting_Output_Lighting_Command(
     uint32_t object_instance,
     BACNET_LIGHTING_COMMAND *value)
 {
@@ -462,7 +462,7 @@ bool Lighting_Output_Lighting_Command(
  *
  * @return the in-progress value of this object instance.
  */
-BACNET_LIGHTING_IN_PROGRESS Lighting_Output_In_Progress(
+BACNET_LIGHTING_IN_PROGRESS ICACHE_FLASH_ATTR Lighting_Output_In_Progress(
     uint32_t object_instance)
 {
     BACNET_LIGHTING_IN_PROGRESS value = BACNET_LIGHTING_IDLE;
@@ -485,7 +485,7 @@ BACNET_LIGHTING_IN_PROGRESS Lighting_Output_In_Progress(
  *
  * @return true if value was set
  */
-bool Lighting_Output_In_Progress_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_In_Progress_Set(
     uint32_t object_instance,
     BACNET_LIGHTING_IN_PROGRESS in_progress)
 {
@@ -508,7 +508,7 @@ bool Lighting_Output_In_Progress_Set(
  *
  * @return the tracking-value of this object instance.
  */
-float Lighting_Output_Tracking_Value(
+float ICACHE_FLASH_ATTR Lighting_Output_Tracking_Value(
     uint32_t object_instance)
 {
     float value = 0.0;
@@ -531,7 +531,7 @@ float Lighting_Output_Tracking_Value(
  *
  * @return true if value was set
  */
-bool Lighting_Output_Tracking_Value_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Tracking_Value_Set(
     uint32_t object_instance,
     float value)
 {
@@ -555,7 +555,7 @@ bool Lighting_Output_Tracking_Value_Set(
  *
  * @return the blink-warn-enable property value of this object
  */
-bool Lighting_Output_Blink_Warn_Enable(
+bool ICACHE_FLASH_ATTR Lighting_Output_Blink_Warn_Enable(
     uint32_t object_instance)
 {
     bool value = false;
@@ -578,7 +578,7 @@ bool Lighting_Output_Blink_Warn_Enable(
  *
  * @return true if value was set
  */
-bool Lighting_Output_Blink_Warn_Enable_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Blink_Warn_Enable_Set(
     uint32_t object_instance,
     bool enable)
 {
@@ -602,7 +602,7 @@ bool Lighting_Output_Blink_Warn_Enable_Set(
  *
  * @return the egress-time property value of this object
  */
-uint32_t Lighting_Output_Egress_Time(
+uint32_t ICACHE_FLASH_ATTR Lighting_Output_Egress_Time(
     uint32_t object_instance)
 {
     uint32_t value = 0;
@@ -625,7 +625,7 @@ uint32_t Lighting_Output_Egress_Time(
  *
  * @return true if value was set
  */
-bool Lighting_Output_Egress_Time_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Egress_Time_Set(
     uint32_t object_instance,
     uint32_t seconds)
 {
@@ -649,7 +649,7 @@ bool Lighting_Output_Egress_Time_Set(
  *
  * @return the egress-active property value of this object
  */
-bool Lighting_Output_Egress_Active(
+bool ICACHE_FLASH_ATTR Lighting_Output_Egress_Active(
     uint32_t object_instance)
 {
     bool value = false;
@@ -671,7 +671,7 @@ bool Lighting_Output_Egress_Active(
  *
  * @return the fade-time property value of this object
  */
-uint32_t Lighting_Output_Default_Fade_Time(
+uint32_t ICACHE_FLASH_ATTR Lighting_Output_Default_Fade_Time(
     uint32_t object_instance)
 {
     uint32_t value = 0;
@@ -694,7 +694,7 @@ uint32_t Lighting_Output_Default_Fade_Time(
  *
  * @return true if value was set
  */
-bool Lighting_Output_Default_Fade_Time_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Default_Fade_Time_Set(
     uint32_t object_instance,
     uint32_t milliseconds)
 {
@@ -720,7 +720,7 @@ bool Lighting_Output_Default_Fade_Time_Set(
  *
  * @return the ramp-rate property value of this object
  */
-float Lighting_Output_Default_Ramp_Rate(
+float ICACHE_FLASH_ATTR Lighting_Output_Default_Ramp_Rate(
     uint32_t object_instance)
 {
     float value = 0.0;
@@ -743,7 +743,7 @@ float Lighting_Output_Default_Ramp_Rate(
  *
  * @return true if value was set
  */
-bool Lighting_Output_Default_Ramp_Rate_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Default_Ramp_Rate_Set(
     uint32_t object_instance,
     float percent_per_second)
 {
@@ -769,7 +769,7 @@ bool Lighting_Output_Default_Ramp_Rate_Set(
  *
  * @return the default-step-increment property value of this object
  */
-float Lighting_Output_Default_Step_Increment(
+float ICACHE_FLASH_ATTR Lighting_Output_Default_Step_Increment(
     uint32_t object_instance)
 {
     float value = 0.0;
@@ -792,7 +792,7 @@ float Lighting_Output_Default_Step_Increment(
  *
  * @return true if value was set
  */
-bool Lighting_Output_Default_Step_Increment_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Default_Step_Increment_Set(
     uint32_t object_instance,
     float step_increment)
 {
@@ -820,7 +820,7 @@ bool Lighting_Output_Default_Step_Increment_Set(
  * @return the lighting-command-default-priority property value of
  * this object
  */
-unsigned Lighting_Output_Default_Priority(
+unsigned ICACHE_FLASH_ATTR Lighting_Output_Default_Priority(
     uint32_t object_instance)
 {
     unsigned value = 0;
@@ -843,7 +843,7 @@ unsigned Lighting_Output_Default_Priority(
  *
  * @return true if value was set
  */
-bool Lighting_Output_Default_Priority_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Default_Priority_Set(
     uint32_t object_instance,
     unsigned priority)
 {
@@ -869,7 +869,7 @@ bool Lighting_Output_Default_Priority_Set(
  *
  * @return  out-of-service property value
  */
-bool Lighting_Output_Out_Of_Service(
+bool ICACHE_FLASH_ATTR Lighting_Output_Out_Of_Service(
     uint32_t object_instance)
 {
     bool value = false;
@@ -891,7 +891,7 @@ bool Lighting_Output_Out_Of_Service(
  *
  * @return true if the out-of-service property value was set
  */
-void Lighting_Output_Out_Of_Service_Set(
+void ICACHE_FLASH_ATTR Lighting_Output_Out_Of_Service_Set(
     uint32_t object_instance,
     bool value)
 {
@@ -911,7 +911,7 @@ void Lighting_Output_Out_Of_Service_Set(
  *
  * @return  relinquish-default property value
  */
-float Lighting_Output_Relinquish_Default(
+float ICACHE_FLASH_ATTR Lighting_Output_Relinquish_Default(
     uint32_t object_instance)
 {
     float value = 0.0;
@@ -934,7 +934,7 @@ float Lighting_Output_Relinquish_Default(
  *
  * @return true if the relinquish-default property value was set
  */
-bool Lighting_Output_Relinquish_Default_Set(
+bool ICACHE_FLASH_ATTR Lighting_Output_Relinquish_Default_Set(
     uint32_t object_instance,
     float value)
 {
@@ -959,7 +959,7 @@ bool Lighting_Output_Relinquish_Default_Set(
  * @return number of APDU bytes in the response, or
  * BACNET_STATUS_ERROR on error.
  */
-int Lighting_Output_Read_Property(
+int ICACHE_FLASH_ATTR Lighting_Output_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int len = 0;
@@ -1145,7 +1145,7 @@ int Lighting_Output_Read_Property(
  *
  * @return false if an error is loaded, true if no errors
  */
-bool Lighting_Output_Write_Property(
+bool ICACHE_FLASH_ATTR Lighting_Output_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
@@ -1270,7 +1270,7 @@ bool Lighting_Output_Write_Property(
  * @param milliseconds - number of milliseconds elapsed since previously
  * called.  Works best when called about every 10 milliseconds.
  */
-static void Lighting_Output_Ramp_Handler(
+static void ICACHE_FLASH_ATTR Lighting_Output_Ramp_Handler(
     struct lighting_output_object *pLight,
     BACNET_LIGHTING_COMMAND *pCommand,
     uint16_t milliseconds)
@@ -1288,7 +1288,7 @@ static void Lighting_Output_Ramp_Handler(
  * @param milliseconds - number of milliseconds elapsed since previously
  * called.  Works best when called about every 10 milliseconds.
  */
-static void Lighting_Output_Fade_Handler(
+static void ICACHE_FLASH_ATTR Lighting_Output_Fade_Handler(
     struct lighting_output_object *pLight,
     BACNET_LIGHTING_COMMAND *pCommand,
     uint16_t milliseconds)
@@ -1305,7 +1305,7 @@ static void Lighting_Output_Fade_Handler(
  * @param milliseconds - number of milliseconds elapsed since previously
  * called.  Works best when called about every 10 milliseconds.
  */
-static void Lighting_Output_Timer_Handler(
+static void ICACHE_FLASH_ATTR Lighting_Output_Timer_Handler(
     unsigned index,
     uint16_t milliseconds)
 {
@@ -1352,7 +1352,7 @@ static void Lighting_Output_Timer_Handler(
  * @param milliseconds - number of milliseconds elapsed since previously
  * called.  Works best when called about every 10 milliseconds.
  */
-void Lighting_Output_Timer(
+void ICACHE_FLASH_ATTR Lighting_Output_Timer(
     uint16_t milliseconds)
 {
     unsigned i = 0;
@@ -1365,7 +1365,7 @@ void Lighting_Output_Timer(
 /**
  * Initializes the Lighting Output object data
  */
-void Lighting_Output_Init(
+void ICACHE_FLASH_ATTR Lighting_Output_Init(
     void)
 {
     unsigned i, p;

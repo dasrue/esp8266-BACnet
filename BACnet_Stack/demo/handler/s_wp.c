@@ -46,7 +46,7 @@
 /** @file s_wp.c  Send a Write Property request. */
 
 /** returns the invoke ID for confirmed request, or zero on failure */
-uint8_t Send_Write_Property_Request_Data(
+uint8_t ICACHE_FLASH_ATTR Send_Write_Property_Request_Data(
     uint32_t device_id,
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance,
@@ -142,7 +142,7 @@ uint8_t Send_Write_Property_Request_Data(
  *   - BACNET_ARRAY_ALL (~0) for the array value to be ignored (not sent)
  * @return invoke id of outgoing message, or 0 on failure.
  */
-uint8_t Send_Write_Property_Request(
+uint8_t ICACHE_FLASH_ATTR Send_Write_Property_Request(
     uint32_t device_id,
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance,

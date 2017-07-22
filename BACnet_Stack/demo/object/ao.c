@@ -82,7 +82,7 @@ static const int Properties_Proprietary[] = {
     -1
 };
 
-void Analog_Output_Property_Lists(
+void ICACHE_FLASH_ATTR Analog_Output_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -97,7 +97,7 @@ void Analog_Output_Property_Lists(
     return;
 }
 
-void Analog_Output_Init(
+void ICACHE_FLASH_ATTR Analog_Output_Init(
     void)
 {
     unsigned i, j;
@@ -119,7 +119,7 @@ void Analog_Output_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Analog_Output_Valid_Instance(
+bool ICACHE_FLASH_ATTR Analog_Output_Valid_Instance(
     uint32_t object_instance)
 {
     if (object_instance < MAX_ANALOG_OUTPUTS)
@@ -130,7 +130,7 @@ bool Analog_Output_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Analog_Output_Count(
+unsigned ICACHE_FLASH_ATTR Analog_Output_Count(
     void)
 {
     return MAX_ANALOG_OUTPUTS;
@@ -139,7 +139,7 @@ unsigned Analog_Output_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Analog_Output_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Analog_Output_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -148,7 +148,7 @@ uint32_t Analog_Output_Index_To_Instance(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Analog_Output_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Analog_Output_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_ANALOG_OUTPUTS;
@@ -159,7 +159,7 @@ unsigned Analog_Output_Instance_To_Index(
     return index;
 }
 
-float Analog_Output_Present_Value(
+float ICACHE_FLASH_ATTR Analog_Output_Present_Value(
     uint32_t object_instance)
 {
     float value = AO_RELINQUISH_DEFAULT;
@@ -179,7 +179,7 @@ float Analog_Output_Present_Value(
     return value;
 }
 
-unsigned Analog_Output_Present_Value_Priority(
+unsigned ICACHE_FLASH_ATTR Analog_Output_Present_Value_Priority(
     uint32_t object_instance)
 {
     unsigned index = 0; /* instance to index conversion */
@@ -199,7 +199,7 @@ unsigned Analog_Output_Present_Value_Priority(
     return priority;
 }
 
-bool Analog_Output_Present_Value_Set(
+bool ICACHE_FLASH_ATTR Analog_Output_Present_Value_Set(
     uint32_t object_instance,
     float value,
     unsigned priority)
@@ -226,7 +226,7 @@ bool Analog_Output_Present_Value_Set(
     return status;
 }
 
-bool Analog_Output_Present_Value_Relinquish(
+bool ICACHE_FLASH_ATTR Analog_Output_Present_Value_Relinquish(
     uint32_t object_instance,
     unsigned priority)
 {
@@ -252,7 +252,7 @@ bool Analog_Output_Present_Value_Relinquish(
 }
 
 /* note: the object name must be unique within this device */
-bool Analog_Output_Object_Name(
+bool ICACHE_FLASH_ATTR Analog_Output_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -268,7 +268,7 @@ bool Analog_Output_Object_Name(
     return status;
 }
 
-bool Analog_Output_Out_Of_Service(
+bool ICACHE_FLASH_ATTR Analog_Output_Out_Of_Service(
     uint32_t instance)
 {
     unsigned index = 0;
@@ -282,7 +282,7 @@ bool Analog_Output_Out_Of_Service(
     return oos_flag;
 }
 
-void Analog_Output_Out_Of_Service_Set(
+void ICACHE_FLASH_ATTR Analog_Output_Out_Of_Service_Set(
     uint32_t instance,
     bool oos_flag)
 {
@@ -295,7 +295,7 @@ void Analog_Output_Out_Of_Service_Set(
 }
 
 /* return apdu len, or BACNET_STATUS_ERROR on error */
-int Analog_Output_Read_Property(
+int ICACHE_FLASH_ATTR Analog_Output_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int len = 0;
@@ -425,7 +425,7 @@ int Analog_Output_Read_Property(
 }
 
 /* returns true if successful */
-bool Analog_Output_Write_Property(
+bool ICACHE_FLASH_ATTR Analog_Output_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */

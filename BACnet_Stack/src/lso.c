@@ -37,7 +37,7 @@
 
 /** @file lso.c  BACnet Life Safety Operation encode/decode */
 
-int lso_encode_apdu(
+int ICACHE_FLASH_ATTR lso_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_LSO_DATA * data)
@@ -78,7 +78,7 @@ int lso_encode_apdu(
     return apdu_len;
 }
 
-int lso_decode_service_request(
+int ICACHE_FLASH_ATTR lso_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_LSO_DATA * data)

@@ -37,7 +37,7 @@
 
 /** @file filename.c  Function for filename manipulation */
 
-char *filename_remove_path(
+char *ICACHE_FLASH_ATTR filename_remove_path(
     const char *filename_in)
 {
     char *filename_out = (char *) filename_in;

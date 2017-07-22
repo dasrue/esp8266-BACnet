@@ -64,7 +64,7 @@
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_read_property(
+void ICACHE_FLASH_ATTR handler_read_property(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

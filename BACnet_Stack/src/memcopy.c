@@ -39,7 +39,7 @@
 
 /* copy len bytes from src to offset of dest if there is enough space. */
 /* returns 0 if there is not enough space, or the number of bytes copied. */
-size_t memcopy(
+size_t ICACHE_FLASH_ATTR memcopy(
     void *dest,
     void *src,
     size_t offset,      /* where in dest to put the data */

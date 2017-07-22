@@ -40,7 +40,7 @@
 /** @file arf.c  Atomic Read File */
 
 /* encode service */
-int arf_encode_apdu(
+int ICACHE_FLASH_ATTR arf_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_ATOMIC_READ_FILE_DATA * data)
@@ -86,7 +86,7 @@ int arf_encode_apdu(
 }
 
 /* decode the service request only */
-int arf_decode_service_request(
+int ICACHE_FLASH_ATTR arf_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_ATOMIC_READ_FILE_DATA * data)
@@ -169,7 +169,7 @@ int arf_decode_service_request(
     return len;
 }
 
-int arf_decode_apdu(
+int ICACHE_FLASH_ATTR arf_decode_apdu(
     uint8_t * apdu,
     unsigned apdu_len,
     uint8_t * invoke_id,
@@ -198,7 +198,7 @@ int arf_decode_apdu(
 }
 
 /* encode service */
-int arf_ack_encode_apdu(
+int ICACHE_FLASH_ATTR arf_ack_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_ATOMIC_READ_FILE_DATA * data)
@@ -246,7 +246,7 @@ int arf_ack_encode_apdu(
 }
 
 /* decode the service request only */
-int arf_ack_decode_service_request(
+int ICACHE_FLASH_ATTR arf_ack_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_ATOMIC_READ_FILE_DATA * data)
@@ -350,7 +350,7 @@ int arf_ack_decode_service_request(
     return len;
 }
 
-int arf_ack_decode_apdu(
+int ICACHE_FLASH_ATTR arf_ack_decode_apdu(
     uint8_t * apdu,
     unsigned apdu_len,
     uint8_t * invoke_id,

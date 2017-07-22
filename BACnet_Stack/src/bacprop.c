@@ -80,7 +80,7 @@ PROP_TAG_DATA bacnet_object_device_property_tag_map[] = {
     {-1, -1}
 };
 
-signed bacprop_tag_by_index_default(
+signed ICACHE_FLASH_ATTR bacprop_tag_by_index_default(
     PROP_TAG_DATA * data_list,
     signed index,
     signed default_ret)
@@ -101,7 +101,7 @@ signed bacprop_tag_by_index_default(
 }
 
 
-signed bacprop_property_tag(
+signed ICACHE_FLASH_ATTR bacprop_property_tag(
     BACNET_OBJECT_TYPE type,
     signed prop)
 {

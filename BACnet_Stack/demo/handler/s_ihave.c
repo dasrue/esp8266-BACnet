@@ -53,7 +53,7 @@
  * @param object_instance [in] The Object ID that I Have.
  * @param object_name [in] The Name of the Object I Have.
  */
-void Send_I_Have(
+void ICACHE_FLASH_ATTR Send_I_Have(
     uint32_t device_id,
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance,

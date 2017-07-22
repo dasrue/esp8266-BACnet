@@ -101,7 +101,7 @@
 *
 * @return Number of bytes in the FIFO
 */
-unsigned FIFO_Count(
+unsigned ICACHE_FLASH_ATTR FIFO_Count(
     FIFO_BUFFER const *b)
 {
     unsigned head, tail;        /* used to avoid volatile decision */
@@ -122,7 +122,7 @@ unsigned FIFO_Count(
 *
 * @return true if the FIFO is full, false if it is not.
 */
-bool FIFO_Full(
+bool ICACHE_FLASH_ATTR FIFO_Full(
     FIFO_BUFFER const *b)
 {
     return (b ? (FIFO_Count(b) == b->buffer_len) : true);
@@ -136,7 +136,7 @@ bool FIFO_Full(
 *
 * @return true if the number of bytes sought is available
 */
-bool FIFO_Available(
+bool ICACHE_FLASH_ATTR FIFO_Available(
     FIFO_BUFFER const *b,
     unsigned count)
 {
@@ -149,7 +149,7 @@ bool FIFO_Available(
 * @param b - pointer to FIFO_BUFFER structure
 * @return true if the FIFO is empty, false if it is not.
 */
-bool FIFO_Empty(
+bool ICACHE_FLASH_ATTR FIFO_Empty(
     FIFO_BUFFER const *b)
 {
     return (b ? (FIFO_Count(b) == 0) : true);
@@ -165,7 +165,7 @@ bool FIFO_Empty(
 *
 * @return byte of data, or zero if nothing in the list
 */
-uint8_t FIFO_Peek(
+uint8_t ICACHE_FLASH_ATTR FIFO_Peek(
     FIFO_BUFFER const *b)
 {
     unsigned index;
@@ -188,7 +188,7 @@ uint8_t FIFO_Peek(
 *
 * @return the data
 */
-uint8_t FIFO_Get(
+uint8_t ICACHE_FLASH_ATTR FIFO_Get(
     FIFO_BUFFER * b)
 {
     uint8_t data_byte = 0;
@@ -213,7 +213,7 @@ uint8_t FIFO_Get(
 *
 * @return      the number of bytes actually pulled from the FIFO
 */
-unsigned FIFO_Pull(
+unsigned ICACHE_FLASH_ATTR FIFO_Pull(
     FIFO_BUFFER * b,
     uint8_t * buffer,
     unsigned length)
@@ -253,7 +253,7 @@ unsigned FIFO_Pull(
 *
 * @return true on successful add, false if not added
 */
-bool FIFO_Put(
+bool ICACHE_FLASH_ATTR FIFO_Put(
     FIFO_BUFFER * b,
     uint8_t data_byte)
 {
@@ -282,7 +282,7 @@ bool FIFO_Put(
 *
 * @return true if space available and added, false if not added
 */
-bool FIFO_Add(
+bool ICACHE_FLASH_ATTR FIFO_Add(
     FIFO_BUFFER * b,
     uint8_t * buffer,
     unsigned count)
@@ -312,7 +312,7 @@ bool FIFO_Add(
 *
 * @return none
 */
-void FIFO_Flush(
+void ICACHE_FLASH_ATTR FIFO_Flush(
     FIFO_BUFFER * b)
 {
     unsigned head;      /* used to avoid volatile decision */
@@ -332,7 +332,7 @@ void FIFO_Flush(
 *
 * @return      none
 */
-void FIFO_Init(
+void ICACHE_FLASH_ATTR FIFO_Init(
     FIFO_BUFFER * b,
     volatile uint8_t * buffer,
     unsigned buffer_len)

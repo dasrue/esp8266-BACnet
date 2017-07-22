@@ -61,7 +61,7 @@
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_write_property(
+void ICACHE_FLASH_ATTR handler_write_property(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,
@@ -152,7 +152,7 @@ void handler_write_property(
  * finally if it is allowed to be empty.
  */
 
-bool WPValidateString(
+bool ICACHE_FLASH_ATTR WPValidateString(
     BACNET_APPLICATION_DATA_VALUE * pValue,
     int iMaxLen,
     bool bEmptyAllowed,
@@ -198,7 +198,7 @@ bool WPValidateString(
  * validation fails. Cuts out reams of repeated code in the object code.
  */
 
-bool WPValidateArgType(
+bool ICACHE_FLASH_ATTR WPValidateArgType(
     BACNET_APPLICATION_DATA_VALUE * pValue,
     uint8_t ucExpectedTag,
     BACNET_ERROR_CLASS * pErrorClass,

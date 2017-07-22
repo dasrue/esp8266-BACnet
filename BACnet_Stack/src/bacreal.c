@@ -52,7 +52,7 @@
 
 /* from clause 20.2.6 Encoding of a Real Number Value */
 /* returns the number of apdu bytes consumed */
-int decode_real(
+int ICACHE_FLASH_ATTR decode_real(
     uint8_t * apdu,
     float *real_value)
 {
@@ -79,7 +79,7 @@ int decode_real(
     return 4;
 }
 
-int decode_real_safe(
+int ICACHE_FLASH_ATTR decode_real_safe(
     uint8_t * apdu,
     uint32_t len_value,
     float *real_value)
@@ -92,7 +92,7 @@ int decode_real_safe(
     }
 }
 
-int decode_context_real(
+int ICACHE_FLASH_ATTR decode_context_real(
     uint8_t * apdu,
     uint8_t tag_number,
     float *real_value)
@@ -112,7 +112,7 @@ int decode_context_real(
 
 /* from clause 20.2.6 Encoding of a Real Number Value */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_real(
+int ICACHE_FLASH_ATTR encode_bacnet_real(
     float value,
     uint8_t * apdu)
 {
@@ -142,7 +142,7 @@ int encode_bacnet_real(
 
 /* from clause 20.2.7 Encoding of a Double Precision Real Number Value */
 /* returns the number of apdu bytes consumed */
-int decode_double(
+int ICACHE_FLASH_ATTR decode_double(
     uint8_t * apdu,
     double *double_value)
 {
@@ -177,7 +177,7 @@ int decode_double(
     return 8;
 }
 
-int decode_double_safe(
+int ICACHE_FLASH_ATTR decode_double_safe(
     uint8_t * apdu,
     uint32_t len_value,
     double *double_value)
@@ -192,7 +192,7 @@ int decode_double_safe(
 
 /* from clause 20.2.7 Encoding of a Double Precision Real Number Value */
 /* returns the number of apdu bytes consumed */
-int encode_bacnet_double(
+int ICACHE_FLASH_ATTR encode_bacnet_double(
     double value,
     uint8_t * apdu)
 {
@@ -226,7 +226,7 @@ int encode_bacnet_double(
     return 8;
 }
 
-int decode_context_double(
+int ICACHE_FLASH_ATTR decode_context_double(
     uint8_t * apdu,
     uint8_t tag_number,
     double *double_value)

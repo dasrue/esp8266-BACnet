@@ -39,7 +39,7 @@
 
 #if !defined(__BORLANDC__) && !defined(_MSC_VER)
 #include <ctype.h>
-int stricmp(
+int ICACHE_FLASH_ATTR stricmp(
     const char *s1,
     const char *s2)
 {
@@ -58,7 +58,7 @@ int stricmp(
 }
 #endif
 
-bool indtext_by_string(
+bool ICACHE_FLASH_ATTR indtext_by_string(
     INDTEXT_DATA * data_list,
     const char *search_name,
     unsigned *found_index)
@@ -84,7 +84,7 @@ bool indtext_by_string(
 }
 
 /* case insensitive version */
-bool indtext_by_istring(
+bool ICACHE_FLASH_ATTR indtext_by_istring(
     INDTEXT_DATA * data_list,
     const char *search_name,
     unsigned *found_index)
@@ -109,7 +109,7 @@ bool indtext_by_istring(
     return found;
 }
 
-unsigned indtext_by_string_default(
+unsigned ICACHE_FLASH_ATTR indtext_by_string_default(
     INDTEXT_DATA * data_list,
     const char *search_name,
     unsigned default_index)
@@ -122,7 +122,7 @@ unsigned indtext_by_string_default(
     return index;
 }
 
-unsigned indtext_by_istring_default(
+unsigned ICACHE_FLASH_ATTR indtext_by_istring_default(
     INDTEXT_DATA * data_list,
     const char *search_name,
     unsigned default_index)
@@ -135,7 +135,7 @@ unsigned indtext_by_istring_default(
     return index;
 }
 
-const char *indtext_by_index_default(
+const char *ICACHE_FLASH_ATTR indtext_by_index_default(
     INDTEXT_DATA * data_list,
     unsigned index,
     const char *default_string)
@@ -155,7 +155,7 @@ const char *indtext_by_index_default(
     return pString ? pString : default_string;
 }
 
-const char *indtext_by_index_split_default(
+const char *ICACHE_FLASH_ATTR indtext_by_index_split_default(
     INDTEXT_DATA * data_list,
     unsigned index,
     unsigned split_index,
@@ -170,14 +170,14 @@ const char *indtext_by_index_split_default(
 }
 
 
-const char *indtext_by_index(
+const char *ICACHE_FLASH_ATTR indtext_by_index(
     INDTEXT_DATA * data_list,
     unsigned index)
 {
     return indtext_by_index_default(data_list, index, NULL);
 }
 
-unsigned indtext_count(
+unsigned ICACHE_FLASH_ATTR indtext_count(
     INDTEXT_DATA * data_list)
 {
     unsigned count = 0; /* return value */

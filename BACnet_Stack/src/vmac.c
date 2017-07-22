@@ -54,7 +54,7 @@ static OS_Keylist VMAC_List;
 /**
  * Returns the number of VMAC in the list
  */
-unsigned int VMAC_Count(void)
+unsigned int ICACHE_FLASH_ATTR VMAC_Count(void)
 {
     return (unsigned int)Keylist_Count(VMAC_List);
 }
@@ -67,7 +67,7 @@ unsigned int VMAC_Count(void)
  *
  * @return true if the device ID and MAC are added
  */
-bool VMAC_Add(uint32_t device_id, struct vmac_data *src)
+bool ICACHE_FLASH_ATTR VMAC_Add(uint32_t device_id, struct vmac_data *src)
 {
     bool status = false;
     struct vmac_data *pVMAC = NULL;
@@ -105,7 +105,7 @@ bool VMAC_Add(uint32_t device_id, struct vmac_data *src)
  *
  * @return pointer to the VMAC data from the list - be sure to free() it!
  */
-bool VMAC_Delete(uint32_t device_id)
+bool ICACHE_FLASH_ATTR VMAC_Delete(uint32_t device_id)
 {
     bool status = false;
     struct vmac_data *pVMAC;
@@ -126,7 +126,7 @@ bool VMAC_Delete(uint32_t device_id)
  *
  * @return pointer to the VMAC data from the list
  */
-struct vmac_data *VMAC_Find_By_Key(uint32_t device_id)
+struct vmac_data *ICACHE_FLASH_ATTR VMAC_Find_By_Key(uint32_t device_id)
 {
     return Keylist_Data(VMAC_List, device_id);
 }
@@ -138,7 +138,7 @@ struct vmac_data *VMAC_Find_By_Key(uint32_t device_id)
  *
  * @return true if the addresses are different
  */
-bool VMAC_Different(
+bool ICACHE_FLASH_ATTR VMAC_Different(
     struct vmac_data *vmac1,
     struct vmac_data *vmac2)
 {
@@ -171,7 +171,7 @@ bool VMAC_Different(
  *
  * @return true if the addresses are the same
  */
-bool VMAC_Match(
+bool ICACHE_FLASH_ATTR VMAC_Match(
     struct vmac_data *vmac1,
     struct vmac_data *vmac2)
 {
@@ -206,7 +206,7 @@ bool VMAC_Match(
  *
  * @return true if the VMAC address was found
  */
-bool VMAC_Find_By_Data(struct vmac_data *vmac, uint32_t *device_id)
+bool ICACHE_FLASH_ATTR VMAC_Find_By_Data(struct vmac_data *vmac, uint32_t *device_id)
 {
     bool status = false;
     struct vmac_data *list_vmac;
@@ -235,7 +235,7 @@ bool VMAC_Find_By_Data(struct vmac_data *vmac, uint32_t *device_id)
 /**
  * Cleans up the memory used by the VMAC list data
  */
-void VMAC_Cleanup(void)
+void ICACHE_FLASH_ATTR VMAC_Cleanup(void)
 {
     struct vmac_data *pVMAC;
 
@@ -254,7 +254,7 @@ void VMAC_Cleanup(void)
 /**
  * Initializes the VMAC list data
  */
-void VMAC_Init(void)
+void ICACHE_FLASH_ATTR VMAC_Init(void)
 {
     VMAC_List = Keylist_Create();
     if (VMAC_List) {

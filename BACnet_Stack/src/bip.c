@@ -60,7 +60,7 @@ static struct in_addr BIP_Broadcast_Address;
  *
  * @param sock_fd [in] Handle for the BACnet/IP socket.
  */
-void bip_set_socket(
+void ICACHE_FLASH_ATTR bip_set_socket(
     int sock_fd)
 {
     BIP_Socket = sock_fd;
@@ -70,59 +70,59 @@ void bip_set_socket(
  *
  * @return The handle to the BACnet/IP socket.
  */
-int bip_socket(
+int ICACHE_FLASH_ATTR bip_socket(
     void)
 {
     return BIP_Socket;
 }
 
-bool bip_valid(
+bool ICACHE_FLASH_ATTR bip_valid(
     void)
 {
     return (BIP_Socket != -1);
 }
 
-void bip_set_addr(
+void ICACHE_FLASH_ATTR bip_set_addr(
     uint32_t net_address)
 {       /* in network byte order */
     BIP_Address.s_addr = net_address;
 }
 
 /* returns network byte order */
-uint32_t bip_get_addr(
+uint32_t ICACHE_FLASH_ATTR bip_get_addr(
     void)
 {
     return BIP_Address.s_addr;
 }
 
-void bip_set_broadcast_addr(
+void ICACHE_FLASH_ATTR bip_set_broadcast_addr(
     uint32_t net_address)
 {       /* in network byte order */
     BIP_Broadcast_Address.s_addr = net_address;
 }
 
 /* returns network byte order */
-uint32_t bip_get_broadcast_addr(
+uint32_t ICACHE_FLASH_ATTR bip_get_broadcast_addr(
     void)
 {
     return BIP_Broadcast_Address.s_addr;
 }
 
 
-void bip_set_port(
+void ICACHE_FLASH_ATTR bip_set_port(
     uint16_t port)
 {       /* in network byte order */
     BIP_Port = port;
 }
 
 /* returns network byte order */
-uint16_t bip_get_port(
+uint16_t ICACHE_FLASH_ATTR bip_get_port(
     void)
 {
     return BIP_Port;
 }
 
-static int bip_decode_bip_address(
+static int ICACHE_FLASH_ATTR bip_decode_bip_address(
     BACNET_ADDRESS * bac_addr,
     struct in_addr *address,    /* in network format */
     uint16_t * port)
@@ -147,7 +147,7 @@ static int bip_decode_bip_address(
  * @param pdu_len [in] Number of bytes in the pdu buffer.
  * @return Number of bytes sent on success, negative number on failure.
  */
-int bip_send_pdu(
+int ICACHE_FLASH_ATTR bip_send_pdu(
     BACNET_ADDRESS * dest,      /* destination address */
     BACNET_NPDU_DATA * npdu_data,       /* network information */
     uint8_t * pdu,      /* any data to be sent - may be null */
@@ -225,7 +225,7 @@ int bip_send_pdu(
  * @param timeout [in] The number of milliseconds to wait for a packet.
  * @return The number of octets (remaining) in the PDU, or zero on failure.
  */
-uint16_t bip_receive(
+uint16_t ICACHE_FLASH_ATTR bip_receive(
     BACNET_ADDRESS * src,       /* source address */
     uint8_t * pdu,      /* PDU data */
     uint16_t max_pdu,   /* amount of space available in the PDU  */
@@ -369,7 +369,7 @@ uint16_t bip_receive(
     return 0;
 }
 
-void bip_get_my_address(
+void ICACHE_FLASH_ATTR bip_get_my_address(
     BACNET_ADDRESS * my_address)
 {
     int i = 0;
@@ -389,7 +389,7 @@ void bip_get_my_address(
     return;
 }
 
-void bip_get_broadcast_address(
+void ICACHE_FLASH_ATTR bip_get_broadcast_address(
     BACNET_ADDRESS * dest)
 {       /* destination address */
     int i = 0;  /* counter */

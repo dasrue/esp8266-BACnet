@@ -51,7 +51,7 @@
  *
  * @return  number of bytes encoded, or 0 if unable to encode.
  */
-int lighting_command_encode(
+int ICACHE_FLASH_ATTR lighting_command_encode(
     uint8_t * apdu,
     BACNET_LIGHTING_COMMAND * data)
 {
@@ -107,7 +107,7 @@ int lighting_command_encode(
  *
  * @return  number of bytes encoded, or 0 if unable to encode.
  */
-int lighting_command_encode_context(
+int ICACHE_FLASH_ATTR lighting_command_encode_context(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_LIGHTING_COMMAND * value)
@@ -130,7 +130,7 @@ int lighting_command_encode_context(
  *
  * @return  number of bytes encoded
  */
-int lighting_command_decode(
+int ICACHE_FLASH_ATTR lighting_command_decode(
     uint8_t * apdu,
     unsigned apdu_max_len,
     BACNET_LIGHTING_COMMAND * data)
@@ -234,7 +234,7 @@ int lighting_command_decode(
  *
  * @return  true if copy succeeded
  */
-bool lighting_command_copy(
+bool ICACHE_FLASH_ATTR lighting_command_copy(
     BACNET_LIGHTING_COMMAND * dst,
     BACNET_LIGHTING_COMMAND * src)
 {
@@ -266,7 +266,7 @@ bool lighting_command_copy(
  *
  * @return  true if lighting-commands are the same for values in-use
  */
-bool lighting_command_same(
+bool ICACHE_FLASH_ATTR lighting_command_same(
     BACNET_LIGHTING_COMMAND * dst,
     BACNET_LIGHTING_COMMAND * src)
 {

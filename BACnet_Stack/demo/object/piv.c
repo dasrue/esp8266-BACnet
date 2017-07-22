@@ -67,7 +67,7 @@ static const int PositiveInteger_Value_Properties_Proprietary[] = {
     -1
 };
 
-void PositiveInteger_Value_Property_Lists(const int **pRequired,
+void ICACHE_FLASH_ATTR PositiveInteger_Value_Property_Lists(const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
 {
@@ -81,7 +81,7 @@ void PositiveInteger_Value_Property_Lists(const int **pRequired,
     return;
 }
 
-void PositiveInteger_Value_Init(void)
+void ICACHE_FLASH_ATTR PositiveInteger_Value_Init(void)
 {
     unsigned i;
 
@@ -93,7 +93,7 @@ void PositiveInteger_Value_Init(void)
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool PositiveInteger_Value_Valid_Instance(uint32_t object_instance)
+bool ICACHE_FLASH_ATTR PositiveInteger_Value_Valid_Instance(uint32_t object_instance)
 {
     if (object_instance < MAX_POSITIVEINTEGER_VALUES)
         return true;
@@ -103,7 +103,7 @@ bool PositiveInteger_Value_Valid_Instance(uint32_t object_instance)
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned PositiveInteger_Value_Count(void)
+unsigned ICACHE_FLASH_ATTR PositiveInteger_Value_Count(void)
 {
     return MAX_POSITIVEINTEGER_VALUES;
 }
@@ -111,7 +111,7 @@ unsigned PositiveInteger_Value_Count(void)
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t PositiveInteger_Value_Index_To_Instance(unsigned index)
+uint32_t ICACHE_FLASH_ATTR PositiveInteger_Value_Index_To_Instance(unsigned index)
 {
     return index;
 }
@@ -119,7 +119,7 @@ uint32_t PositiveInteger_Value_Index_To_Instance(unsigned index)
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned PositiveInteger_Value_Instance_To_Index(uint32_t object_instance)
+unsigned ICACHE_FLASH_ATTR PositiveInteger_Value_Instance_To_Index(uint32_t object_instance)
 {
     unsigned index = MAX_POSITIVEINTEGER_VALUES;
 
@@ -139,7 +139,7 @@ unsigned PositiveInteger_Value_Instance_To_Index(uint32_t object_instance)
  *
  * @return  true if values are within range and present-value is set.
  */
-bool PositiveInteger_Value_Present_Value_Set(uint32_t object_instance,
+bool ICACHE_FLASH_ATTR PositiveInteger_Value_Present_Value_Set(uint32_t object_instance,
     uint32_t value,
     uint8_t priority)
 {
@@ -154,7 +154,7 @@ bool PositiveInteger_Value_Present_Value_Set(uint32_t object_instance,
     return status;
 }
 
-uint32_t PositiveInteger_Value_Present_Value(uint32_t object_instance)
+uint32_t ICACHE_FLASH_ATTR PositiveInteger_Value_Present_Value(uint32_t object_instance)
 {
     uint32_t value = 0;
     unsigned index = 0;
@@ -168,7 +168,7 @@ uint32_t PositiveInteger_Value_Present_Value(uint32_t object_instance)
 }
 
 /* note: the object name must be unique within this device */
-bool PositiveInteger_Value_Object_Name(uint32_t object_instance,
+bool ICACHE_FLASH_ATTR PositiveInteger_Value_Object_Name(uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
     static char text_string[32] = "";   /* okay for single thread */
@@ -184,7 +184,7 @@ bool PositiveInteger_Value_Object_Name(uint32_t object_instance,
 }
 
 /* return apdu len, or BACNET_STATUS_ERROR on error */
-int PositiveInteger_Value_Read_Property(BACNET_READ_PROPERTY_DATA * rpdata)
+int ICACHE_FLASH_ATTR PositiveInteger_Value_Read_Property(BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
     BACNET_BIT_STRING bit_string;
@@ -273,7 +273,7 @@ int PositiveInteger_Value_Read_Property(BACNET_READ_PROPERTY_DATA * rpdata)
 }
 
 /* returns true if successful */
-bool PositiveInteger_Value_Write_Property(BACNET_WRITE_PROPERTY_DATA * wp_data)
+bool ICACHE_FLASH_ATTR PositiveInteger_Value_Write_Property(BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
     unsigned int object_index = 0;
@@ -361,7 +361,7 @@ bool PositiveInteger_Value_Write_Property(BACNET_WRITE_PROPERTY_DATA * wp_data)
 }
 
 
-void PositiveInteger_Value_Intrinsic_Reporting(uint32_t object_instance)
+void ICACHE_FLASH_ATTR PositiveInteger_Value_Intrinsic_Reporting(uint32_t object_instance)
 {
 }
 

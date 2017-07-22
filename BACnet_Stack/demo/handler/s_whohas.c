@@ -55,7 +55,7 @@
  * @param high_limit [in] Device Instance High Range, 0 - 4,194,303 or -1
  * @param object_name [in] The Name of the desired Object.
  */
-void Send_WhoHas_Name(
+void ICACHE_FLASH_ATTR Send_WhoHas_Name(
     int32_t low_limit,
     int32_t high_limit,
     const char *object_name)
@@ -109,7 +109,7 @@ void Send_WhoHas_Name(
  * @param object_type [in] The BACNET_OBJECT_TYPE of the desired Object.
  * @param object_instance [in] The ID of the desired Object.
  */
-void Send_WhoHas_Object(
+void ICACHE_FLASH_ATTR Send_WhoHas_Object(
     int32_t low_limit,
     int32_t high_limit,
     BACNET_OBJECT_TYPE object_type,

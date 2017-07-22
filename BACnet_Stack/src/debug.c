@@ -56,7 +56,7 @@ void debug_printf(
     return;
 }
 #else
-void debug_printf(
+void ICACHE_FLASH_ATTR debug_printf(
     const char *format,
     ...)
 {

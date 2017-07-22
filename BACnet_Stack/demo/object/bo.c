@@ -78,7 +78,7 @@ static const int Binary_Output_Properties_Proprietary[] = {
     -1
 };
 
-void Binary_Output_Property_Lists(
+void ICACHE_FLASH_ATTR Binary_Output_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -93,7 +93,7 @@ void Binary_Output_Property_Lists(
     return;
 }
 
-void Binary_Output_Init(
+void ICACHE_FLASH_ATTR Binary_Output_Init(
     void)
 {
     unsigned i, j;
@@ -116,7 +116,7 @@ void Binary_Output_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Binary_Output_Valid_Instance(
+bool ICACHE_FLASH_ATTR Binary_Output_Valid_Instance(
     uint32_t object_instance)
 {
     if (object_instance < MAX_BINARY_OUTPUTS)
@@ -127,7 +127,7 @@ bool Binary_Output_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Binary_Output_Count(
+unsigned ICACHE_FLASH_ATTR Binary_Output_Count(
     void)
 {
     return MAX_BINARY_OUTPUTS;
@@ -136,7 +136,7 @@ unsigned Binary_Output_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Binary_Output_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Binary_Output_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -145,7 +145,7 @@ uint32_t Binary_Output_Index_To_Instance(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Binary_Output_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Binary_Output_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_BINARY_OUTPUTS;
@@ -156,7 +156,7 @@ unsigned Binary_Output_Instance_To_Index(
     return index;
 }
 
-BACNET_BINARY_PV Binary_Output_Present_Value(
+BACNET_BINARY_PV ICACHE_FLASH_ATTR Binary_Output_Present_Value(
     uint32_t object_instance)
 {
     BACNET_BINARY_PV value = RELINQUISH_DEFAULT;
@@ -176,7 +176,7 @@ BACNET_BINARY_PV Binary_Output_Present_Value(
     return value;
 }
 
-bool Binary_Output_Out_Of_Service(
+bool ICACHE_FLASH_ATTR Binary_Output_Out_Of_Service(
     uint32_t object_instance)
 {
     bool value = false;
@@ -191,7 +191,7 @@ bool Binary_Output_Out_Of_Service(
 }
 
 /* note: the object name must be unique within this device */
-bool Binary_Output_Object_Name(
+bool ICACHE_FLASH_ATTR Binary_Output_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -208,7 +208,7 @@ bool Binary_Output_Object_Name(
 }
 
 /* return apdu len, or BACNET_STATUS_ERROR on error */
-int Binary_Output_Read_Property(
+int ICACHE_FLASH_ATTR Binary_Output_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int len = 0;
@@ -357,7 +357,7 @@ int Binary_Output_Read_Property(
 }
 
 /* returns true if successful */
-bool Binary_Output_Write_Property(
+bool ICACHE_FLASH_ATTR Binary_Output_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */

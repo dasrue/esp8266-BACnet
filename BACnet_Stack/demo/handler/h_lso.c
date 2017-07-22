@@ -40,7 +40,7 @@
 
 /** @file h_lso.c  Handles BACnet Life Safey Operation messages. */
 
-void handler_lso(
+void ICACHE_FLASH_ATTR handler_lso(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

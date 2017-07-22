@@ -47,7 +47,7 @@ static char My_Password[32] = "filister";
 /** Sets (non-volatile hold) the password to be used for DCC requests.
  * @param new_password [in] The new DCC password, of up to 31 characters.
  */
-void handler_dcc_password_set(
+void ICACHE_FLASH_ATTR handler_dcc_password_set(
     char *new_password)
 {
     size_t i = 0;       /* loop counter */
@@ -87,7 +87,7 @@ void handler_dcc_password_set(
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_device_communication_control(
+void ICACHE_FLASH_ATTR handler_device_communication_control(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

@@ -40,7 +40,7 @@
 /** @file ptransfer.c  Encode/Decode Private Transfer data */
 
 /* encode service */
-static int pt_encode_apdu(
+static int ICACHE_FLASH_ATTR pt_encode_apdu(
     uint8_t * apdu,
     uint16_t max_apdu,
     BACNET_PRIVATE_TRANSFER_DATA * private_data)
@@ -78,7 +78,7 @@ static int pt_encode_apdu(
     return apdu_len;
 }
 
-int ptransfer_encode_apdu(
+int ICACHE_FLASH_ATTR ptransfer_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_PRIVATE_TRANSFER_DATA * private_data)
@@ -101,7 +101,7 @@ int ptransfer_encode_apdu(
     return apdu_len;
 }
 
-int uptransfer_encode_apdu(
+int ICACHE_FLASH_ATTR uptransfer_encode_apdu(
     uint8_t * apdu,
     BACNET_PRIVATE_TRANSFER_DATA * private_data)
 {
@@ -122,7 +122,7 @@ int uptransfer_encode_apdu(
 }
 
 /* decode the service request only */
-int ptransfer_decode_service_request(
+int ICACHE_FLASH_ATTR ptransfer_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_PRIVATE_TRANSFER_DATA * private_data)
@@ -165,7 +165,7 @@ int ptransfer_decode_service_request(
     return len;
 }
 
-int ptransfer_error_encode_apdu(
+int ICACHE_FLASH_ATTR ptransfer_error_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_ERROR_CLASS error_class,
@@ -219,7 +219,7 @@ int ptransfer_error_encode_apdu(
 }
 
 /* decode the service request only */
-int ptransfer_error_decode_service_request(
+int ICACHE_FLASH_ATTR ptransfer_error_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_ERROR_CLASS * error_class,
@@ -304,7 +304,7 @@ int ptransfer_error_decode_service_request(
     return len;
 }
 
-int ptransfer_ack_encode_apdu(
+int ICACHE_FLASH_ATTR ptransfer_ack_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_PRIVATE_TRANSFER_DATA * private_data)

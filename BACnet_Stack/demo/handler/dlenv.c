@@ -65,7 +65,7 @@ void dlenv_bbmd_address_set(
  * Default if not set is 0xBAC0.
  * @param port - The port number (provided in network byte order).
  */
-void dlenv_bbmd_port_set(
+void ICACHE_FLASH_ATTR dlenv_bbmd_port_set(
     int port)
 {
     bbmd_port = port;
@@ -75,7 +75,7 @@ void dlenv_bbmd_port_set(
  * Default if not set is 60000 (1000 minutes).
  * @param ttl_secs - The Lease Time, in seconds.
  */
-void dlenv_bbmd_ttl_set(
+void ICACHE_FLASH_ATTR dlenv_bbmd_ttl_set(
     int ttl_secs)
 {
     bbmd_timetolive_seconds = ttl_secs;
@@ -89,7 +89,7 @@ void dlenv_bbmd_ttl_set(
  *         0 if no registration request was made, or
  *         -1 if registration attempt failed.
  */
-int dlenv_bbmd_result(
+int ICACHE_FLASH_ATTR dlenv_bbmd_result(
     void)
 {
     if ((bbmd_result > 0) &&
@@ -114,7 +114,7 @@ int dlenv_bbmd_result(
  *         0 if no registration request is sent, or
  *         -1 if registration fails.
  */
-int dlenv_register_as_foreign_device(
+int ICACHE_FLASH_ATTR dlenv_register_as_foreign_device(
     void)
 {
     int retval = 0;
@@ -164,7 +164,7 @@ int dlenv_register_as_foreign_device(
  * Call this function to renew our Foreign Device Registration
  * @param elapsed_seconds Number of seconds that have elapsed since last called.
  */
-void dlenv_maintenance_timer(
+void ICACHE_FLASH_ATTR dlenv_maintenance_timer(
     uint16_t elapsed_seconds)
 {
 #if defined(BACDL_BIP) && BBMD_ENABLED
@@ -236,7 +236,7 @@ void dlenv_maintenance_timer(
  *     communications.  Default is 47808 (0xBAC0).
  *   - BACNET_BIP6_BROADCAST - FF05::BAC0 or FF02::BAC0 or ...
  */
-void dlenv_init(
+void ICACHE_FLASH_ATTR dlenv_init(
     void)
 {
     char *pEnv = NULL;

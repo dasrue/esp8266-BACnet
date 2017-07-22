@@ -45,7 +45,7 @@
 
 /** @file bacstr.c  Manipulate Bit/Char/Octet Strings */
 
-void bitstring_init(
+void ICACHE_FLASH_ATTR bitstring_init(
     BACNET_BIT_STRING * bit_string)
 {
     int i;
@@ -56,7 +56,7 @@ void bitstring_init(
     }
 }
 
-void bitstring_set_bit(
+void ICACHE_FLASH_ATTR bitstring_set_bit(
     BACNET_BIT_STRING * bit_string,
     uint8_t bit_number,
     bool value)
@@ -78,7 +78,7 @@ void bitstring_set_bit(
     }
 }
 
-bool bitstring_bit(
+bool ICACHE_FLASH_ATTR bitstring_bit(
     BACNET_BIT_STRING * bit_string,
     uint8_t bit_number)
 {
@@ -96,14 +96,14 @@ bool bitstring_bit(
     return value;
 }
 
-uint8_t bitstring_bits_used(
+uint8_t ICACHE_FLASH_ATTR bitstring_bits_used(
     BACNET_BIT_STRING * bit_string)
 {
     return bit_string->bits_used;
 }
 
 /* returns the number of bytes that a bit string is using */
-uint8_t bitstring_bytes_used(
+uint8_t ICACHE_FLASH_ATTR bitstring_bytes_used(
     BACNET_BIT_STRING * bit_string)
 {
     uint8_t len = 0;    /* return value */
@@ -121,7 +121,7 @@ uint8_t bitstring_bytes_used(
     return len;
 }
 
-uint8_t bitstring_octet(
+uint8_t ICACHE_FLASH_ATTR bitstring_octet(
     BACNET_BIT_STRING * bit_string,
     uint8_t octet_index)
 {
@@ -136,7 +136,7 @@ uint8_t bitstring_octet(
     return octet;
 }
 
-bool bitstring_set_octet(
+bool ICACHE_FLASH_ATTR bitstring_set_octet(
     BACNET_BIT_STRING * bit_string,
     uint8_t index,
     uint8_t octet)
@@ -153,7 +153,7 @@ bool bitstring_set_octet(
     return status;
 }
 
-bool bitstring_set_bits_used(
+bool ICACHE_FLASH_ATTR bitstring_set_bits_used(
     BACNET_BIT_STRING * bit_string,
     uint8_t bytes_used,
     uint8_t unused_bits)
@@ -170,7 +170,7 @@ bool bitstring_set_bits_used(
     return status;
 }
 
-uint8_t bitstring_bits_capacity(
+uint8_t ICACHE_FLASH_ATTR bitstring_bits_capacity(
     BACNET_BIT_STRING * bit_string)
 {
     if (bit_string) {
@@ -180,7 +180,7 @@ uint8_t bitstring_bits_capacity(
     }
 }
 
-bool bitstring_copy(
+bool ICACHE_FLASH_ATTR bitstring_copy(
     BACNET_BIT_STRING * dest,
     BACNET_BIT_STRING * src)
 {
@@ -199,7 +199,7 @@ bool bitstring_copy(
 }
 
 /* returns true if the same length and contents */
-bool bitstring_same(
+bool ICACHE_FLASH_ATTR bitstring_same(
     BACNET_BIT_STRING * bitstring1,
     BACNET_BIT_STRING * bitstring2)
 {
@@ -280,7 +280,7 @@ bool bitstring_init_ascii(
 #define CHARACTER_STRING_CAPACITY (MAX_CHARACTER_STRING_BYTES - 1)
 /* returns false if the string exceeds capacity
    initialize by using value=NULL */
-bool characterstring_init(
+bool ICACHE_FLASH_ATTR characterstring_init(
     BACNET_CHARACTER_STRING * char_string,
     uint8_t encoding,
     const char *value,
@@ -316,7 +316,7 @@ bool characterstring_init(
     return status;
 }
 
-bool characterstring_init_ansi(
+bool ICACHE_FLASH_ATTR characterstring_init_ansi(
     BACNET_CHARACTER_STRING * char_string,
     const char *value)
 {
@@ -324,7 +324,7 @@ bool characterstring_init_ansi(
         value ? strlen(value) : 0);
 }
 
-bool characterstring_copy(
+bool ICACHE_FLASH_ATTR characterstring_copy(
     BACNET_CHARACTER_STRING * dest,
     BACNET_CHARACTER_STRING * src)
 {
@@ -332,7 +332,7 @@ bool characterstring_copy(
         characterstring_value(src), characterstring_length(src));
 }
 
-bool characterstring_ansi_copy(
+bool ICACHE_FLASH_ATTR characterstring_ansi_copy(
     char *dest,
     size_t dest_max_len,
     BACNET_CHARACTER_STRING * src)
@@ -355,7 +355,7 @@ bool characterstring_ansi_copy(
 }
 
 /* returns true if the character encoding and string contents are the same */
-bool characterstring_same(
+bool ICACHE_FLASH_ATTR characterstring_same(
     BACNET_CHARACTER_STRING * dest,
     BACNET_CHARACTER_STRING * src)
 {
@@ -384,7 +384,7 @@ bool characterstring_same(
     return same_status;
 }
 
-bool characterstring_ansi_same(
+bool ICACHE_FLASH_ATTR characterstring_ansi_same(
     BACNET_CHARACTER_STRING * dest,
     const char *src)
 {
@@ -417,7 +417,7 @@ bool characterstring_ansi_same(
 }
 
 /* returns false if the string exceeds capacity */
-bool characterstring_append(
+bool ICACHE_FLASH_ATTR characterstring_append(
     BACNET_CHARACTER_STRING * char_string,
     const char *value,
     size_t length)
@@ -441,7 +441,7 @@ bool characterstring_append(
 /* This function sets a new length without changing the value.
    If length exceeds capacity, no modification happens and
    function returns false.  */
-bool characterstring_truncate(
+bool ICACHE_FLASH_ATTR characterstring_truncate(
     BACNET_CHARACTER_STRING * char_string,
     size_t length)
 {
@@ -458,7 +458,7 @@ bool characterstring_truncate(
 }
 
 /* Returns the value. */
-char *characterstring_value(
+char *ICACHE_FLASH_ATTR characterstring_value(
     BACNET_CHARACTER_STRING * char_string)
 {
     char *value = NULL;
@@ -471,7 +471,7 @@ char *characterstring_value(
 }
 
 /* returns the length. */
-size_t characterstring_length(
+size_t ICACHE_FLASH_ATTR characterstring_length(
     BACNET_CHARACTER_STRING * char_string)
 {
     size_t length = 0;
@@ -484,7 +484,7 @@ size_t characterstring_length(
     return length;
 }
 
-size_t characterstring_capacity(
+size_t ICACHE_FLASH_ATTR characterstring_capacity(
     BACNET_CHARACTER_STRING * char_string)
 {
     size_t length = 0;
@@ -497,7 +497,7 @@ size_t characterstring_capacity(
 }
 
 /* returns the encoding. */
-uint8_t characterstring_encoding(
+uint8_t ICACHE_FLASH_ATTR characterstring_encoding(
     BACNET_CHARACTER_STRING * char_string)
 {
     uint8_t encoding = 0;
@@ -510,7 +510,7 @@ uint8_t characterstring_encoding(
 }
 
 /* returns the encoding. */
-bool characterstring_set_encoding(
+bool ICACHE_FLASH_ATTR characterstring_set_encoding(
     BACNET_CHARACTER_STRING * char_string,
     uint8_t encoding)
 {
@@ -535,7 +535,7 @@ punctuation marks, and mathematical symbols. The exact set
 depends upon the character set being used. In ANSI X3.4 the
 printable characters are represented by single octets in the range
 X'20' - X'7E'.*/
-bool characterstring_printable(
+bool ICACHE_FLASH_ATTR characterstring_printable(
     BACNET_CHARACTER_STRING * char_string)
 {
     bool status = false;        /* return value */
@@ -587,7 +587,7 @@ static const char trailingBytesForUTF8[256] = {
 /* based on the valid_utf8 routine from the PCRE library by Philip Hazel
    length is in bytes, since without knowing whether the string is valid
    it's hard to know how many characters there are! */
-bool utf8_isvalid(
+bool ICACHE_FLASH_ATTR utf8_isvalid(
     const char *str,
     size_t length)
 {
@@ -667,7 +667,7 @@ bool utf8_isvalid(
     return true;
 }
 
-bool characterstring_valid(
+bool ICACHE_FLASH_ATTR characterstring_valid(
     BACNET_CHARACTER_STRING * char_string)
 {
     bool valid = false; /* return value */
@@ -688,7 +688,7 @@ bool characterstring_valid(
 #if BACNET_USE_OCTETSTRING
 /* returns false if the string exceeds capacity
    initialize by using value=NULL */
-bool octetstring_init(
+bool ICACHE_FLASH_ATTR octetstring_init(
     BACNET_OCTET_STRING * octet_string,
     uint8_t * value,
     size_t length)
@@ -767,7 +767,7 @@ bool octetstring_init_ascii_hex(
 }
 #endif
 
-bool octetstring_copy(
+bool ICACHE_FLASH_ATTR octetstring_copy(
     BACNET_OCTET_STRING * dest,
     BACNET_OCTET_STRING * src)
 {
@@ -777,7 +777,7 @@ bool octetstring_copy(
 
 /* returns the number of bytes copied, or 0 if the dest
    cannot hold entire octetstring value */
-size_t octetstring_copy_value(
+size_t ICACHE_FLASH_ATTR octetstring_copy_value(
     uint8_t * dest,
     size_t length,
     BACNET_OCTET_STRING * src)
@@ -798,7 +798,7 @@ size_t octetstring_copy_value(
 }
 
 /* returns false if the string exceeds capacity */
-bool octetstring_append(
+bool ICACHE_FLASH_ATTR octetstring_append(
     BACNET_OCTET_STRING * octet_string,
     uint8_t * value,
     size_t length)
@@ -822,7 +822,7 @@ bool octetstring_append(
 /* This function sets a new length without changing the value.
    If length exceeds capacity, no modification happens and
    function returns false.  */
-bool octetstring_truncate(
+bool ICACHE_FLASH_ATTR octetstring_truncate(
     BACNET_OCTET_STRING * octet_string,
     size_t length)
 {
@@ -839,7 +839,7 @@ bool octetstring_truncate(
 }
 
 /* returns a pointer to the value. */
-uint8_t *octetstring_value(
+uint8_t *ICACHE_FLASH_ATTR octetstring_value(
     BACNET_OCTET_STRING * octet_string)
 {
     uint8_t *value = NULL;
@@ -852,7 +852,7 @@ uint8_t *octetstring_value(
 }
 
 /* returns the length. */
-size_t octetstring_length(
+size_t ICACHE_FLASH_ATTR octetstring_length(
     BACNET_OCTET_STRING * octet_string)
 {
     size_t length = 0;
@@ -866,7 +866,7 @@ size_t octetstring_length(
 }
 
 /* returns the maximum capacity. */
-size_t octetstring_capacity(
+size_t ICACHE_FLASH_ATTR octetstring_capacity(
     BACNET_OCTET_STRING * octet_string)
 {
     size_t length = 0;
@@ -880,7 +880,7 @@ size_t octetstring_capacity(
 }
 
 /* returns true if the same length and contents */
-bool octetstring_value_same(
+bool ICACHE_FLASH_ATTR octetstring_value_same(
     BACNET_OCTET_STRING * octet_string1,
     BACNET_OCTET_STRING * octet_string2)
 {

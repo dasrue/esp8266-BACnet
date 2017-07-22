@@ -92,7 +92,7 @@ static const int Life_Safety_Point_Properties_Proprietary[] = {
  * @param pProprietary - pointer to list of int terminated by -1, of
  * BACnet proprietary properties for this object.
  */
-void Life_Safety_Point_Property_Lists(
+void ICACHE_FLASH_ATTR Life_Safety_Point_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -110,7 +110,7 @@ void Life_Safety_Point_Property_Lists(
     return;
 }
 
-void Life_Safety_Point_Init(
+void ICACHE_FLASH_ATTR Life_Safety_Point_Init(
     void)
 {
     static bool initialized = false;
@@ -134,7 +134,7 @@ void Life_Safety_Point_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Life_Safety_Point_Valid_Instance(
+bool ICACHE_FLASH_ATTR Life_Safety_Point_Valid_Instance(
     uint32_t object_instance)
 {
     if (object_instance < MAX_LIFE_SAFETY_POINTS)
@@ -145,7 +145,7 @@ bool Life_Safety_Point_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Life_Safety_Point_Count(
+unsigned ICACHE_FLASH_ATTR Life_Safety_Point_Count(
     void)
 {
     return MAX_LIFE_SAFETY_POINTS;
@@ -154,7 +154,7 @@ unsigned Life_Safety_Point_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Life_Safety_Point_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Life_Safety_Point_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -163,7 +163,7 @@ uint32_t Life_Safety_Point_Index_To_Instance(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Life_Safety_Point_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Life_Safety_Point_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_LIFE_SAFETY_POINTS;
@@ -174,7 +174,7 @@ unsigned Life_Safety_Point_Instance_To_Index(
     return index;
 }
 
-static BACNET_LIFE_SAFETY_STATE Life_Safety_Point_Present_Value(
+static BACNET_LIFE_SAFETY_STATE ICACHE_FLASH_ATTR Life_Safety_Point_Present_Value(
     uint32_t object_instance)
 {
     BACNET_LIFE_SAFETY_STATE present_value = LIFE_SAFETY_STATE_QUIET;
@@ -188,7 +188,7 @@ static BACNET_LIFE_SAFETY_STATE Life_Safety_Point_Present_Value(
 }
 
 /* note: the object name must be unique within this device */
-bool Life_Safety_Point_Object_Name(
+bool ICACHE_FLASH_ATTR Life_Safety_Point_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -204,7 +204,7 @@ bool Life_Safety_Point_Object_Name(
 }
 
 /* return apdu len, or BACNET_STATUS_ERROR on error */
-int Life_Safety_Point_Read_Property(
+int ICACHE_FLASH_ATTR Life_Safety_Point_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int len = 0;
@@ -319,7 +319,7 @@ int Life_Safety_Point_Read_Property(
 }
 
 /* returns true if successful */
-bool Life_Safety_Point_Write_Property(
+bool ICACHE_FLASH_ATTR Life_Safety_Point_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */

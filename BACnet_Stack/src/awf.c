@@ -40,7 +40,7 @@
 /** @file awf.c  Atomic Write File */
 
 /* encode service */
-int awf_encode_apdu(
+int ICACHE_FLASH_ATTR awf_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_ATOMIC_WRITE_FILE_DATA * data)
@@ -89,7 +89,7 @@ int awf_encode_apdu(
 }
 
 /* decode the service request only */
-int awf_decode_service_request(
+int ICACHE_FLASH_ATTR awf_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_ATOMIC_WRITE_FILE_DATA * data)
@@ -191,7 +191,7 @@ int awf_decode_service_request(
     return len;
 }
 
-int awf_decode_apdu(
+int ICACHE_FLASH_ATTR awf_decode_apdu(
     uint8_t * apdu,
     unsigned apdu_len,
     uint8_t * invoke_id,
@@ -219,7 +219,7 @@ int awf_decode_apdu(
     return len;
 }
 
-int awf_ack_encode_apdu(
+int ICACHE_FLASH_ATTR awf_ack_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_ATOMIC_WRITE_FILE_DATA * data)
@@ -251,7 +251,7 @@ int awf_ack_encode_apdu(
 }
 
 /* decode the service request only */
-int awf_ack_decode_service_request(
+int ICACHE_FLASH_ATTR awf_ack_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_ATOMIC_WRITE_FILE_DATA * data)
@@ -282,7 +282,7 @@ int awf_ack_decode_service_request(
     return len;
 }
 
-int awf_ack_decode_apdu(
+int ICACHE_FLASH_ATTR awf_ack_decode_apdu(
     uint8_t * apdu,
     unsigned apdu_len,
     uint8_t * invoke_id,

@@ -45,7 +45,7 @@ static uint8_t Temp_Buf[MAX_APDU] = { 0 };
 
 /* Encodes the property APDU and returns the length,
    or sets the error, and returns -1 */
-static int Encode_RR_payload(
+static int ICACHE_FLASH_ATTR Encode_RR_payload(
     uint8_t * apdu,
     BACNET_READ_RANGE_DATA * pRequest)
 {
@@ -87,7 +87,7 @@ static int Encode_RR_payload(
     return apdu_len;
 }
 
-void handler_read_range(
+void ICACHE_FLASH_ATTR handler_read_range(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

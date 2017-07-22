@@ -47,7 +47,7 @@ static INDTEXT_DATA mstp_receive_state_text[] = {
     {0, NULL}
 };
 
-const char *mstptext_receive_state(
+const char *ICACHE_FLASH_ATTR mstptext_receive_state(
     unsigned index)
 {
     return indtext_by_index_default(mstp_receive_state_text, index, "unknown");
@@ -66,7 +66,7 @@ static INDTEXT_DATA mstp_master_state_text[] = {
     {0, NULL}
 };
 
-const char *mstptext_master_state(
+const char *ICACHE_FLASH_ATTR mstptext_master_state(
     unsigned index)
 {
     return indtext_by_index_default(mstp_master_state_text, index, "unknown");
@@ -85,7 +85,7 @@ static INDTEXT_DATA mstp_frame_type_text[] = {
     {0, NULL}
 };
 
-const char *mstptext_frame_type(
+const char *ICACHE_FLASH_ATTR mstptext_frame_type(
     unsigned index)
 {
     return indtext_by_index_split_default(mstp_frame_type_text, index,

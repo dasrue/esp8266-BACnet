@@ -41,7 +41,7 @@
 
 static get_alarm_summary_function Get_Alarm_Summary[MAX_BACNET_OBJECT_TYPE];
 
-void handler_get_alarm_summary_set(
+void ICACHE_FLASH_ATTR handler_get_alarm_summary_set(
     BACNET_OBJECT_TYPE object_type,
     get_alarm_summary_function pFunction)
 {
@@ -50,7 +50,7 @@ void handler_get_alarm_summary_set(
     }
 }
 
-void handler_get_alarm_summary(
+void ICACHE_FLASH_ATTR handler_get_alarm_summary(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

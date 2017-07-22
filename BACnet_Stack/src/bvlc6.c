@@ -53,7 +53,7 @@
  *
  * @return number of bytes encoded
  */
-int bvlc6_encode_header(
+int ICACHE_FLASH_ATTR bvlc6_encode_header(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint8_t message_type,
@@ -83,7 +83,7 @@ int bvlc6_encode_header(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_header(
+int ICACHE_FLASH_ATTR bvlc6_decode_header(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint8_t * message_type,
@@ -130,7 +130,7 @@ int bvlc6_decode_header(
  *                                  X'00A0' Delete-Foreign-Device-Table-Entry NAK
  *                                  X'00C0' Distribute-Broadcast-To-Network NAK
  */
-int bvlc6_encode_result(
+int ICACHE_FLASH_ATTR bvlc6_encode_result(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac,
@@ -161,7 +161,7 @@ int bvlc6_encode_result(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_result(
+int ICACHE_FLASH_ATTR bvlc6_decode_result(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac,
@@ -203,7 +203,7 @@ int bvlc6_decode_result(
  * Destination-Virtual-Address: 3-octets
  * BACnet NPDU:                 Variable length
  */
-int bvlc6_encode_original_unicast(
+int ICACHE_FLASH_ATTR bvlc6_encode_original_unicast(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -250,7 +250,7 @@ int bvlc6_encode_original_unicast(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_original_unicast(
+int ICACHE_FLASH_ATTR bvlc6_decode_original_unicast(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -304,7 +304,7 @@ int bvlc6_decode_original_unicast(
  * Source-Virtual-Address:      3-octets
  * BACnet NPDU:                 Variable length
  */
-int bvlc6_encode_original_broadcast(
+int ICACHE_FLASH_ATTR bvlc6_encode_original_broadcast(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac,
@@ -346,7 +346,7 @@ int bvlc6_encode_original_broadcast(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_original_broadcast(
+int ICACHE_FLASH_ATTR bvlc6_decode_original_broadcast(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac,
@@ -396,7 +396,7 @@ int bvlc6_decode_original_broadcast(
  * Source-Virtual-Address:      3-octets
  * Target-Virtual-Address:      3-octets
  */
-int bvlc6_encode_address_resolution(
+int ICACHE_FLASH_ATTR bvlc6_encode_address_resolution(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -430,7 +430,7 @@ int bvlc6_encode_address_resolution(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_address_resolution(
+int ICACHE_FLASH_ATTR bvlc6_decode_address_resolution(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -464,7 +464,7 @@ int bvlc6_decode_address_resolution(
  *
  * @return number of bytes encoded
  */
-int bvlc6_encode_address(
+int ICACHE_FLASH_ATTR bvlc6_encode_address(
     uint8_t * pdu,
     uint16_t pdu_size,
     BACNET_IP6_ADDRESS * bip6_address)
@@ -492,7 +492,7 @@ int bvlc6_encode_address(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_address(
+int ICACHE_FLASH_ATTR bvlc6_decode_address(
     uint8_t * pdu,
     uint16_t pdu_len,
     BACNET_IP6_ADDRESS * bip6_address)
@@ -524,7 +524,7 @@ int bvlc6_decode_address(
  *
  * @return true if the address was copied
  */
-bool bvlc6_address_copy(
+bool ICACHE_FLASH_ATTR bvlc6_address_copy(
     BACNET_IP6_ADDRESS * dst,
     BACNET_IP6_ADDRESS * src)
 {
@@ -554,7 +554,7 @@ bool bvlc6_address_copy(
  *
  * @return true if the addresses are different
  */
-bool bvlc6_address_different(
+bool ICACHE_FLASH_ATTR bvlc6_address_different(
     BACNET_IP6_ADDRESS * dst,
     BACNET_IP6_ADDRESS * src)
 {
@@ -594,7 +594,7 @@ bool bvlc6_address_different(
  *
  * @return true if the address is set
  */
-bool bvlc6_address_set(
+bool ICACHE_FLASH_ATTR bvlc6_address_set(
     BACNET_IP6_ADDRESS * addr,
     uint16_t addr0,
     uint16_t addr1,
@@ -641,7 +641,7 @@ bool bvlc6_address_set(
  *
  * @return true if the address is set
  */
-bool bvlc6_address_get(
+bool ICACHE_FLASH_ATTR bvlc6_address_get(
     BACNET_IP6_ADDRESS * addr,
     uint16_t *addr0,
     uint16_t *addr1,
@@ -692,7 +692,7 @@ bool bvlc6_address_get(
  *
  * @return true if the address is set
  */
-bool bvlc6_vmac_address_set(
+bool ICACHE_FLASH_ATTR bvlc6_vmac_address_set(
     BACNET_ADDRESS * addr,
     uint32_t device_id)
 {
@@ -716,7 +716,7 @@ bool bvlc6_vmac_address_set(
  *
  * @return true if the address is set
  */
-bool bvlc6_vmac_address_get(
+bool ICACHE_FLASH_ATTR bvlc6_vmac_address_get(
     BACNET_ADDRESS * addr,
     uint32_t *device_id)
 {
@@ -753,7 +753,7 @@ bool bvlc6_vmac_address_get(
  * Target-Virtual-Address:          3-octets
  * Original-Source-B/IPv6-Address  18-octets
  */
-int bvlc6_encode_forwarded_address_resolution(
+int ICACHE_FLASH_ATTR bvlc6_encode_forwarded_address_resolution(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -794,7 +794,7 @@ int bvlc6_encode_forwarded_address_resolution(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_forwarded_address_resolution(
+int ICACHE_FLASH_ATTR bvlc6_decode_forwarded_address_resolution(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -832,7 +832,7 @@ int bvlc6_decode_forwarded_address_resolution(
  *
  * @return number of bytes encoded
  */
-static int bvlc6_encode_address_ack(
+static int ICACHE_FLASH_ATTR bvlc6_encode_address_ack(
     uint8_t message_type,
     uint8_t * pdu,
     uint16_t pdu_size,
@@ -878,7 +878,7 @@ static int bvlc6_encode_address_ack(
  * Source-Virtual-Address:      3-octets
  * Destination-Virtual-Address: 3-octets
  */
-int bvlc6_encode_address_resolution_ack(
+int ICACHE_FLASH_ATTR bvlc6_encode_address_resolution_ack(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -898,7 +898,7 @@ int bvlc6_encode_address_resolution_ack(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_address_resolution_ack(
+int ICACHE_FLASH_ATTR bvlc6_decode_address_resolution_ack(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -938,7 +938,7 @@ int bvlc6_decode_address_resolution_ack(
  * BVLC Length:                 2-octets  X'0007' Length of the BVLL message
  * Source-Virtual-Address:      3-octets
  */
-int bvlc6_encode_virtual_address_resolution(
+int ICACHE_FLASH_ATTR bvlc6_encode_virtual_address_resolution(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src)
@@ -967,7 +967,7 @@ int bvlc6_encode_virtual_address_resolution(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_virtual_address_resolution(
+int ICACHE_FLASH_ATTR bvlc6_decode_virtual_address_resolution(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src)
@@ -1001,7 +1001,7 @@ int bvlc6_decode_virtual_address_resolution(
  * Source-Virtual-Address:      3-octets
  * Destination-Virtual-Address: 3-octets
  */
-int bvlc6_encode_virtual_address_resolution_ack(
+int ICACHE_FLASH_ATTR bvlc6_encode_virtual_address_resolution_ack(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -1021,7 +1021,7 @@ int bvlc6_encode_virtual_address_resolution_ack(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_virtual_address_resolution_ack(
+int ICACHE_FLASH_ATTR bvlc6_decode_virtual_address_resolution_ack(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -1054,7 +1054,7 @@ int bvlc6_decode_virtual_address_resolution_ack(
  * Original-Source-B-IPv6-Address:      18-octets
  * BACnet NPDU from Originating Device:  N-octets (N=L-25)
  */
-int bvlc6_encode_forwarded_npdu(
+int ICACHE_FLASH_ATTR bvlc6_encode_forwarded_npdu(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -1104,7 +1104,7 @@ int bvlc6_encode_forwarded_npdu(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_forwarded_npdu(
+int ICACHE_FLASH_ATTR bvlc6_decode_forwarded_npdu(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -1163,7 +1163,7 @@ int bvlc6_decode_forwarded_npdu(
  * Source-Virtual-Address:      3-octets
  * Time-to-Live:                2-octets  T       Time-to-Live T, in seconds
  */
-int bvlc6_encode_register_foreign_device(
+int ICACHE_FLASH_ATTR bvlc6_encode_register_foreign_device(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -1198,7 +1198,7 @@ int bvlc6_encode_register_foreign_device(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_register_foreign_device(
+int ICACHE_FLASH_ATTR bvlc6_decode_register_foreign_device(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -1241,7 +1241,7 @@ int bvlc6_decode_register_foreign_device(
  * Source-Virtual-Address:      3-octets
  * FDT Entry:                  18-octets
  */
-int bvlc6_encode_delete_foreign_device(
+int ICACHE_FLASH_ATTR bvlc6_encode_delete_foreign_device(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac_src,
@@ -1285,7 +1285,7 @@ int bvlc6_encode_delete_foreign_device(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_delete_foreign_device(
+int ICACHE_FLASH_ATTR bvlc6_decode_delete_foreign_device(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac_src,
@@ -1336,7 +1336,7 @@ int bvlc6_decode_delete_foreign_device(
  * BVLC Length:                 2-octets  L       Length of the BVLL message
  * Security Wrapper:            Variable length
  */
-int bvlc6_encode_secure_bvll(
+int ICACHE_FLASH_ATTR bvlc6_encode_secure_bvll(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint8_t * sbuf,
@@ -1374,7 +1374,7 @@ int bvlc6_encode_secure_bvll(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_secure_bvll(
+int ICACHE_FLASH_ATTR bvlc6_decode_secure_bvll(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint8_t * sbuf,
@@ -1421,7 +1421,7 @@ int bvlc6_decode_secure_bvll(
  * Original-Source-Virtual-Address:      3-octets
  * BACnet NPDU from Originating Device:  Variable length
  */
-int bvlc6_encode_distribute_broadcast_to_network(
+int ICACHE_FLASH_ATTR bvlc6_encode_distribute_broadcast_to_network(
     uint8_t * pdu,
     uint16_t pdu_size,
     uint32_t vmac,
@@ -1464,7 +1464,7 @@ int bvlc6_encode_distribute_broadcast_to_network(
  *
  * @return number of bytes decoded
  */
-int bvlc6_decode_distribute_broadcast_to_network(
+int ICACHE_FLASH_ATTR bvlc6_decode_distribute_broadcast_to_network(
     uint8_t * pdu,
     uint16_t pdu_len,
     uint32_t * vmac,

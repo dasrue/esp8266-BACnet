@@ -53,7 +53,7 @@
 #define snprintf _snprintf
 #endif
 
-int bacapp_encode_application_data(
+int ICACHE_FLASH_ATTR bacapp_encode_application_data(
     uint8_t * apdu,
     BACNET_APPLICATION_DATA_VALUE * value)
 {
@@ -171,7 +171,7 @@ int bacapp_encode_application_data(
 
 /* decode the data and store it into value.
    Return the number of octets consumed. */
-int bacapp_decode_data(
+int ICACHE_FLASH_ATTR bacapp_decode_data(
     uint8_t * apdu,
     uint8_t tag_data_type,
     uint32_t len_value_type,
@@ -298,7 +298,7 @@ int bacapp_decode_data(
     return len;
 }
 
-int bacapp_decode_application_data(
+int ICACHE_FLASH_ATTR bacapp_decode_application_data(
     uint8_t * apdu,
     unsigned max_apdu_len,
     BACNET_APPLICATION_DATA_VALUE * value)
@@ -347,7 +347,7 @@ int bacapp_decode_application_data(
 **
 */
 
-bool bacapp_decode_application_data_safe(
+bool ICACHE_FLASH_ATTR bacapp_decode_application_data_safe(
     uint8_t * new_apdu,
     uint32_t new_apdu_len,
     BACNET_APPLICATION_DATA_VALUE * value)
@@ -402,7 +402,7 @@ bool bacapp_decode_application_data_safe(
 
 /* Decode the data and
    return the number of octets consumed. */
-int bacapp_decode_data_len(
+int ICACHE_FLASH_ATTR bacapp_decode_data_len(
     uint8_t * apdu,
     uint8_t tag_data_type,
     uint32_t len_value_type)
@@ -436,7 +436,7 @@ int bacapp_decode_data_len(
     return len;
 }
 
-int bacapp_decode_application_data_len(
+int ICACHE_FLASH_ATTR bacapp_decode_application_data_len(
     uint8_t * apdu,
     unsigned max_apdu_len)
 {
@@ -463,7 +463,7 @@ int bacapp_decode_application_data_len(
     return len;
 }
 
-int bacapp_encode_context_data_value(
+int ICACHE_FLASH_ATTR bacapp_encode_context_data_value(
     uint8_t * apdu,
     uint8_t context_tag_number,
     BACNET_APPLICATION_DATA_VALUE * value)
@@ -579,7 +579,7 @@ int bacapp_encode_context_data_value(
 }
 
 /* returns the fixed tag type for certain context tagged properties */
-BACNET_APPLICATION_TAG bacapp_context_tag_type(
+BACNET_APPLICATION_TAG ICACHE_FLASH_ATTR bacapp_context_tag_type(
     BACNET_PROPERTY_ID property,
     uint8_t tag_number)
 {
@@ -712,7 +712,7 @@ BACNET_APPLICATION_TAG bacapp_context_tag_type(
     return tag;
 }
 
-int bacapp_encode_context_data(
+int ICACHE_FLASH_ATTR bacapp_encode_context_data(
     uint8_t * apdu,
     BACNET_APPLICATION_DATA_VALUE * value,
     BACNET_PROPERTY_ID property)
@@ -736,7 +736,7 @@ int bacapp_encode_context_data(
     return apdu_len;
 }
 
-int bacapp_decode_context_data(
+int ICACHE_FLASH_ATTR bacapp_decode_context_data(
     uint8_t * apdu,
     unsigned max_apdu_len,
     BACNET_APPLICATION_DATA_VALUE * value,
@@ -778,7 +778,7 @@ int bacapp_decode_context_data(
     return apdu_len;
 }
 
-int bacapp_decode_context_data_len(
+int ICACHE_FLASH_ATTR bacapp_decode_context_data_len(
     uint8_t * apdu,
     unsigned max_apdu_len,
     BACNET_PROPERTY_ID property)
@@ -812,7 +812,7 @@ int bacapp_decode_context_data_len(
     return apdu_len;
 }
 
-int bacapp_encode_data(
+int ICACHE_FLASH_ATTR bacapp_encode_data(
     uint8_t * apdu,
     BACNET_APPLICATION_DATA_VALUE * value)
 {
@@ -832,7 +832,7 @@ int bacapp_encode_data(
 }
 
 
-bool bacapp_copy(
+bool ICACHE_FLASH_ATTR bacapp_copy(
     BACNET_APPLICATION_DATA_VALUE * dest_value,
     BACNET_APPLICATION_DATA_VALUE * src_value)
 {
@@ -934,7 +934,7 @@ bool bacapp_copy(
    Expects that the first octet contain the opening tag.
    Include a value property identifier for context specific data
    such as the value received in a WriteProperty request */
-int bacapp_data_len(
+int ICACHE_FLASH_ATTR bacapp_data_len(
     uint8_t * apdu,
     unsigned max_apdu_len,
     BACNET_PROPERTY_ID property)

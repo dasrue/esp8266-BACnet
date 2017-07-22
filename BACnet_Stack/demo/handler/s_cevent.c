@@ -47,7 +47,7 @@
  * @return invoke id of outgoing message, or 0 if communication is disabled,
  *         or no tsm slot is available.
  */
-uint8_t Send_CEvent_Notify(
+uint8_t ICACHE_FLASH_ATTR Send_CEvent_Notify(
     uint32_t device_id,
     BACNET_EVENT_NOTIFICATION_DATA * data)
 {

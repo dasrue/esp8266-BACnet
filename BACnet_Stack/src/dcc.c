@@ -49,13 +49,13 @@ static BACNET_COMMUNICATION_ENABLE_DISABLE DCC_Enable_Disable =
     COMMUNICATION_ENABLE;
 /* password is optionally supported */
 
-BACNET_COMMUNICATION_ENABLE_DISABLE dcc_enable_status(
+BACNET_COMMUNICATION_ENABLE_DISABLE ICACHE_FLASH_ATTR dcc_enable_status(
     void)
 {
     return DCC_Enable_Disable;
 }
 
-bool dcc_communication_enabled(
+bool ICACHE_FLASH_ATTR dcc_communication_enabled(
     void)
 {
     return (DCC_Enable_Disable == COMMUNICATION_ENABLE);
@@ -64,7 +64,7 @@ bool dcc_communication_enabled(
 /* When network communications are completely disabled,
    only DeviceCommunicationControl and ReinitializeDevice APDUs
    shall be processed and no messages shall be initiated.*/
-bool dcc_communication_disabled(
+bool ICACHE_FLASH_ATTR dcc_communication_disabled(
     void)
 {
     return (DCC_Enable_Disable == COMMUNICATION_DISABLE);
@@ -79,14 +79,14 @@ bool dcc_communication_disabled(
    for any Who-Is request that is received if and only if
    the Who-Is request does not contain an address range or
    the device is included in the address range. */
-bool dcc_communication_initiation_disabled(
+bool ICACHE_FLASH_ATTR dcc_communication_initiation_disabled(
     void)
 {
     return (DCC_Enable_Disable == COMMUNICATION_DISABLE_INITIATION);
 }
 
 /* note: 0 indicates either expired, or infinite duration */
-uint32_t dcc_duration_seconds(
+uint32_t ICACHE_FLASH_ATTR dcc_duration_seconds(
     void)
 {
     return DCC_Time_Duration_Seconds;
@@ -94,7 +94,7 @@ uint32_t dcc_duration_seconds(
 
 /* called every second or so.  If more than one second,
   then seconds should be the number of seconds to tick away */
-void dcc_timer_seconds(
+void ICACHE_FLASH_ATTR dcc_timer_seconds(
     uint32_t seconds)
 {
     if (DCC_Time_Duration_Seconds) {
@@ -108,7 +108,7 @@ void dcc_timer_seconds(
     }
 }
 
-bool dcc_set_status_duration(
+bool ICACHE_FLASH_ATTR dcc_set_status_duration(
     BACNET_COMMUNICATION_ENABLE_DISABLE status,
     uint16_t minutes)
 {
@@ -130,7 +130,7 @@ bool dcc_set_status_duration(
 
 #if BACNET_SVC_DCC_A
 /* encode service */
-int dcc_encode_apdu(
+int ICACHE_FLASH_ATTR dcc_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     uint16_t timeDuration,      /* 0=optional */
@@ -168,7 +168,7 @@ int dcc_encode_apdu(
 #endif
 
 /* decode the service request only */
-int dcc_decode_service_request(
+int ICACHE_FLASH_ATTR dcc_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     uint16_t * timeDuration,

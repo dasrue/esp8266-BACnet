@@ -40,7 +40,7 @@
 /** @file wp.c  Encode/Decode BACnet Write Property APDUs  */
 #if BACNET_SVC_WP_A
 /* encode service */
-int wp_encode_apdu(
+int ICACHE_FLASH_ATTR wp_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_WRITE_PROPERTY_DATA * wpdata)
@@ -93,7 +93,7 @@ int wp_encode_apdu(
 /* decode the service request only */
 /* FIXME: there could be various error messages returned
    using unique values less than zero */
-int wp_decode_service_request(
+int ICACHE_FLASH_ATTR wp_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_WRITE_PROPERTY_DATA * wpdata)

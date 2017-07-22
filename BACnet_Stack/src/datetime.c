@@ -55,7 +55,7 @@
   time or date may be interpreted as "any" or "don't care"
 */
 
-bool datetime_is_leap_year(
+bool ICACHE_FLASH_ATTR datetime_is_leap_year(
     uint16_t year)
 {
     if ((year % 4) == 0 && ((year % 100) != 0 || (year % 400) == 0))
@@ -64,7 +64,7 @@ bool datetime_is_leap_year(
         return (false);
 }
 
-uint8_t datetime_month_days(
+uint8_t ICACHE_FLASH_ATTR datetime_month_days(
     uint16_t year,
     uint8_t month)
 {
@@ -84,7 +84,7 @@ uint8_t datetime_month_days(
     return days;
 }
 
-bool datetime_ymd_is_valid(
+bool ICACHE_FLASH_ATTR datetime_ymd_is_valid(
     uint16_t year,
     uint8_t month,
     uint8_t day)
@@ -101,7 +101,7 @@ bool datetime_ymd_is_valid(
     return status;
 }
 
-bool datetime_date_is_valid(
+bool ICACHE_FLASH_ATTR datetime_date_is_valid(
     BACNET_DATE *bdate)
 {
 
@@ -114,7 +114,7 @@ bool datetime_date_is_valid(
     return status;
 }
 
-static uint32_t day_of_year(
+static uint32_t ICACHE_FLASH_ATTR day_of_year(
     uint16_t year,
     uint8_t month,
     uint8_t day)
@@ -132,7 +132,7 @@ static uint32_t day_of_year(
     return (days);
 }
 
-static void day_of_year_into_md(
+static void ICACHE_FLASH_ATTR day_of_year_into_md(
     uint32_t days,
     uint16_t year,
     uint8_t * pMonth,
@@ -158,7 +158,7 @@ static void day_of_year_into_md(
     return;
 }
 
-void datetime_day_of_year_into_date(
+void ICACHE_FLASH_ATTR datetime_day_of_year_into_date(
     uint32_t days,
     uint16_t year,
     BACNET_DATE *bdate)
@@ -170,7 +170,7 @@ void datetime_day_of_year_into_date(
     datetime_set_date(bdate, year, month, day);
 }
 
-uint32_t datetime_day_of_year(
+uint32_t ICACHE_FLASH_ATTR datetime_day_of_year(
     BACNET_DATE *bdate)
 {
     uint32_t days = 0;
@@ -182,7 +182,7 @@ uint32_t datetime_day_of_year(
     return days;
 }
 
-static uint32_t days_since_epoch(
+static uint32_t ICACHE_FLASH_ATTR days_since_epoch(
     uint16_t year,
     uint8_t month,
     uint8_t day)
@@ -204,7 +204,7 @@ static uint32_t days_since_epoch(
     return (days);
 }
 
-uint32_t datetime_days_since_epoch(
+uint32_t ICACHE_FLASH_ATTR datetime_days_since_epoch(
     BACNET_DATE *bdate)
 {
     uint32_t days = 0;
@@ -216,7 +216,7 @@ uint32_t datetime_days_since_epoch(
     return days;
 }
 
-static void days_since_epoch_into_ymd(
+static void ICACHE_FLASH_ATTR days_since_epoch_into_ymd(
     uint32_t days,
     uint16_t * pYear,
     uint8_t * pMonth,
@@ -252,7 +252,7 @@ static void days_since_epoch_into_ymd(
     return;
 }
 
-void datetime_days_since_epoch_into_date(
+void ICACHE_FLASH_ATTR datetime_days_since_epoch_into_date(
     uint32_t days,
     BACNET_DATE *bdate)
 {
@@ -266,7 +266,7 @@ void datetime_days_since_epoch_into_date(
 
 /* Jan 1, 1900 is a Monday */
 /* wday 1=Monday...7=Sunday */
-uint8_t datetime_day_of_week(
+uint8_t ICACHE_FLASH_ATTR datetime_day_of_week(
     uint16_t year,
     uint8_t month,
     uint8_t day)
@@ -274,7 +274,7 @@ uint8_t datetime_day_of_week(
     return (uint8_t) ((days_since_epoch(year, month, day) % 7) + 1);
 }
 
-bool datetime_time_is_valid(
+bool ICACHE_FLASH_ATTR datetime_time_is_valid(
     BACNET_TIME *btime)
 {
     bool status = false;
@@ -297,7 +297,7 @@ bool datetime_time_is_valid(
  *
  * @return true if the date and time are valid
  */
-bool datetime_is_valid(
+bool ICACHE_FLASH_ATTR datetime_is_valid(
     BACNET_DATE * bdate,
     BACNET_TIME * btime)
 {
@@ -308,7 +308,7 @@ bool datetime_is_valid(
 /* if the date1 is the same as date2, return is 0
    if date1 is after date2, returns positive
    if date1 is before date2, returns negative */
-int datetime_compare_date(
+int ICACHE_FLASH_ATTR datetime_compare_date(
     BACNET_DATE * date1,
     BACNET_DATE * date2)
 {
@@ -330,7 +330,7 @@ int datetime_compare_date(
 /* if the time1 is the same as time2, return is 0
    if time1 is after time2, returns positive
    if time1 is before time2, returns negative */
-int datetime_compare_time(
+int ICACHE_FLASH_ATTR datetime_compare_time(
     BACNET_TIME * time1,
     BACNET_TIME * time2)
 {
@@ -355,7 +355,7 @@ int datetime_compare_time(
 /* if the datetime1 is the same as datetime2, return is 0
    if datetime1 is before datetime2, returns negative
    if datetime1 is after datetime2, returns positive */
-int datetime_compare(
+int ICACHE_FLASH_ATTR datetime_compare(
     BACNET_DATE_TIME * datetime1,
     BACNET_DATE_TIME * datetime2)
 {
@@ -369,7 +369,7 @@ int datetime_compare(
     return diff;
 }
 
-int datetime_wildcard_compare_date(
+int ICACHE_FLASH_ATTR datetime_wildcard_compare_date(
     BACNET_DATE * date1,
     BACNET_DATE * date2)
 {
@@ -395,7 +395,7 @@ int datetime_wildcard_compare_date(
     return diff;
 }
 
-int datetime_wildcard_compare_time(
+int ICACHE_FLASH_ATTR datetime_wildcard_compare_time(
     BACNET_TIME * time1,
     BACNET_TIME * time2)
 {
@@ -426,7 +426,7 @@ int datetime_wildcard_compare_time(
     return diff;
 }
 
-int datetime_wildcard_compare(
+int ICACHE_FLASH_ATTR datetime_wildcard_compare(
     BACNET_DATE_TIME * datetime1,
     BACNET_DATE_TIME * datetime2)
 {
@@ -444,7 +444,7 @@ int datetime_wildcard_compare(
     return diff;
 }
 
-void datetime_copy_date(
+void ICACHE_FLASH_ATTR datetime_copy_date(
     BACNET_DATE * dest_date,
     BACNET_DATE * src_date)
 {
@@ -456,7 +456,7 @@ void datetime_copy_date(
     }
 }
 
-void datetime_copy_time(
+void ICACHE_FLASH_ATTR datetime_copy_time(
     BACNET_TIME * dest_time,
     BACNET_TIME * src_time)
 {
@@ -468,7 +468,7 @@ void datetime_copy_time(
     }
 }
 
-void datetime_copy(
+void ICACHE_FLASH_ATTR datetime_copy(
     BACNET_DATE_TIME * dest_datetime,
     BACNET_DATE_TIME * src_datetime)
 {
@@ -476,7 +476,7 @@ void datetime_copy(
     datetime_copy_date(&dest_datetime->date, &src_datetime->date);
 }
 
-void datetime_set_date(
+void ICACHE_FLASH_ATTR datetime_set_date(
     BACNET_DATE * bdate,
     uint16_t year,
     uint8_t month,
@@ -490,7 +490,7 @@ void datetime_set_date(
     }
 }
 
-void datetime_set_time(
+void ICACHE_FLASH_ATTR datetime_set_time(
     BACNET_TIME * btime,
     uint8_t hour,
     uint8_t minute,
@@ -505,7 +505,7 @@ void datetime_set_time(
     }
 }
 
-void datetime_set(
+void ICACHE_FLASH_ATTR datetime_set(
     BACNET_DATE_TIME * bdatetime,
     BACNET_DATE * bdate,
     BACNET_TIME * btime)
@@ -522,7 +522,7 @@ void datetime_set(
     }
 }
 
-void datetime_set_values(
+void ICACHE_FLASH_ATTR datetime_set_values(
     BACNET_DATE_TIME * bdatetime,
     uint16_t year,
     uint8_t month,
@@ -544,7 +544,7 @@ void datetime_set_values(
     }
 }
 
-static uint32_t seconds_since_midnight(
+static uint32_t ICACHE_FLASH_ATTR seconds_since_midnight(
     uint8_t hours,
     uint8_t minutes,
     uint8_t seconds)
@@ -552,14 +552,14 @@ static uint32_t seconds_since_midnight(
     return ((hours * 60 * 60) + (minutes * 60) + seconds);
 }
 
-static uint16_t minutes_since_midnight(
+static uint16_t ICACHE_FLASH_ATTR minutes_since_midnight(
     uint8_t hours,
     uint8_t minutes)
 {
     return ((hours * 60) + minutes);
 }
 
-static void seconds_since_midnight_into_hms(
+static void ICACHE_FLASH_ATTR seconds_since_midnight_into_hms(
     uint32_t seconds,
     uint8_t * pHours,
     uint8_t * pMinutes,
@@ -587,7 +587,7 @@ static void seconds_since_midnight_into_hms(
  *
  * @return seconds since midnight
  */
-uint32_t datetime_seconds_since_midnight(
+uint32_t ICACHE_FLASH_ATTR datetime_seconds_since_midnight(
     BACNET_TIME *btime)
 {
     uint32_t seconds = 0;
@@ -608,7 +608,7 @@ uint32_t datetime_seconds_since_midnight(
  *
  * @return minutes since midnight
  */
-uint16_t datetime_minutes_since_midnight(
+uint16_t ICACHE_FLASH_ATTR datetime_minutes_since_midnight(
     BACNET_TIME *btime)
 {
     uint32_t minutes = 0;
@@ -627,7 +627,7 @@ uint16_t datetime_minutes_since_midnight(
  * @param bdatetime [in] the starting date and time
  * @param minutes [in] number of minutes to add or subtract from the time
  */
-void datetime_add_minutes(
+void ICACHE_FLASH_ATTR datetime_add_minutes(
     BACNET_DATE_TIME * bdatetime,
     int32_t minutes)
 {
@@ -673,7 +673,7 @@ void datetime_add_minutes(
     datetime_days_since_epoch_into_date(bdatetime_days, &bdatetime->date);
 }
 
-bool datetime_wildcard(
+bool ICACHE_FLASH_ATTR datetime_wildcard(
     BACNET_DATE_TIME * bdatetime)
 {
     bool wildcard_present = false;
@@ -694,7 +694,7 @@ bool datetime_wildcard(
 /* Returns true if any type of wildcard is present except for day of week
  * on it's own.
  */
-bool datetime_wildcard_present(
+bool ICACHE_FLASH_ATTR datetime_wildcard_present(
     BACNET_DATE_TIME * bdatetime)
 {
     bool wildcard_present = false;
@@ -712,7 +712,7 @@ bool datetime_wildcard_present(
     return wildcard_present;
 }
 
-void datetime_date_wildcard_set(
+void ICACHE_FLASH_ATTR datetime_date_wildcard_set(
     BACNET_DATE * bdate)
 {
     if (bdate) {
@@ -723,7 +723,7 @@ void datetime_date_wildcard_set(
     }
 }
 
-void datetime_time_wildcard_set(
+void ICACHE_FLASH_ATTR datetime_time_wildcard_set(
     BACNET_TIME * btime)
 {
     if (btime) {
@@ -734,7 +734,7 @@ void datetime_time_wildcard_set(
     }
 }
 
-void datetime_wildcard_set(
+void ICACHE_FLASH_ATTR datetime_wildcard_set(
     BACNET_DATE_TIME * bdatetime)
 {
     if (bdatetime) {
@@ -743,7 +743,7 @@ void datetime_wildcard_set(
     }
 }
 
-int bacapp_encode_datetime(
+int ICACHE_FLASH_ATTR bacapp_encode_datetime(
     uint8_t * apdu,
     BACNET_DATE_TIME * value)
 {
@@ -762,7 +762,7 @@ int bacapp_encode_datetime(
 }
 
 
-int bacapp_encode_context_datetime(
+int ICACHE_FLASH_ATTR bacapp_encode_context_datetime(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_DATE_TIME * value)
@@ -784,7 +784,7 @@ int bacapp_encode_context_datetime(
     return apdu_len;
 }
 
-int bacapp_decode_datetime(
+int ICACHE_FLASH_ATTR bacapp_decode_datetime(
     uint8_t * apdu,
     BACNET_DATE_TIME * value)
 {
@@ -807,7 +807,7 @@ int bacapp_decode_datetime(
     return len;
 }
 
-int bacapp_decode_context_datetime(
+int ICACHE_FLASH_ATTR bacapp_decode_context_datetime(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_DATE_TIME * value)

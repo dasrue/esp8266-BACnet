@@ -49,7 +49,7 @@
 /* returns the invoke ID for confirmed request, or zero on failure */
 
 
-uint8_t Send_Alarm_Acknowledgement(
+uint8_t ICACHE_FLASH_ATTR Send_Alarm_Acknowledgement(
     uint32_t device_id,
     BACNET_ALARM_ACK_DATA * data)
 {

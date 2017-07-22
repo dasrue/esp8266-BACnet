@@ -168,7 +168,7 @@ static const int Load_Control_Properties_Proprietary[] = {
     -1
 };
 
-void Load_Control_Property_Lists(
+void ICACHE_FLASH_ATTR Load_Control_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -183,7 +183,7 @@ void Load_Control_Property_Lists(
     return;
 }
 
-void Load_Control_Init(
+void ICACHE_FLASH_ATTR Load_Control_Init(
     void)
 {
     unsigned i, j;
@@ -217,7 +217,7 @@ void Load_Control_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Load_Control_Valid_Instance(
+bool ICACHE_FLASH_ATTR Load_Control_Valid_Instance(
     uint32_t object_instance)
 {
     if (object_instance < MAX_LOAD_CONTROLS)
@@ -228,7 +228,7 @@ bool Load_Control_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Load_Control_Count(
+unsigned ICACHE_FLASH_ATTR Load_Control_Count(
     void)
 {
     return MAX_LOAD_CONTROLS;
@@ -237,7 +237,7 @@ unsigned Load_Control_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Load_Control_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Load_Control_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -246,7 +246,7 @@ uint32_t Load_Control_Index_To_Instance(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Load_Control_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Load_Control_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_LOAD_CONTROLS;
@@ -257,7 +257,7 @@ unsigned Load_Control_Instance_To_Index(
     return index;
 }
 
-static BACNET_SHED_STATE Load_Control_Present_Value(
+static BACNET_SHED_STATE ICACHE_FLASH_ATTR Load_Control_Present_Value(
     uint32_t object_instance)
 {
     BACNET_SHED_STATE value = BACNET_SHED_INACTIVE;
@@ -272,7 +272,7 @@ static BACNET_SHED_STATE Load_Control_Present_Value(
 }
 
 /* note: the object name must be unique within this device */
-bool Load_Control_Object_Name(
+bool ICACHE_FLASH_ATTR Load_Control_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -287,7 +287,7 @@ bool Load_Control_Object_Name(
     return status;
 }
 
-static void Update_Current_Time(
+static void ICACHE_FLASH_ATTR Update_Current_Time(
     BACNET_DATE_TIME * bdatetime)
 {
     time_t timer;
@@ -316,7 +316,7 @@ struct tm {
 }
 
 /* convert the shed level request into an Analog Output Present_Value */
-static float Requested_Shed_Level_Value(
+static float ICACHE_FLASH_ATTR Requested_Shed_Level_Value(
     int object_index)
 {
     unsigned shed_level_index = 0;
@@ -350,7 +350,7 @@ static float Requested_Shed_Level_Value(
     return requested_level;
 }
 
-static void Shed_Level_Copy(
+static void ICACHE_FLASH_ATTR Shed_Level_Copy(
     BACNET_SHED_LEVEL * dest,
     BACNET_SHED_LEVEL * src)
 {
@@ -371,7 +371,7 @@ static void Shed_Level_Copy(
     }
 }
 
-static void Shed_Level_Default_Set(
+static void ICACHE_FLASH_ATTR Shed_Level_Default_Set(
     BACNET_SHED_LEVEL * dest,
     BACNET_SHED_LEVEL_TYPE type)
 {
@@ -392,7 +392,7 @@ static void Shed_Level_Default_Set(
     }
 }
 
-static bool Able_To_Meet_Shed_Request(
+static bool ICACHE_FLASH_ATTR Able_To_Meet_Shed_Request(
     int object_index)
 {
     float level = 0.0;
@@ -447,7 +447,7 @@ static void Print_Load_Control_State(
 }
 #endif
 
-void Load_Control_State_Machine(
+void ICACHE_FLASH_ATTR Load_Control_State_Machine(
     int object_index)
 {
     unsigned i = 0;     /* loop counter */
@@ -653,7 +653,7 @@ void Load_Control_State_Machine(
 }
 
 /* call every second or so */
-void Load_Control_State_Machine_Handler(
+void ICACHE_FLASH_ATTR Load_Control_State_Machine_Handler(
     void)
 {
     unsigned i = 0;
@@ -681,7 +681,7 @@ void Load_Control_State_Machine_Handler(
 }
 
 /* return apdu len, or BACNET_STATUS_ERROR on error */
-int Load_Control_Read_Property(
+int ICACHE_FLASH_ATTR Load_Control_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int len = 0;
@@ -926,7 +926,7 @@ int Load_Control_Read_Property(
 }
 
 /* returns true if successful */
-bool Load_Control_Write_Property(
+bool ICACHE_FLASH_ATTR Load_Control_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */

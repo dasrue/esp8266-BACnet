@@ -407,7 +407,7 @@ static object_functions_t My_Object_Table[] = {
  * @return Pointer to the group of object helper functions that implement this
  *         type of Object.
  */
-static struct object_functions *Device_Objects_Find_Functions(
+static struct object_functions *ICACHE_FLASH_ATTR Device_Objects_Find_Functions(
     BACNET_OBJECT_TYPE Object_Type)
 {
     struct object_functions *pObject = NULL;
@@ -433,7 +433,7 @@ static struct object_functions *Device_Objects_Find_Functions(
  *         success, else a NULL pointer if the type of Object isn't supported
  *         or doesn't have a ReadRangeInfo function.
  */
-rr_info_function Device_Objects_RR_Info(
+rr_info_function ICACHE_FLASH_ATTR Device_Objects_RR_Info(
     BACNET_OBJECT_TYPE object_type)
 {
     struct object_functions *pObject = NULL;
@@ -453,7 +453,7 @@ rr_info_function Device_Objects_RR_Info(
  *            list, separately, the Required, Optional, and Proprietary object
  *            properties with their counts.
  */
-void Device_Objects_Property_List(
+void ICACHE_FLASH_ATTR Device_Objects_Property_List(
     BACNET_OBJECT_TYPE object_type,
     struct special_property_list_t *pPropertyList)
 {
@@ -503,7 +503,7 @@ void Device_Objects_Property_List(
  *                         On failure, the error class and code will be set.
  * @return True if succeeds (password is correct), else False.
  */
-bool Device_Reinitialize(
+bool ICACHE_FLASH_ATTR Device_Reinitialize(
     BACNET_REINITIALIZE_DEVICE_DATA * rd_data)
 {
     bool status = false;
@@ -585,7 +585,7 @@ static const int Device_Properties_Proprietary[] = {
     -1
 };
 
-void Device_Property_Lists(
+void ICACHE_FLASH_ATTR Device_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -647,13 +647,13 @@ static uint32_t Database_Revision = 0;
 /* Slave_Address_Binding */
 /* Profile_Name */
 
-unsigned Device_Count(
+unsigned ICACHE_FLASH_ATTR Device_Count(
     void)
 {
     return 1;
 }
 
-uint32_t Device_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Device_Index_To_Instance(
     unsigned index)
 {
     index = index;
@@ -668,7 +668,7 @@ uint32_t Device_Index_To_Instance(
  * @ingroup ObjIntf
  * @return The Instance number used in the BACNET_OBJECT_ID for the Device.
  */
-uint32_t Device_Object_Instance_Number(
+uint32_t ICACHE_FLASH_ATTR Device_Object_Instance_Number(
     void)
 {
 #ifdef BAC_ROUTING
@@ -678,7 +678,7 @@ uint32_t Device_Object_Instance_Number(
 #endif
 }
 
-bool Device_Set_Object_Instance_Number(
+bool ICACHE_FLASH_ATTR Device_Set_Object_Instance_Number(
     uint32_t object_id)
 {
     bool status = true; /* return value */
@@ -693,13 +693,13 @@ bool Device_Set_Object_Instance_Number(
     return status;
 }
 
-bool Device_Valid_Object_Instance_Number(
+bool ICACHE_FLASH_ATTR Device_Valid_Object_Instance_Number(
     uint32_t object_id)
 {
     return (Object_Instance_Number == object_id);
 }
 
-bool Device_Object_Name(
+bool ICACHE_FLASH_ATTR Device_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -712,7 +712,7 @@ bool Device_Object_Name(
     return status;
 }
 
-bool Device_Set_Object_Name(
+bool ICACHE_FLASH_ATTR Device_Set_Object_Name(
     BACNET_CHARACTER_STRING * object_name)
 {
     bool status = false;        /*return value */
@@ -726,13 +726,13 @@ bool Device_Set_Object_Name(
     return status;
 }
 
-BACNET_DEVICE_STATUS Device_System_Status(
+BACNET_DEVICE_STATUS ICACHE_FLASH_ATTR Device_System_Status(
     void)
 {
     return System_Status;
 }
 
-int Device_Set_System_Status(
+int ICACHE_FLASH_ATTR Device_Set_System_Status(
     BACNET_DEVICE_STATUS status,
     bool local)
 {
@@ -797,7 +797,7 @@ int Device_Set_System_Status(
     return (result);
 }
 
-const char *Device_Vendor_Name(
+const char *ICACHE_FLASH_ATTR Device_Vendor_Name(
     void)
 {
     return Vendor_Name;
@@ -807,25 +807,25 @@ const char *Device_Vendor_Name(
  * See the assignments at http://www.bacnet.org/VendorID/BACnet%20Vendor%20IDs.htm
  * @return The Vendor ID of this Device.
  */
-uint16_t Device_Vendor_Identifier(
+uint16_t ICACHE_FLASH_ATTR Device_Vendor_Identifier(
     void)
 {
     return Vendor_Identifier;
 }
 
-void Device_Set_Vendor_Identifier(
+void ICACHE_FLASH_ATTR Device_Set_Vendor_Identifier(
     uint16_t vendor_id)
 {
     Vendor_Identifier = vendor_id;
 }
 
-const char *Device_Model_Name(
+const char *ICACHE_FLASH_ATTR Device_Model_Name(
     void)
 {
     return Model_Name;
 }
 
-bool Device_Set_Model_Name(
+bool ICACHE_FLASH_ATTR Device_Set_Model_Name(
     const char *name,
     size_t length)
 {
@@ -840,19 +840,19 @@ bool Device_Set_Model_Name(
     return status;
 }
 
-const char *Device_Firmware_Revision(
+const char *ICACHE_FLASH_ATTR Device_Firmware_Revision(
     void)
 {
     return BACnet_Version;
 }
 
-const char *Device_Application_Software_Version(
+const char *ICACHE_FLASH_ATTR Device_Application_Software_Version(
     void)
 {
     return Application_Software_Version;
 }
 
-bool Device_Set_Application_Software_Version(
+bool ICACHE_FLASH_ATTR Device_Set_Application_Software_Version(
     const char *name,
     size_t length)
 {
@@ -867,13 +867,13 @@ bool Device_Set_Application_Software_Version(
     return status;
 }
 
-const char *Device_Description(
+const char *ICACHE_FLASH_ATTR Device_Description(
     void)
 {
     return Description;
 }
 
-bool Device_Set_Description(
+bool ICACHE_FLASH_ATTR Device_Set_Description(
     const char *name,
     size_t length)
 {
@@ -888,13 +888,13 @@ bool Device_Set_Description(
     return status;
 }
 
-const char *Device_Location(
+const char *ICACHE_FLASH_ATTR Device_Location(
     void)
 {
     return Location;
 }
 
-bool Device_Set_Location(
+bool ICACHE_FLASH_ATTR Device_Set_Location(
     const char *name,
     size_t length)
 {
@@ -909,31 +909,31 @@ bool Device_Set_Location(
     return status;
 }
 
-uint8_t Device_Protocol_Version(
+uint8_t ICACHE_FLASH_ATTR Device_Protocol_Version(
     void)
 {
     return BACNET_PROTOCOL_VERSION;
 }
 
-uint8_t Device_Protocol_Revision(
+uint8_t ICACHE_FLASH_ATTR Device_Protocol_Revision(
     void)
 {
     return BACNET_PROTOCOL_REVISION;
 }
 
-BACNET_SEGMENTATION Device_Segmentation_Supported(
+BACNET_SEGMENTATION ICACHE_FLASH_ATTR Device_Segmentation_Supported(
     void)
 {
     return SEGMENTATION_NONE;
 }
 
-uint32_t Device_Database_Revision(
+uint32_t ICACHE_FLASH_ATTR Device_Database_Revision(
     void)
 {
     return Database_Revision;
 }
 
-void Device_Set_Database_Revision(
+void ICACHE_FLASH_ATTR Device_Set_Database_Revision(
     uint32_t revision)
 {
     Database_Revision = revision;
@@ -944,7 +944,7 @@ void Device_Set_Database_Revision(
  * the most common operation if changing object names and ids is
  * implemented.
  */
-void Device_Inc_Database_Revision(
+void ICACHE_FLASH_ATTR Device_Inc_Database_Revision(
     void)
 {
     Database_Revision++;
@@ -955,7 +955,7 @@ void Device_Inc_Database_Revision(
  *       for discovery, it must be consistent!
  * @return The count of objects, for all supported Object types.
  */
-unsigned Device_Object_List_Count(
+unsigned ICACHE_FLASH_ATTR Device_Object_List_Count(
     void)
 {
     unsigned count = 0; /* number of objects */
@@ -983,7 +983,7 @@ unsigned Device_Object_List_Count(
  * @param instance [out] The object's instance number, if found.
  * @return True if found, else false.
  */
-bool Device_Object_List_Identifier(
+bool ICACHE_FLASH_ATTR Device_Object_List_Identifier(
     uint32_t array_index,
     int *object_type,
     uint32_t * instance)
@@ -1042,7 +1042,7 @@ bool Device_Object_List_Identifier(
  * @param object_instance [out] The object instance number of the matching Object.
  * @return True on success or else False if not found.
  */
-bool Device_Valid_Object_Name(
+bool ICACHE_FLASH_ATTR Device_Valid_Object_Name(
     BACNET_CHARACTER_STRING * object_name1,
     int *object_type,
     uint32_t * object_instance)
@@ -1083,7 +1083,7 @@ bool Device_Valid_Object_Name(
  * @param object_instance [in] The object instance number to be looked up.
  * @return True if found, else False if no such Object in this device.
  */
-bool Device_Valid_Object_Id(
+bool ICACHE_FLASH_ATTR Device_Valid_Object_Id(
     int object_type,
     uint32_t object_instance)
 {
@@ -1104,7 +1104,7 @@ bool Device_Valid_Object_Id(
  * @param object_name [out] The Object Name found for this child Object.
  * @return True on success or else False if not found.
  */
-bool Device_Object_Name_Copy(
+bool ICACHE_FLASH_ATTR Device_Object_Name_Copy(
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
@@ -1120,7 +1120,7 @@ bool Device_Object_Name_Copy(
     return found;
 }
 
-static void Update_Current_Time(
+static void ICACHE_FLASH_ATTR Update_Current_Time(
     void)
 {
     struct tm *tblock = NULL;
@@ -1176,7 +1176,7 @@ int    tm_isdst Daylight Savings flag.
     }
 }
 
-void Device_getCurrentDateTime(
+void ICACHE_FLASH_ATTR Device_getCurrentDateTime(
     BACNET_DATE_TIME * DateTime)
 {
     Update_Current_Time();
@@ -1185,21 +1185,21 @@ void Device_getCurrentDateTime(
     DateTime->time = Local_Time;
 }
 
-int32_t Device_UTC_Offset(void)
+int32_t ICACHE_FLASH_ATTR Device_UTC_Offset(void)
 {
     Update_Current_Time();
 
     return UTC_Offset;
 }
 
-bool Device_Daylight_Savings_Status(void)
+bool ICACHE_FLASH_ATTR Device_Daylight_Savings_Status(void)
 {
     return Daylight_Savings_Status;
 }
 
 /* return the length of the apdu encoded or BACNET_STATUS_ERROR for error or
    BACNET_STATUS_ABORT for abort message */
-int Device_Read_Property_Local(
+int ICACHE_FLASH_ATTR Device_Read_Property_Local(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -1439,7 +1439,7 @@ int Device_Read_Property_Local(
  *                 on entry, and APDU message on return.
  * @return The length of the APDU on success, else BACNET_STATUS_ERROR
  */
-int Device_Read_Property(
+int ICACHE_FLASH_ATTR Device_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = BACNET_STATUS_ERROR;
@@ -1462,7 +1462,7 @@ int Device_Read_Property(
 }
 
 /* returns true if successful */
-bool Device_Write_Property_Local(
+bool ICACHE_FLASH_ATTR Device_Write_Property_Local(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
@@ -1682,7 +1682,7 @@ bool Device_Write_Property_Local(
  *              and new Value on entry, and APDU message on return.
  * @return True on success, else False if there is an error.
  */
-bool Device_Write_Property(
+bool ICACHE_FLASH_ATTR Device_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* Ever the pessamist! */
@@ -1722,7 +1722,7 @@ bool Device_Write_Property(
  * @return True if the object instance supports this feature
  *         and was encoded correctly
  */
-bool Device_Encode_Value_List(
+bool ICACHE_FLASH_ATTR Device_Encode_Value_List(
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance,
     BACNET_PROPERTY_VALUE * value_list)
@@ -1750,7 +1750,7 @@ bool Device_Encode_Value_List(
  * @param [in] The object instance to be looked up.
  * @return True if the COV flag is set
  */
-bool Device_COV(
+bool ICACHE_FLASH_ATTR Device_COV(
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance)
 {
@@ -1775,7 +1775,7 @@ bool Device_COV(
  * @param [in] The object type to be looked up.
  * @param [in] The object instance to be looked up.
  */
-void Device_COV_Clear(
+void ICACHE_FLASH_ATTR Device_COV_Clear(
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance)
 {
@@ -1826,7 +1826,7 @@ void Device_local_reporting(
  * @param [in] The object type to be looked up.
  * @return True if the object instance supports this feature.
  */
-bool Device_Value_List_Supported(
+bool ICACHE_FLASH_ATTR Device_Value_List_Supported(
     BACNET_OBJECT_TYPE object_type)
 {
     bool status = false;        /* Ever the pessamist! */
@@ -1850,7 +1850,7 @@ bool Device_Value_List_Supported(
  *  Each Child Object must provide some implementation of each of these
  *  functions in order to properly support the default handlers.
  */
-void Device_Init(
+void ICACHE_FLASH_ATTR Device_Init(
     object_functions_t * object_table)
 {
     struct object_functions *pObject = NULL;
@@ -1870,7 +1870,7 @@ void Device_Init(
     }
 }
 
-bool DeviceGetRRInfo(
+bool ICACHE_FLASH_ATTR DeviceGetRRInfo(
     BACNET_READ_RANGE_DATA * pRequest,  /* Info on the request */
     RR_PROP_INFO * pInfo)
 {       /* Where to put the response */

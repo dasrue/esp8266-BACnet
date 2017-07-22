@@ -47,7 +47,7 @@
 * ALGORITHM:   none
 * NOTES:       none
 *****************************************************************************/
-unsigned Ringbuf_Count(
+unsigned ICACHE_FLASH_ATTR Ringbuf_Count(
     RING_BUFFER const *b)
 {
     unsigned head, tail;        /* used to avoid volatile decision */
@@ -67,7 +67,7 @@ unsigned Ringbuf_Count(
 * ALGORITHM:   none
 * NOTES:       none
 *****************************************************************************/
-bool Ringbuf_Full(
+bool ICACHE_FLASH_ATTR Ringbuf_Full(
     RING_BUFFER const *b)
 {
     return (b ? (Ringbuf_Count(b) == b->element_count) : true);
@@ -79,7 +79,7 @@ bool Ringbuf_Full(
 * ALGORITHM:   none
 * NOTES:       none
 *****************************************************************************/
-bool Ringbuf_Empty(
+bool ICACHE_FLASH_ATTR Ringbuf_Empty(
     RING_BUFFER const *b)
 {
     return (b ? (Ringbuf_Count(b) == 0) : true);
@@ -91,7 +91,7 @@ bool Ringbuf_Empty(
 * ALGORITHM:   none
 * NOTES:       none
 *****************************************************************************/
-volatile uint8_t *Ringbuf_Peek(
+volatile uint8_t *ICACHE_FLASH_ATTR Ringbuf_Peek(
     RING_BUFFER const *b)
 {
     volatile uint8_t *data_element = NULL;      /* return value */
@@ -110,7 +110,7 @@ volatile uint8_t *Ringbuf_Peek(
 * ALGORITHM:   none
 * NOTES:       none
 *****************************************************************************/
-bool Ringbuf_Pop(
+bool ICACHE_FLASH_ATTR Ringbuf_Pop(
     RING_BUFFER * b,
     uint8_t * data_element)
 {
@@ -139,7 +139,7 @@ bool Ringbuf_Pop(
 * ALGORITHM:   none
 * NOTES:       none
 *****************************************************************************/
-bool Ringbuf_Put(
+bool ICACHE_FLASH_ATTR Ringbuf_Put(
     RING_BUFFER * b,    /* ring buffer structure */
     uint8_t * data_element)
 {       /* one element to add to the ring */
@@ -171,7 +171,7 @@ bool Ringbuf_Put(
 *              can't be used if keeping producer and consumer
 *              as separate processes (i.e. interrupts)
 *****************************************************************************/
-bool Ringbuf_Put_Front(
+bool ICACHE_FLASH_ATTR Ringbuf_Put_Front(
     RING_BUFFER * b,    /* ring buffer structure */
     uint8_t * data_element)
 {       /* one element to add to the front of the ring */
@@ -203,7 +203,7 @@ bool Ringbuf_Put_Front(
 * ALGORITHM:   none
 * NOTES:       Use Ringbuf_Data_Peek with Ringbuf_Data_Put
 *****************************************************************************/
-volatile uint8_t *Ringbuf_Data_Peek(RING_BUFFER * b)
+volatile uint8_t *ICACHE_FLASH_ATTR Ringbuf_Data_Peek(RING_BUFFER * b)
 {
     volatile uint8_t *ring_data = NULL; /* used to help point ring data */
 
@@ -226,7 +226,7 @@ volatile uint8_t *Ringbuf_Data_Peek(RING_BUFFER * b)
 * ALGORITHM:   none
 * NOTES:       Use Ringbuf_Data_Peek with Ringbuf_Data_Put
 *****************************************************************************/
-bool Ringbuf_Data_Put(RING_BUFFER * b, volatile uint8_t *data_element)
+bool ICACHE_FLASH_ATTR Ringbuf_Data_Put(RING_BUFFER * b, volatile uint8_t *data_element)
 {
     bool status = false;
     volatile uint8_t *ring_data = NULL; /* used to help point ring data */
@@ -254,7 +254,7 @@ bool Ringbuf_Data_Put(RING_BUFFER * b, volatile uint8_t *data_element)
 * NOTES:
 *   element_count must be a power of two
 *****************************************************************************/
-void Ringbuf_Init(
+void ICACHE_FLASH_ATTR Ringbuf_Init(
     RING_BUFFER * b,    /* ring buffer structure */
     volatile uint8_t * buffer,  /* data block or array of data */
     unsigned element_size,      /* size of one element in the data block */

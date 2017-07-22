@@ -1133,7 +1133,7 @@ unsigned property_list_special_count(
  * @param pList - array of type 'int' that is a list of BACnet object
  * properties, terminated by a '-1' value.
  */
-unsigned property_list_count(
+unsigned ICACHE_FLASH_ATTR property_list_count(
     const int *pList)
 {
     unsigned property_count = 0;
@@ -1158,7 +1158,7 @@ unsigned property_list_count(
  * @return number of APDU bytes in the response, or
  * BACNET_STATUS_ERROR on error.
  */
-int property_list_encode(
+int ICACHE_FLASH_ATTR property_list_encode(
     BACNET_READ_PROPERTY_DATA * rpdata,
     const int *pListRequired,
     const int *pListOptional,

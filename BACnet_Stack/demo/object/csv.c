@@ -70,7 +70,7 @@ static const int Properties_Proprietary[] = {
     -1
 };
 
-void CharacterString_Value_Property_Lists(
+void ICACHE_FLASH_ATTR CharacterString_Value_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -85,7 +85,7 @@ void CharacterString_Value_Property_Lists(
     return;
 }
 
-void CharacterString_Value_Init(
+void ICACHE_FLASH_ATTR CharacterString_Value_Init(
     void)
 {
     unsigned i;
@@ -101,7 +101,7 @@ void CharacterString_Value_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned CharacterString_Value_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR CharacterString_Value_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_CHARACTERSTRING_VALUES;
@@ -116,7 +116,7 @@ unsigned CharacterString_Value_Instance_To_Index(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t CharacterString_Value_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR CharacterString_Value_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -124,13 +124,13 @@ uint32_t CharacterString_Value_Index_To_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned CharacterString_Value_Count(
+unsigned ICACHE_FLASH_ATTR CharacterString_Value_Count(
     void)
 {
     return MAX_CHARACTERSTRING_VALUES;
 }
 
-bool CharacterString_Value_Valid_Instance(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Valid_Instance(
     uint32_t object_instance)
 {
     unsigned index = 0; /* offset from instance lookup */
@@ -143,7 +143,7 @@ bool CharacterString_Value_Valid_Instance(
     return false;
 }
 
-bool CharacterString_Value_Present_Value(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Present_Value(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -158,7 +158,7 @@ bool CharacterString_Value_Present_Value(
     return status;
 }
 
-bool CharacterString_Value_Present_Value_Set(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Present_Value_Set(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -173,7 +173,7 @@ bool CharacterString_Value_Present_Value_Set(
     return status;
 }
 
-bool CharacterString_Value_Out_Of_Service(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Out_Of_Service(
     uint32_t object_instance)
 {
     bool value = false;
@@ -187,7 +187,7 @@ bool CharacterString_Value_Out_Of_Service(
     return value;
 }
 
-static void CharacterString_Value_Out_Of_Service_Set(
+static void ICACHE_FLASH_ATTR CharacterString_Value_Out_Of_Service_Set(
     uint32_t object_instance,
     bool value)
 {
@@ -201,7 +201,7 @@ static void CharacterString_Value_Out_Of_Service_Set(
     return;
 }
 
-static char *CharacterString_Value_Description(
+static char *ICACHE_FLASH_ATTR CharacterString_Value_Description(
     uint32_t object_instance)
 {
     unsigned index = 0; /* offset from instance lookup */
@@ -215,7 +215,7 @@ static char *CharacterString_Value_Description(
     return pName;
 }
 
-bool CharacterString_Value_Description_Set(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Description_Set(
     uint32_t object_instance,
     char *new_name)
 {
@@ -243,7 +243,7 @@ bool CharacterString_Value_Description_Set(
     return status;
 }
 
-bool CharacterString_Value_Object_Name(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -259,7 +259,7 @@ bool CharacterString_Value_Object_Name(
 }
 
 /* note: the object name must be unique within this device */
-bool CharacterString_Value_Name_Set(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Name_Set(
     uint32_t object_instance,
     char *new_name)
 {
@@ -289,7 +289,7 @@ bool CharacterString_Value_Name_Set(
 }
 
 /* return apdu len, or BACNET_STATUS_ERROR on error */
-int CharacterString_Value_Read_Property(
+int ICACHE_FLASH_ATTR CharacterString_Value_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -380,7 +380,7 @@ int CharacterString_Value_Read_Property(
 }
 
 /* returns true if successful */
-bool CharacterString_Value_Write_Property(
+bool ICACHE_FLASH_ATTR CharacterString_Value_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */

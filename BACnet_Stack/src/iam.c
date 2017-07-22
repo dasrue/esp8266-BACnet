@@ -43,7 +43,7 @@
 /** @file iam.c  Encode/Decode I-Am service */
 
 /* encode I-Am service */
-int iam_encode_apdu(
+int ICACHE_FLASH_ATTR iam_encode_apdu(
     uint8_t * apdu,
     uint32_t device_id,
     unsigned max_apdu,
@@ -74,7 +74,7 @@ int iam_encode_apdu(
     return apdu_len;
 }
 
-int iam_decode_service_request(
+int ICACHE_FLASH_ATTR iam_decode_service_request(
     uint8_t * apdu,
     uint32_t * pDevice_id,
     unsigned *pMax_apdu,

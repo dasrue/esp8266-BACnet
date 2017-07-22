@@ -48,7 +48,7 @@
 
 static uint8_t Temp_Buf[MAX_APDU] = { 0 };
 
-static BACNET_PROPERTY_ID RPM_Object_Property(
+static BACNET_PROPERTY_ID ICACHE_FLASH_ATTR RPM_Object_Property(
     struct special_property_list_t *pPropertyList,
     BACNET_PROPERTY_ID special_property,
     unsigned index)
@@ -82,7 +82,7 @@ static BACNET_PROPERTY_ID RPM_Object_Property(
     return (BACNET_PROPERTY_ID) property;
 }
 
-static unsigned RPM_Object_Property_Count(
+static unsigned ICACHE_FLASH_ATTR RPM_Object_Property_Count(
     struct special_property_list_t *pPropertyList,
     BACNET_PROPERTY_ID special_property)
 {
@@ -103,7 +103,7 @@ static unsigned RPM_Object_Property_Count(
 
 /** Encode the RPM property returning the length of the encoding,
    or 0 if there is no room to fit the encoding.  */
-static int RPM_Encode_Property(
+static int ICACHE_FLASH_ATTR RPM_Encode_Property(
     uint8_t * apdu,
     uint16_t offset,
     uint16_t max_apdu,
@@ -184,7 +184,7 @@ static int RPM_Encode_Property(
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_read_property_multiple(
+void ICACHE_FLASH_ATTR handler_read_property_multiple(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

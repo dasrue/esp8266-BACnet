@@ -100,7 +100,7 @@ static const int Trend_Log_Properties_Proprietary[] = {
     -1
 };
 
-void Trend_Log_Property_Lists(
+void ICACHE_FLASH_ATTR Trend_Log_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -118,7 +118,7 @@ void Trend_Log_Property_Lists(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Trend_Log_Valid_Instance(
+bool ICACHE_FLASH_ATTR Trend_Log_Valid_Instance(
     uint32_t object_instance)
 {
     if (object_instance < MAX_TREND_LOGS) {
@@ -130,7 +130,7 @@ bool Trend_Log_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Trend_Log_Count(
+unsigned ICACHE_FLASH_ATTR Trend_Log_Count(
     void)
 {
     return MAX_TREND_LOGS;
@@ -139,7 +139,7 @@ unsigned Trend_Log_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Trend_Log_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Trend_Log_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -148,7 +148,7 @@ uint32_t Trend_Log_Index_To_Instance(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Trend_Log_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Trend_Log_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_TREND_LOGS;
@@ -164,7 +164,7 @@ unsigned Trend_Log_Instance_To_Index(
  * Things to do when starting up the stack for Trend Logs.
  * Should be called whenever we reset the device or power it up
  */
-void Trend_Log_Init(
+void ICACHE_FLASH_ATTR Trend_Log_Init(
     void)
 {
     static bool initialized = false;
@@ -257,7 +257,7 @@ void Trend_Log_Init(
  * on the assumption that there is a 1 to 1 correspondance. If there
  * is not we need to convert to index before proceeding.
  */
-bool Trend_Log_Object_Name(
+bool ICACHE_FLASH_ATTR Trend_Log_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -275,7 +275,7 @@ bool Trend_Log_Object_Name(
 
 /* return the length of the apdu encoded or BACNET_STATUS_ERROR for error or
    BACNET_STATUS_ABORT for abort message */
-int Trend_Log_Read_Property(
+int ICACHE_FLASH_ATTR Trend_Log_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -445,7 +445,7 @@ int Trend_Log_Read_Property(
 }
 
 /* returns true if successful */
-bool Trend_Log_Write_Property(
+bool ICACHE_FLASH_ATTR Trend_Log_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
@@ -810,7 +810,7 @@ bool Trend_Log_Write_Property(
     return status;
 }
 
-bool TrendLogGetRRInfo(
+bool ICACHE_FLASH_ATTR TrendLogGetRRInfo(
     BACNET_READ_RANGE_DATA * pRequest,  /* Info on the request */
     RR_PROP_INFO * pInfo)
 {       /* Where to put the information */
@@ -839,7 +839,7 @@ bool TrendLogGetRRInfo(
  * pushed out of the log to make room.                                       *
  *****************************************************************************/
 
-void TL_Insert_Status_Rec(
+void ICACHE_FLASH_ATTR TL_Insert_Status_Rec(
     int iLog,
     BACNET_LOG_STATUS eStatus,
     bool bState)
@@ -886,7 +886,7 @@ void TL_Insert_Status_Rec(
  * if the log is really enabled now. See 135-2008 sections 12.25.5 - 12.25.7 *
  *****************************************************************************/
 
-bool TL_Is_Enabled(
+bool ICACHE_FLASH_ATTR TL_Is_Enabled(
     int iLog)
 {
     TL_LOG_INFO *CurrentLog;
@@ -945,7 +945,7 @@ bool TL_Is_Enabled(
  * Convert a BACnet time into a local time in seconds since the local epoch  *
  *****************************************************************************/
 
-time_t TL_BAC_Time_To_Local(
+time_t ICACHE_FLASH_ATTR TL_BAC_Time_To_Local(
     BACNET_DATE_TIME * SourceTime)
 {
     struct tm LocalTime;
@@ -977,7 +977,7 @@ time_t TL_BAC_Time_To_Local(
  * Convert a local time in seconds since the local epoch into a BACnet time  *
  *****************************************************************************/
 
-void TL_Local_Time_To_BAC(
+void ICACHE_FLASH_ATTR TL_Local_Time_To_BAC(
     BACNET_DATE_TIME * DestTime,
     time_t SourceTime)
 {
@@ -1022,7 +1022,7 @@ void TL_Local_Time_To_BAC(
 
 #define TL_MAX_ENC 23   /* Maximum size of encoded log entry, see above */
 
-int rr_trend_log_encode(
+int ICACHE_FLASH_ATTR rr_trend_log_encode(
     uint8_t * apdu,
     BACNET_READ_RANGE_DATA * pRequest)
 {
@@ -1053,7 +1053,7 @@ int rr_trend_log_encode(
  * 1 and of maximum log size length.                                        *
  ****************************************************************************/
 
-int TL_encode_by_position(
+int ICACHE_FLASH_ATTR TL_encode_by_position(
     uint8_t * apdu,
     BACNET_READ_RANGE_DATA * pRequest)
 {
@@ -1157,7 +1157,7 @@ int TL_encode_by_position(
  * empty buffer.                                                            *
  ****************************************************************************/
 
-int TL_encode_by_sequence(
+int ICACHE_FLASH_ATTR TL_encode_by_sequence(
     uint8_t * apdu,
     BACNET_READ_RANGE_DATA * pRequest)
 {
@@ -1293,7 +1293,7 @@ int TL_encode_by_sequence(
  * empty buffer.                                                            *
  ****************************************************************************/
 
-int TL_encode_by_time(
+int ICACHE_FLASH_ATTR TL_encode_by_time(
     uint8_t * apdu,
     BACNET_READ_RANGE_DATA * pRequest)
 {
@@ -1422,7 +1422,7 @@ int TL_encode_by_time(
 }
 
 
-int TL_encode_entry(
+int ICACHE_FLASH_ATTR TL_encode_entry(
     uint8_t * apdu,
     int iLog,
     int iEntry)
@@ -1548,7 +1548,7 @@ int TL_encode_entry(
     return (iLen);
 }
 
-static int local_read_property(
+static int ICACHE_FLASH_ATTR local_read_property(
     uint8_t * value,
     uint8_t * status,
     BACNET_DEVICE_OBJECT_PROPERTY_REFERENCE * Source,
@@ -1594,7 +1594,7 @@ static int local_read_property(
  * Attempt to fetch the logged property and store it in the Trend Log       *
  ****************************************************************************/
 
-static void TL_fetch_property(
+static void ICACHE_FLASH_ATTR TL_fetch_property(
     int iLog)
 {
     uint8_t ValueBuf[MAX_APDU]; /* This is a big buffer in case someone selects the device object list for example */
@@ -1717,7 +1717,7 @@ static void TL_fetch_property(
  * Check each log to see if any data needs to be recorded.                  *
  ****************************************************************************/
 
-void trend_log_timer(
+void ICACHE_FLASH_ATTR trend_log_timer(
     uint16_t uSeconds)
 {
     TL_LOG_INFO *CurrentLog = NULL;

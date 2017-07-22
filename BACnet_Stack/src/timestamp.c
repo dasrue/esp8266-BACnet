@@ -38,7 +38,7 @@
 /** @file timestamp.c  Encode/Decode BACnet Timestamps  */
 
 
-void bacapp_timestamp_copy(
+void ICACHE_FLASH_ATTR bacapp_timestamp_copy(
     BACNET_TIMESTAMP * dest,
     BACNET_TIMESTAMP * src)
 {
@@ -60,7 +60,7 @@ void bacapp_timestamp_copy(
     }
 }
 
-int bacapp_encode_timestamp(
+int ICACHE_FLASH_ATTR bacapp_encode_timestamp(
     uint8_t * apdu,
     BACNET_TIMESTAMP * value)
 {
@@ -94,7 +94,7 @@ int bacapp_encode_timestamp(
     return len;
 }
 
-int bacapp_encode_context_timestamp(
+int ICACHE_FLASH_ATTR bacapp_encode_context_timestamp(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_TIMESTAMP * value)
@@ -113,7 +113,7 @@ int bacapp_encode_context_timestamp(
     return apdu_len;
 }
 
-int bacapp_decode_timestamp(
+int ICACHE_FLASH_ATTR bacapp_decode_timestamp(
     uint8_t * apdu,
     BACNET_TIMESTAMP * value)
 {
@@ -175,7 +175,7 @@ int bacapp_decode_timestamp(
     return len;
 }
 
-int bacapp_decode_context_timestamp(
+int ICACHE_FLASH_ATTR bacapp_decode_context_timestamp(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_TIMESTAMP * value)

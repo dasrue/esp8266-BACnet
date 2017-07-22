@@ -47,7 +47,7 @@
  * @param dest [out] The 'to' structure
  * @param src   [in] The 'from' structure
  */
-void npdu_copy_data(
+void ICACHE_FLASH_ATTR npdu_copy_data(
     BACNET_NPDU_DATA * dest,
     BACNET_NPDU_DATA * src)
 {
@@ -129,7 +129,7 @@ ABORT.indication               Yes         Yes         Yes        No
  * 		   NPDU section.
  *         If 0 or negative, there were problems with the data or encoding.
  */
-int npdu_encode_pdu(
+int ICACHE_FLASH_ATTR npdu_encode_pdu(
     uint8_t * npdu,
     BACNET_ADDRESS * dest,
     BACNET_ADDRESS * src,
@@ -269,7 +269,7 @@ is expected for the service being issued.
  * @param priority [in] One of the 4 priorities defined in section 6.2.2,
  *                      like B'11' = Life Safety message
  */
-void npdu_encode_npdu_data(
+void ICACHE_FLASH_ATTR npdu_encode_npdu_data(
     BACNET_NPDU_DATA * npdu_data,
     bool data_expecting_reply,
     BACNET_MESSAGE_PRIORITY priority)
@@ -306,7 +306,7 @@ void npdu_encode_npdu_data(
  *         bytes left in the NPDU; if not a network msg, the APDU follows.
  *         If 0 or negative, there were problems with the data or arguments.
  */
-int npdu_decode(
+int ICACHE_FLASH_ATTR npdu_decode(
     uint8_t * npdu,
     BACNET_ADDRESS * dest,
     BACNET_ADDRESS * src,

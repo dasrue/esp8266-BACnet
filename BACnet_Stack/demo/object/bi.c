@@ -74,7 +74,7 @@ static const int Binary_Input_Properties_Proprietary[] = {
     -1
 };
 
-void Binary_Input_Property_Lists(
+void ICACHE_FLASH_ATTR Binary_Input_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -95,7 +95,7 @@ void Binary_Input_Property_Lists(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Binary_Input_Valid_Instance(
+bool ICACHE_FLASH_ATTR Binary_Input_Valid_Instance(
     uint32_t object_instance)
 {
     if (object_instance < MAX_BINARY_INPUTS) {
@@ -107,7 +107,7 @@ bool Binary_Input_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Binary_Input_Count(
+unsigned ICACHE_FLASH_ATTR Binary_Input_Count(
     void)
 {
     return MAX_BINARY_INPUTS;
@@ -116,13 +116,13 @@ unsigned Binary_Input_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Binary_Input_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Binary_Input_Index_To_Instance(
     unsigned index)
 {
     return index;
 }
 
-void Binary_Input_Init(
+void ICACHE_FLASH_ATTR Binary_Input_Init(
     void)
 {
     static bool initialized = false;
@@ -143,7 +143,7 @@ void Binary_Input_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Binary_Input_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Binary_Input_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_BINARY_INPUTS;
@@ -155,7 +155,7 @@ unsigned Binary_Input_Instance_To_Index(
     return index;
 }
 
-BACNET_BINARY_PV Binary_Input_Present_Value(
+BACNET_BINARY_PV ICACHE_FLASH_ATTR Binary_Input_Present_Value(
     uint32_t object_instance)
 {
     BACNET_BINARY_PV value = BINARY_INACTIVE;
@@ -176,7 +176,7 @@ BACNET_BINARY_PV Binary_Input_Present_Value(
     return value;
 }
 
-bool Binary_Input_Out_Of_Service(
+bool ICACHE_FLASH_ATTR Binary_Input_Out_Of_Service(
     uint32_t object_instance)
 {
     bool value = false;
@@ -190,7 +190,7 @@ bool Binary_Input_Out_Of_Service(
     return value;
 }
 
-bool Binary_Input_Change_Of_Value(
+bool ICACHE_FLASH_ATTR Binary_Input_Change_Of_Value(
     uint32_t object_instance)
 {
     bool status = false;
@@ -204,7 +204,7 @@ bool Binary_Input_Change_Of_Value(
     return status;
 }
 
-void Binary_Input_Change_Of_Value_Clear(
+void ICACHE_FLASH_ATTR Binary_Input_Change_Of_Value_Clear(
     uint32_t object_instance)
 {
     unsigned index;
@@ -225,7 +225,7 @@ void Binary_Input_Change_Of_Value_Clear(
  *
  * @return true if values were encoded
  */
-bool Binary_Input_Encode_Value_List(
+bool ICACHE_FLASH_ATTR Binary_Input_Encode_Value_List(
     uint32_t object_instance,
     BACNET_PROPERTY_VALUE * value_list)
 {
@@ -270,7 +270,7 @@ bool Binary_Input_Encode_Value_List(
     return status;
 }
 
-bool Binary_Input_Present_Value_Set(
+bool ICACHE_FLASH_ATTR Binary_Input_Present_Value_Set(
     uint32_t object_instance,
     BACNET_BINARY_PV value)
 {
@@ -296,7 +296,7 @@ bool Binary_Input_Present_Value_Set(
     return status;
 }
 
-void Binary_Input_Out_Of_Service_Set(
+void ICACHE_FLASH_ATTR Binary_Input_Out_Of_Service_Set(
     uint32_t object_instance,
     bool value)
 {
@@ -313,7 +313,7 @@ void Binary_Input_Out_Of_Service_Set(
     return;
 }
 
-bool Binary_Input_Object_Name(
+bool ICACHE_FLASH_ATTR Binary_Input_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -331,7 +331,7 @@ bool Binary_Input_Object_Name(
     return status;
 }
 
-BACNET_POLARITY Binary_Input_Polarity(
+BACNET_POLARITY ICACHE_FLASH_ATTR Binary_Input_Polarity(
     uint32_t object_instance)
 {
     BACNET_POLARITY polarity = POLARITY_NORMAL;
@@ -345,7 +345,7 @@ BACNET_POLARITY Binary_Input_Polarity(
     return polarity;
 }
 
-bool Binary_Input_Polarity_Set(
+bool ICACHE_FLASH_ATTR Binary_Input_Polarity_Set(
     uint32_t object_instance,
     BACNET_POLARITY polarity)
 {
@@ -362,7 +362,7 @@ bool Binary_Input_Polarity_Set(
 
 /* return apdu length, or BACNET_STATUS_ERROR on error */
 /* assumption - object already exists, and has been bounds checked */
-int Binary_Input_Read_Property(
+int ICACHE_FLASH_ATTR Binary_Input_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -440,7 +440,7 @@ int Binary_Input_Read_Property(
 }
 
 /* returns true if successful */
-bool Binary_Input_Write_Property(
+bool ICACHE_FLASH_ATTR Binary_Input_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */

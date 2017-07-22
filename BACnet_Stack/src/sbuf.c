@@ -42,7 +42,7 @@
 #include <stddef.h>
 #include "sbuf.h"
 
-void sbuf_init(
+void ICACHE_FLASH_ATTR sbuf_init(
     STATIC_BUFFER * b,  /* static buffer structure */
     char *data, /* data block */
     unsigned size)
@@ -57,32 +57,32 @@ void sbuf_init(
 }
 
 /* returns true if count==0, false if count > 0 */
-bool sbuf_empty(
+bool ICACHE_FLASH_ATTR sbuf_empty(
     STATIC_BUFFER const *b)
 {
     return (b ? (b->count == 0) : false);
 }
 
-char *sbuf_data(
+char *ICACHE_FLASH_ATTR sbuf_data(
     STATIC_BUFFER const *b)
 {
     return (b ? b->data : NULL);
 }
 
-unsigned sbuf_size(
+unsigned ICACHE_FLASH_ATTR sbuf_size(
     STATIC_BUFFER * b)
 {
     return (b ? b->size : 0);
 }
 
-unsigned sbuf_count(
+unsigned ICACHE_FLASH_ATTR sbuf_count(
     STATIC_BUFFER * b)
 {
     return (b ? b->count : 0);
 }
 
 /* returns true if successful, false if not enough room to append data */
-bool sbuf_put(
+bool ICACHE_FLASH_ATTR sbuf_put(
     STATIC_BUFFER * b,  /* static buffer structure */
     unsigned offset,    /* where to start */
     char *data, /* data to place in buffer */
@@ -107,7 +107,7 @@ bool sbuf_put(
 }
 
 /* returns true if successful, false if not enough room to append data */
-bool sbuf_append(
+bool ICACHE_FLASH_ATTR sbuf_append(
     STATIC_BUFFER * b,  /* static buffer structure */
     char *data, /* data to place in buffer */
     unsigned data_size)
@@ -122,7 +122,7 @@ bool sbuf_append(
 }
 
 /* returns true if successful, false if not enough room to append data */
-bool sbuf_truncate(
+bool ICACHE_FLASH_ATTR sbuf_truncate(
     STATIC_BUFFER * b,  /* static buffer structure */
     unsigned count)
 {       /* total number of bytes in to remove */

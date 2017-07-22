@@ -63,7 +63,7 @@
  *  @param pdu [in]  Buffer containing the NPDU and APDU of the received packet.
  *  @param pdu_len [in] The size of the received message in the pdu[] buffer.
  */
-void npdu_handler(
+void ICACHE_FLASH_ATTR npdu_handler(
     BACNET_ADDRESS * src,       /* source address */
     uint8_t * pdu,      /* PDU data */
     uint16_t pdu_len)

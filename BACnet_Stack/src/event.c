@@ -39,7 +39,7 @@
 
 /** @file event.c  Encode/Decode Event Notifications */
 
-int uevent_notify_encode_apdu(
+int ICACHE_FLASH_ATTR uevent_notify_encode_apdu(
     uint8_t * apdu,
     BACNET_EVENT_NOTIFICATION_DATA * data)
 {
@@ -64,7 +64,7 @@ int uevent_notify_encode_apdu(
     return apdu_len;
 }
 
-int cevent_notify_encode_apdu(
+int ICACHE_FLASH_ATTR cevent_notify_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_EVENT_NOTIFICATION_DATA * data)
@@ -91,7 +91,7 @@ int cevent_notify_encode_apdu(
     return apdu_len;
 }
 
-int event_notify_encode_service_request(
+int ICACHE_FLASH_ATTR event_notify_encode_service_request(
     uint8_t * apdu,
     BACNET_EVENT_NOTIFICATION_DATA * data)
 {
@@ -435,7 +435,7 @@ int event_notify_encode_service_request(
     return apdu_len;
 }
 
-int event_notify_decode_service_request(
+int ICACHE_FLASH_ATTR event_notify_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_EVENT_NOTIFICATION_DATA * data)

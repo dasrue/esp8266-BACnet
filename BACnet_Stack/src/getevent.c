@@ -40,7 +40,7 @@
 /** @file getevent.c  Encode/Decode GetEvent services */
 
 /* encode service */
-int getevent_encode_apdu(
+int ICACHE_FLASH_ATTR getevent_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_OBJECT_ID * lastReceivedObjectIdentifier)
@@ -68,7 +68,7 @@ int getevent_encode_apdu(
 }
 
 /* decode the service request only */
-int getevent_decode_service_request(
+int ICACHE_FLASH_ATTR getevent_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_OBJECT_ID * lastReceivedObjectIdentifier)
@@ -88,7 +88,7 @@ int getevent_decode_service_request(
     return (int) len;
 }
 
-int getevent_ack_encode_apdu_init(
+int ICACHE_FLASH_ATTR getevent_ack_encode_apdu_init(
     uint8_t * apdu,
     size_t max_apdu,
     uint8_t invoke_id)
@@ -108,7 +108,7 @@ int getevent_ack_encode_apdu_init(
     return apdu_len;
 }
 
-int getevent_ack_encode_apdu_data(
+int ICACHE_FLASH_ATTR getevent_ack_encode_apdu_data(
     uint8_t * apdu,
     size_t max_apdu,
     BACNET_GET_EVENT_INFORMATION_DATA * get_event_data)
@@ -166,7 +166,7 @@ int getevent_ack_encode_apdu_data(
     return apdu_len;
 }
 
-int getevent_ack_encode_apdu_end(
+int ICACHE_FLASH_ATTR getevent_ack_encode_apdu_end(
     uint8_t * apdu,
     size_t max_apdu,
     bool moreEvents)
@@ -183,7 +183,7 @@ int getevent_ack_encode_apdu_end(
     return apdu_len;
 }
 
-int getevent_ack_decode_service_request(
+int ICACHE_FLASH_ATTR getevent_ack_decode_service_request(
     uint8_t * apdu,
     int apdu_len,       /* total length of the apdu */
     BACNET_GET_EVENT_INFORMATION_DATA * get_event_data,

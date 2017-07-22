@@ -49,7 +49,7 @@ void ICACHE_FLASH_ATTR user_set_station_config() {
 	wifi_station_set_config(&stationConf);
 }
 
-bool bip_init(
+bool ICACHE_FLASH_ATTR bip_init(
 		char *ifname)
 {
 	if(wifi_get_opmode()!=0x01)

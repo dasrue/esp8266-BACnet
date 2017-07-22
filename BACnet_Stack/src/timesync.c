@@ -41,7 +41,7 @@
 /** @file timesync.c  Encode/Decode TimeSync APDUs  */
 #if BACNET_SVC_TS_A
 /* encode service */
-int timesync_encode_apdu_service(
+int ICACHE_FLASH_ATTR timesync_encode_apdu_service(
     uint8_t * apdu,
     BACNET_UNCONFIRMED_SERVICE service,
     BACNET_DATE * my_date,
@@ -63,7 +63,7 @@ int timesync_encode_apdu_service(
     return apdu_len;
 }
 
-int timesync_utc_encode_apdu(
+int ICACHE_FLASH_ATTR timesync_utc_encode_apdu(
     uint8_t * apdu,
     BACNET_DATE * my_date,
     BACNET_TIME * my_time)
@@ -72,7 +72,7 @@ int timesync_utc_encode_apdu(
         SERVICE_UNCONFIRMED_UTC_TIME_SYNCHRONIZATION, my_date, my_time);
 }
 
-int timesync_encode_apdu(
+int ICACHE_FLASH_ATTR timesync_encode_apdu(
     uint8_t * apdu,
     BACNET_DATE * my_date,
     BACNET_TIME * my_time)
@@ -83,7 +83,7 @@ int timesync_encode_apdu(
 #endif
 
 /* decode the service request only */
-int timesync_decode_service_request(
+int ICACHE_FLASH_ATTR timesync_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_DATE * my_date,
@@ -137,7 +137,7 @@ int timesync_decode_service_request(
  *  @return How many bytes were encoded in the buffer, or
  *   BACNET_STATUS_ABORT if the response would not fit within the buffer.
  */
-int timesync_encode_timesync_recipients(
+int ICACHE_FLASH_ATTR timesync_encode_timesync_recipients(
     uint8_t * apdu,
     unsigned max_apdu,
     BACNET_RECIPIENT_LIST * recipient)
@@ -230,7 +230,7 @@ int timesync_encode_timesync_recipients(
  *  @return How many bytes were decoded from the buffer, or
  *   BACNET_STATUS_ABORT if there was a problem decoding the buffer
  */
-int timesync_decode_timesync_recipients(
+int ICACHE_FLASH_ATTR timesync_decode_timesync_recipients(
     uint8_t * apdu,
     unsigned max_apdu,
     BACNET_RECIPIENT_LIST * recipient)

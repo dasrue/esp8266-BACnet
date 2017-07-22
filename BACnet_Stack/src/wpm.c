@@ -49,7 +49,7 @@
  * @param data [out] The BACNET_WRITE_PROPERTY_DATA structure
  *    which will contain the reponse values or error.
  */
-int wpm_decode_object_id(
+int ICACHE_FLASH_ATTR wpm_decode_object_id(
     uint8_t * apdu,
     uint16_t apdu_len,
     BACNET_WRITE_PROPERTY_DATA * wp_data)
@@ -97,7 +97,7 @@ int wpm_decode_object_id(
 }
 
 
-int wpm_decode_object_property(
+int ICACHE_FLASH_ATTR wpm_decode_object_property(
     uint8_t * apdu,
     uint16_t apdu_len,
     BACNET_WRITE_PROPERTY_DATA * wp_data)
@@ -177,7 +177,7 @@ int wpm_decode_object_property(
 }
 
 /* encode functions */
-int wpm_encode_apdu_init(
+int ICACHE_FLASH_ATTR wpm_encode_apdu_init(
     uint8_t * apdu,
     uint8_t invoke_id)
 {
@@ -195,7 +195,7 @@ int wpm_encode_apdu_init(
 
 }
 
-int wpm_encode_apdu_object_begin(
+int ICACHE_FLASH_ATTR wpm_encode_apdu_object_begin(
     uint8_t * apdu,
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance)
@@ -213,7 +213,7 @@ int wpm_encode_apdu_object_begin(
     return apdu_len;
 }
 
-int wpm_encode_apdu_object_end(
+int ICACHE_FLASH_ATTR wpm_encode_apdu_object_end(
     uint8_t * apdu)
 {
     int apdu_len = 0;   /* total length of the apdu, return value */
@@ -225,7 +225,7 @@ int wpm_encode_apdu_object_end(
     return apdu_len;
 }
 
-int wpm_encode_apdu_object_property(
+int ICACHE_FLASH_ATTR wpm_encode_apdu_object_property(
     uint8_t * apdu,
     BACNET_WRITE_PROPERTY_DATA * wpdata)
 {
@@ -255,7 +255,7 @@ int wpm_encode_apdu_object_property(
     return apdu_len;
 }
 
-int wpm_encode_apdu(
+int ICACHE_FLASH_ATTR wpm_encode_apdu(
 	uint8_t * apdu,
 	size_t max_apdu,
 	uint8_t invoke_id,
@@ -308,7 +308,7 @@ int wpm_encode_apdu(
 	return apdu_len;
 }
 
-int wpm_ack_encode_apdu_init(
+int ICACHE_FLASH_ATTR wpm_ack_encode_apdu_init(
     uint8_t * apdu,
     uint8_t invoke_id)
 {
@@ -323,7 +323,7 @@ int wpm_ack_encode_apdu_init(
     return len;
 }
 
-int wpm_error_ack_encode_apdu(
+int ICACHE_FLASH_ATTR wpm_error_ack_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_WRITE_PROPERTY_DATA * wp_data)

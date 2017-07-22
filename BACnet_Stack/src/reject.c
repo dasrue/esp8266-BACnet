@@ -46,7 +46,7 @@
  * Will need reworking if it is required to return proprietary reject codes.
  */
 
-BACNET_REJECT_REASON reject_convert_error_code(
+BACNET_REJECT_REASON ICACHE_FLASH_ATTR reject_convert_error_code(
     BACNET_ERROR_CODE error_code)
 {
     BACNET_REJECT_REASON reject_code = REJECT_REASON_OTHER;
@@ -92,7 +92,7 @@ BACNET_REJECT_REASON reject_convert_error_code(
 }
 
 /* encode service */
-int reject_encode_apdu(
+int ICACHE_FLASH_ATTR reject_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     uint8_t reject_reason)
@@ -111,7 +111,7 @@ int reject_encode_apdu(
 
 #if !BACNET_SVC_SERVER
 /* decode the service request only */
-int reject_decode_service_request(
+int ICACHE_FLASH_ATTR reject_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     uint8_t * invoke_id,

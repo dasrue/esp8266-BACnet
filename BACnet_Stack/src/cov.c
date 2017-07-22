@@ -46,7 +46,7 @@ COV Subscribe Property
 COV Notification
 Unconfirmed COV Notification
 */
-static int notify_encode_apdu(
+static int ICACHE_FLASH_ATTR notify_encode_apdu(
     uint8_t * apdu,
     BACNET_COV_DATA * data)
 {
@@ -129,7 +129,7 @@ static int notify_encode_apdu(
     return apdu_len;
 }
 
-int ccov_notify_encode_apdu(
+int ICACHE_FLASH_ATTR ccov_notify_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_COV_DATA * data)
@@ -150,7 +150,7 @@ int ccov_notify_encode_apdu(
     return apdu_len;
 }
 
-int ucov_notify_encode_apdu(
+int ICACHE_FLASH_ATTR ucov_notify_encode_apdu(
     uint8_t * apdu,
     BACNET_COV_DATA * data)
 {
@@ -170,7 +170,7 @@ int ucov_notify_encode_apdu(
 
 /* decode the service request only */
 /* COV and Unconfirmed COV are the same */
-int cov_notify_decode_service_request(
+int ICACHE_FLASH_ATTR cov_notify_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_COV_DATA * data)
@@ -339,7 +339,7 @@ SubscribeCOV-Request ::= SEQUENCE {
         }
 */
 
-int cov_subscribe_encode_apdu(
+int ICACHE_FLASH_ATTR cov_subscribe_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_SUBSCRIBE_COV_DATA * data)
@@ -385,7 +385,7 @@ int cov_subscribe_encode_apdu(
 }
 
 /* decode the service request only */
-int cov_subscribe_decode_service_request(
+int ICACHE_FLASH_ATTR cov_subscribe_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_SUBSCRIBE_COV_DATA * data)
@@ -473,7 +473,7 @@ BACnetPropertyReference ::= SEQUENCE {
 
 */
 
-int cov_subscribe_property_encode_apdu(
+int ICACHE_FLASH_ATTR cov_subscribe_property_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_SUBSCRIBE_COV_DATA * data)
@@ -536,7 +536,7 @@ int cov_subscribe_property_encode_apdu(
 }
 
 /* decode the service request only */
-int cov_subscribe_property_decode_service_request(
+int ICACHE_FLASH_ATTR cov_subscribe_property_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_SUBSCRIBE_COV_DATA * data)
@@ -656,7 +656,7 @@ int cov_subscribe_property_decode_service_request(
  * a buffer or array.
  * @param count - number of BACNET_PROPERTY_VALUE elements
  */
-void cov_data_value_list_link(
+void ICACHE_FLASH_ATTR cov_data_value_list_link(
     BACNET_COV_DATA *data,
     BACNET_PROPERTY_VALUE *value_list,
     size_t count)

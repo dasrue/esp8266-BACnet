@@ -47,7 +47,7 @@
  * @param service_len [in] Length of the service_request message.
  * @param src [in] The BACNET_ADDRESS of the message's source (ignored).
  */
-void handler_who_is(
+void ICACHE_FLASH_ATTR handler_who_is(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src)
@@ -80,7 +80,7 @@ void handler_who_is(
  * @param src [in] The BACNET_ADDRESS of the message's source that the
  *                 response will be sent back to.
  */
-void handler_who_is_unicast(
+void ICACHE_FLASH_ATTR handler_who_is_unicast(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src)

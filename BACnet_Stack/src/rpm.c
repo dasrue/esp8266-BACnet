@@ -44,7 +44,7 @@
 
 #if BACNET_SVC_RPM_A
 /* encode the initial portion of the service */
-int rpm_encode_apdu_init(
+int ICACHE_FLASH_ATTR rpm_encode_apdu_init(
     uint8_t * apdu,
     uint8_t invoke_id)
 {
@@ -61,7 +61,7 @@ int rpm_encode_apdu_init(
     return apdu_len;
 }
 
-int rpm_encode_apdu_object_begin(
+int ICACHE_FLASH_ATTR rpm_encode_apdu_object_begin(
     uint8_t * apdu,
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance)
@@ -79,7 +79,7 @@ int rpm_encode_apdu_object_begin(
     return apdu_len;
 }
 
-int rpm_encode_apdu_object_property(
+int ICACHE_FLASH_ATTR rpm_encode_apdu_object_property(
     uint8_t * apdu,
     BACNET_PROPERTY_ID object_property,
     uint32_t array_index)
@@ -97,7 +97,7 @@ int rpm_encode_apdu_object_property(
     return apdu_len;
 }
 
-int rpm_encode_apdu_object_end(
+int ICACHE_FLASH_ATTR rpm_encode_apdu_object_end(
     uint8_t * apdu)
 {
     int apdu_len = 0;   /* total length of the apdu, return value */
@@ -117,7 +117,7 @@ int rpm_encode_apdu_object_end(
  * @param read_access_data [in] The RPM data to be requested.
  * @return Length of encoded bytes, or 0 on failure.
  */
-int rpm_encode_apdu(
+int ICACHE_FLASH_ATTR rpm_encode_apdu(
     uint8_t * apdu,
     size_t max_apdu,
     uint8_t invoke_id,
@@ -205,7 +205,7 @@ int rpm_encode_apdu(
 /* decode the object portion of the service request only. Bails out if
  * tags are wrong or missing/incomplete
  */
-int rpm_decode_object_id(
+int ICACHE_FLASH_ATTR rpm_decode_object_id(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_RPM_DATA * rpmdata)
@@ -237,7 +237,7 @@ int rpm_decode_object_id(
     return (int) len;
 }
 
-int rpm_decode_object_end(
+int ICACHE_FLASH_ATTR rpm_decode_object_end(
     uint8_t * apdu,
     unsigned apdu_len)
 {
@@ -259,7 +259,7 @@ int rpm_decode_object_end(
         -- if omitted with an array the entire array is referenced
     }
 */
-int rpm_decode_object_property(
+int ICACHE_FLASH_ATTR rpm_decode_object_property(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_RPM_DATA * rpmdata)
@@ -318,7 +318,7 @@ int rpm_decode_object_property(
     return (int) len;
 }
 
-int rpm_ack_encode_apdu_init(
+int ICACHE_FLASH_ATTR rpm_ack_encode_apdu_init(
     uint8_t * apdu,
     uint8_t invoke_id)
 {
@@ -334,7 +334,7 @@ int rpm_ack_encode_apdu_init(
     return apdu_len;
 }
 
-int rpm_ack_encode_apdu_object_begin(
+int ICACHE_FLASH_ATTR rpm_ack_encode_apdu_object_begin(
     uint8_t * apdu,
     BACNET_RPM_DATA * rpmdata)
 {
@@ -352,7 +352,7 @@ int rpm_ack_encode_apdu_object_begin(
     return apdu_len;
 }
 
-int rpm_ack_encode_apdu_object_property(
+int ICACHE_FLASH_ATTR rpm_ack_encode_apdu_object_property(
     uint8_t * apdu,
     BACNET_PROPERTY_ID object_property,
     uint32_t array_index)
@@ -371,7 +371,7 @@ int rpm_ack_encode_apdu_object_property(
     return apdu_len;
 }
 
-int rpm_ack_encode_apdu_object_property_value(
+int ICACHE_FLASH_ATTR rpm_ack_encode_apdu_object_property_value(
     uint8_t * apdu,
     uint8_t * application_data,
     unsigned application_data_len)
@@ -395,7 +395,7 @@ int rpm_ack_encode_apdu_object_property_value(
     return apdu_len;
 }
 
-int rpm_ack_encode_apdu_object_property_error(
+int ICACHE_FLASH_ATTR rpm_ack_encode_apdu_object_property_error(
     uint8_t * apdu,
     BACNET_ERROR_CLASS error_class,
     BACNET_ERROR_CODE error_code)
@@ -414,7 +414,7 @@ int rpm_ack_encode_apdu_object_property_error(
     return apdu_len;
 }
 
-int rpm_ack_encode_apdu_object_end(
+int ICACHE_FLASH_ATTR rpm_ack_encode_apdu_object_end(
     uint8_t * apdu)
 {
     int apdu_len = 0;   /* total length of the apdu, return value */
@@ -429,7 +429,7 @@ int rpm_ack_encode_apdu_object_end(
 #if BACNET_SVC_RPM_A
 
 /* decode the object portion of the service request only */
-int rpm_ack_decode_object_id(
+int ICACHE_FLASH_ATTR rpm_ack_decode_object_id(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_OBJECT_TYPE * object_type,
@@ -456,7 +456,7 @@ int rpm_ack_decode_object_id(
 }
 
 /* is this the end of the list of this objects properties values? */
-int rpm_ack_decode_object_end(
+int ICACHE_FLASH_ATTR rpm_ack_decode_object_end(
     uint8_t * apdu,
     unsigned apdu_len)
 {
@@ -470,7 +470,7 @@ int rpm_ack_decode_object_end(
     return len;
 }
 
-int rpm_ack_decode_object_property(
+int ICACHE_FLASH_ATTR rpm_ack_decode_object_property(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_PROPERTY_ID * object_property,

@@ -57,7 +57,7 @@
  * @param service_len [in] The length of the service_request.
  * @param src [in] BACNET_ADDRESS of the source of the message (unused)
  */
-void handler_ucov_notification(
+void ICACHE_FLASH_ATTR handler_ucov_notification(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src)

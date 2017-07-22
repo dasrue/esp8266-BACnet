@@ -104,7 +104,7 @@ void bvlc6_maintenance_timer(
  *
  * @return true if the address was set
  */
-static bool bbmd6_address_from_vmac(
+static bool ICACHE_FLASH_ATTR bbmd6_address_from_vmac(
     BACNET_IP6_ADDRESS *addr,
     struct vmac_data *vmac)
 {
@@ -130,7 +130,7 @@ static bool bbmd6_address_from_vmac(
  *
  * @return true if the address was set
  */
-static bool bbmd6_address_to_vmac(
+static bool ICACHE_FLASH_ATTR bbmd6_address_to_vmac(
     struct vmac_data *vmac,
     BACNET_IP6_ADDRESS *addr)
 {
@@ -157,7 +157,7 @@ static bool bbmd6_address_to_vmac(
  *
  * @return true if the VMAC address was added
  */
-static bool bbmd6_add_vmac(
+static bool ICACHE_FLASH_ATTR bbmd6_add_vmac(
     uint32_t device_id,
     BACNET_IP6_ADDRESS *addr)
 {
@@ -189,7 +189,7 @@ static bool bbmd6_add_vmac(
  *
  * @return true if the address was in the VMAC table
  */
-static bool bbmd6_address_from_bacnet_address(
+static bool ICACHE_FLASH_ATTR bbmd6_address_from_bacnet_address(
     BACNET_IP6_ADDRESS * addr,
     uint32_t * vmac_src,
     BACNET_ADDRESS * baddr)
@@ -231,7 +231,7 @@ static bool bbmd6_address_from_bacnet_address(
  * @return Upon successful completion, returns the number of bytes sent.
  *  Otherwise, -1 shall be returned and errno set to indicate the error.
  */
-int bip6_send_pdu(
+int ICACHE_FLASH_ATTR bip6_send_pdu(
     BACNET_ADDRESS * dest,
     BACNET_NPDU_DATA * npdu_data,
     uint8_t * pdu,
@@ -362,7 +362,7 @@ static void bbmd6_send_pdu_fdt(
  * @return Upon successful completion, returns the number of bytes sent.
  *  Otherwise, -1 shall be returned and errno set to indicate the error.
  */
-static int bvlc6_send_result(
+static int ICACHE_FLASH_ATTR bvlc6_send_result(
     BACNET_IP6_ADDRESS *dest_addr,
     uint32_t vmac_src,
     uint16_t result_code)
@@ -386,7 +386,7 @@ static int bvlc6_send_result(
  * @return Upon successful completion, returns the number of bytes sent.
  *  Otherwise, -1 shall be returned and errno set to indicate the error.
  */
-static int bvlc6_send_address_resolution_ack(
+static int ICACHE_FLASH_ATTR bvlc6_send_address_resolution_ack(
     BACNET_IP6_ADDRESS *dest_addr,
     uint32_t vmac_src,
     uint32_t vmac_dst)
@@ -413,7 +413,7 @@ static int bvlc6_send_address_resolution_ack(
  * @return Upon successful completion, returns the number of bytes sent.
  *  Otherwise, -1 shall be returned and errno set to indicate the error.
  */
-static int bvlc6_send_virtual_address_resolution_ack(
+static int ICACHE_FLASH_ATTR bvlc6_send_virtual_address_resolution_ack(
     BACNET_IP6_ADDRESS *dest_addr,
     uint32_t vmac_src,
     uint32_t vmac_dst)
@@ -435,7 +435,7 @@ static int bvlc6_send_virtual_address_resolution_ack(
  * @param pdu - The received NPDU+APDU buffer.
  * @param pdu_len - How many bytes in NPDU+APDU buffer.
  */
-static void bbmd6_virtual_address_resolution_handler(
+static void ICACHE_FLASH_ATTR bbmd6_virtual_address_resolution_handler(
     BACNET_IP6_ADDRESS *addr,
     uint8_t * pdu,
     uint16_t pdu_len)
@@ -472,7 +472,7 @@ static void bbmd6_virtual_address_resolution_handler(
  * @param pdu - The received NPDU+APDU buffer.
  * @param pdu_len - How many bytes in NPDU+APDU buffer.
  */
-static void bbmd6_virtual_address_resolution_ack_handler(
+static void ICACHE_FLASH_ATTR bbmd6_virtual_address_resolution_ack_handler(
     BACNET_IP6_ADDRESS *addr,
     uint8_t * pdu,
     uint16_t pdu_len)
@@ -503,7 +503,7 @@ static void bbmd6_virtual_address_resolution_ack_handler(
  * @param pdu - The received NPDU+APDU buffer.
  * @param pdu_len - How many bytes in NPDU+APDU buffer.
  */
-static void bbmd6_address_resolution_handler(
+static void ICACHE_FLASH_ATTR bbmd6_address_resolution_handler(
     BACNET_IP6_ADDRESS *addr,
     uint8_t * pdu,
     uint16_t pdu_len)
@@ -543,7 +543,7 @@ static void bbmd6_address_resolution_handler(
  * @param pdu - The received NPDU+APDU buffer.
  * @param pdu_len - How many bytes in NPDU+APDU buffer.
  */
-static void bbmd6_address_resolution_ack_handler(
+static void ICACHE_FLASH_ATTR bbmd6_address_resolution_ack_handler(
     BACNET_IP6_ADDRESS *addr,
     uint8_t * pdu,
     uint16_t pdu_len)
@@ -768,7 +768,7 @@ static int handler_bbmd6_for_bbmd(
  *
  * @return number of bytes offset into the NPDU for APDU, or 0 if handled
  */
-static int handler_bbmd6_for_non_bbmd(
+static int ICACHE_FLASH_ATTR handler_bbmd6_for_non_bbmd(
     BACNET_IP6_ADDRESS *addr,
     BACNET_ADDRESS * src,
     uint8_t * mtu,
@@ -927,7 +927,7 @@ static int handler_bbmd6_for_non_bbmd(
  *
  * @return number of bytes offset into the NPDU for APDU, or 0 if handled
  */
-int bvlc6_handler(
+int ICACHE_FLASH_ATTR bvlc6_handler(
     BACNET_IP6_ADDRESS *addr,
     BACNET_ADDRESS * src,
     uint8_t * npdu,
@@ -949,7 +949,7 @@ int bvlc6_handler(
  *         0 if no registration request is sent, or
  *         -1 if registration fails.
  */
-int bvlc6_register_with_bbmd(
+int ICACHE_FLASH_ATTR bvlc6_register_with_bbmd(
     BACNET_IP6_ADDRESS *bbmd_addr,
     uint32_t vmac_src,
     uint16_t time_to_live_seconds)
@@ -971,7 +971,7 @@ int bvlc6_register_with_bbmd(
  * BVLC6_RESULT_REGISTER_FOREIGN_DEVICE_NAK if registration failed,
  * or one of the other codes (if we are a BBMD).
  */
-uint16_t bvlc6_get_last_result(
+uint16_t ICACHE_FLASH_ATTR bvlc6_get_last_result(
     void)
 {
     return BVLC6_Result_Code;
@@ -984,13 +984,13 @@ uint16_t bvlc6_get_last_result(
  *
  * @return A BVLC6_ code, such as BVLC6_ORIGINAL_UNICAST_NPDU.
  */
-uint8_t bvlc6_get_function_code(
+uint8_t ICACHE_FLASH_ATTR bvlc6_get_function_code(
     void)
 {
     return BVLC6_Function_Code;
 }
 
-void bvlc6_init(void)
+void ICACHE_FLASH_ATTR bvlc6_init(void)
 {
     VMAC_Init();
 }

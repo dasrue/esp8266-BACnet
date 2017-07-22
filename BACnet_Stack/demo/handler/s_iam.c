@@ -51,7 +51,7 @@
  * @param segmentation [in] #BACNET_SEGMENTATION enumeration
  * @param vendor_id [in] BACnet vendor ID 0-65535
  */
-void Send_I_Am_To_Network(
+void ICACHE_FLASH_ATTR Send_I_Am_To_Network(
     BACNET_ADDRESS * target_address,
     uint32_t device_id,
     unsigned int max_apdu,
@@ -95,7 +95,7 @@ void Send_I_Am_To_Network(
  * @param npdu_data [out] The NPDU structure describing the message.
  * @return The length of the message in buffer[].
  */
-int iam_encode_pdu(
+int ICACHE_FLASH_ATTR iam_encode_pdu(
     uint8_t * buffer,
     BACNET_ADDRESS * dest,
     BACNET_NPDU_DATA * npdu_data)
@@ -124,7 +124,7 @@ int iam_encode_pdu(
  *
  * @param buffer [in] The buffer to use for building and sending the message.
  */
-void Send_I_Am(
+void ICACHE_FLASH_ATTR Send_I_Am(
     uint8_t * buffer)
 {
     int pdu_len = 0;
@@ -165,7 +165,7 @@ void Send_I_Am(
  * @param npdu_data [out] The NPDU structure describing the message.
  * @return The length of the message in buffer[].
  */
-int iam_unicast_encode_pdu(
+int ICACHE_FLASH_ATTR iam_unicast_encode_pdu(
     uint8_t * buffer,
     BACNET_ADDRESS * src,
     BACNET_ADDRESS * dest,
@@ -203,7 +203,7 @@ int iam_unicast_encode_pdu(
  * @param buffer [in] The buffer to use for building and sending the message.
  * @param src [in] The source address information from service handler.
  */
-void Send_I_Am_Unicast(
+void ICACHE_FLASH_ATTR Send_I_Am_Unicast(
     uint8_t * buffer,
     BACNET_ADDRESS * src)
 {

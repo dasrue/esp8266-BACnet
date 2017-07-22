@@ -40,7 +40,7 @@
 /** @file bacerror.c  Encode/Decode BACnet Errors */
 
 /* encode service */
-int bacerror_encode_apdu(
+int ICACHE_FLASH_ATTR bacerror_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     BACNET_CONFIRMED_SERVICE service,
@@ -65,7 +65,7 @@ int bacerror_encode_apdu(
 
 #if !BACNET_SVC_SERVER
 /* decode the application class and code */
-int bacerror_decode_error_class_and_code(
+int ICACHE_FLASH_ATTR bacerror_decode_error_class_and_code(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_ERROR_CLASS * error_class,
@@ -101,7 +101,7 @@ int bacerror_decode_error_class_and_code(
 }
 
 /* decode the service request only */
-int bacerror_decode_service_request(
+int ICACHE_FLASH_ATTR bacerror_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     uint8_t * invoke_id,

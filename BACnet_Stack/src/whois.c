@@ -40,7 +40,7 @@
 /** @file whois.c  Encode/Decode Who-Is requests  */
 
 /* encode I-Am service  - use -1 for limit if you want unlimited */
-int whois_encode_apdu(
+int ICACHE_FLASH_ATTR whois_encode_apdu(
     uint8_t * apdu,
     int32_t low_limit,
     int32_t high_limit)
@@ -66,7 +66,7 @@ int whois_encode_apdu(
 }
 
 /* decode the service request only */
-int whois_decode_service_request(
+int ICACHE_FLASH_ATTR whois_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     int32_t * pLow_limit,

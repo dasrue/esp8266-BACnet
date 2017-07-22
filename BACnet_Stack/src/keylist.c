@@ -57,14 +57,14 @@
 /******************************************************************** */
 
 /* grab memory for a node */
-static struct Keylist_Node *NodeCreate(
+static struct Keylist_Node *ICACHE_FLASH_ATTR NodeCreate(
     void)
 {
     return calloc(1, sizeof(struct Keylist_Node));
 }
 
 /* grab memory for a list */
-static struct Keylist *KeylistCreate(
+static struct Keylist *ICACHE_FLASH_ATTR KeylistCreate(
     void)
 {
     return calloc(1, sizeof(struct Keylist));
@@ -73,7 +73,7 @@ static struct Keylist *KeylistCreate(
 /* check to see if the array is big enough for an addition */
 /* or is too big when we are deleting and we can shrink */
 /* returns TRUE if success, FALSE if failed */
-static int CheckArraySize(
+static int ICACHE_FLASH_ATTR CheckArraySize(
     OS_Keylist list)
 {
     int new_size = 0;   /* set it up so that no size change is the default */
@@ -119,7 +119,7 @@ static int CheckArraySize(
 /* returns the found key and the index where it was found in parameters */
 /* If the key is not found, the nearest index from the bottom will be returned, */
 /* allowing the ability to find where an key should go into the list. */
-static int FindIndex(
+static int ICACHE_FLASH_ATTR FindIndex(
     OS_Keylist list,
     KEY key,
     int *pIndex)
@@ -173,7 +173,7 @@ static int FindIndex(
 /* list data functions */
 /******************************************************************** */
 /* inserts a node into its sorted position */
-int Keylist_Data_Add(
+int ICACHE_FLASH_ATTR Keylist_Data_Add(
     OS_Keylist list,
     KEY key,
     void *data)
@@ -218,7 +218,7 @@ int Keylist_Data_Add(
 
 /* deletes a node specified by its index */
 /* returns the data from the node */
-void *Keylist_Data_Delete_By_Index(
+void *ICACHE_FLASH_ATTR Keylist_Data_Delete_By_Index(
     OS_Keylist list,
     int index)
 {
@@ -262,7 +262,7 @@ void *Keylist_Data_Delete_By_Index(
 
 /* deletes a node specified by its key */
 /* returns the data from the node */
-void *Keylist_Data_Delete(
+void *ICACHE_FLASH_ATTR Keylist_Data_Delete(
     OS_Keylist list,
     KEY key)
 {
@@ -278,7 +278,7 @@ void *Keylist_Data_Delete(
 }
 
 /* returns the data from last node, and removes it from the list */
-void *Keylist_Data_Pop(
+void *ICACHE_FLASH_ATTR Keylist_Data_Pop(
     OS_Keylist list)
 {
     void *data = NULL;  /* return value */
@@ -293,7 +293,7 @@ void *Keylist_Data_Pop(
 }
 
 /* returns the data from the node specified by key */
-void *Keylist_Data(
+void *ICACHE_FLASH_ATTR Keylist_Data(
     OS_Keylist list,
     KEY key)
 {
@@ -309,7 +309,7 @@ void *Keylist_Data(
 }
 
 /* returns the index from the node specified by key */
-int Keylist_Index(
+int ICACHE_FLASH_ATTR Keylist_Index(
     OS_Keylist list,
     KEY key)
 {
@@ -326,7 +326,7 @@ int Keylist_Index(
 
 
 /* returns the data specified by index */
-void *Keylist_Data_Index(
+void *ICACHE_FLASH_ATTR Keylist_Data_Index(
     OS_Keylist list,
     int index)
 {
@@ -340,7 +340,7 @@ void *Keylist_Data_Index(
 }
 
 /* return the key at the given index */
-KEY Keylist_Key(
+KEY ICACHE_FLASH_ATTR Keylist_Key(
     OS_Keylist list,
     int index)
 {
@@ -358,7 +358,7 @@ KEY Keylist_Key(
 }
 
 /* returns the next empty key from the list */
-KEY Keylist_Next_Empty_Key(
+KEY ICACHE_FLASH_ATTR Keylist_Next_Empty_Key(
     OS_Keylist list,
     KEY key)
 {
@@ -376,7 +376,7 @@ KEY Keylist_Next_Empty_Key(
 }
 
 /* return the number of nodes in this list */
-int Keylist_Count(
+int ICACHE_FLASH_ATTR Keylist_Count(
     OS_Keylist list)
 {
     return list->count;
@@ -387,7 +387,7 @@ int Keylist_Count(
 /******************************************************************** */
 
 /* returns head of the list or NULL on failure. */
-OS_Keylist Keylist_Create(
+OS_Keylist ICACHE_FLASH_ATTR Keylist_Create(
     void)
 {
     struct Keylist *list;
@@ -400,7 +400,7 @@ OS_Keylist Keylist_Create(
 }
 
 /* delete specified list */
-void Keylist_Delete(
+void ICACHE_FLASH_ATTR Keylist_Delete(
     OS_Keylist list)
 {       /* list number to be deleted */
     if (list) {

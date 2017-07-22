@@ -87,7 +87,7 @@ static const int Properties_Proprietary[] = {
     -1
 };
 
-void Analog_Input_Property_Lists(
+void ICACHE_FLASH_ATTR Analog_Input_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -103,7 +103,7 @@ void Analog_Input_Property_Lists(
 }
 
 
-void Analog_Input_Init(
+void ICACHE_FLASH_ATTR Analog_Input_Init(
     void)
 {
     unsigned i;
@@ -145,7 +145,7 @@ void Analog_Input_Init(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need validate that the */
 /* given instance exists */
-bool Analog_Input_Valid_Instance(
+bool ICACHE_FLASH_ATTR Analog_Input_Valid_Instance(
     uint32_t object_instance)
 {
     unsigned int index;
@@ -159,7 +159,7 @@ bool Analog_Input_Valid_Instance(
 
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then count how many you have */
-unsigned Analog_Input_Count(
+unsigned ICACHE_FLASH_ATTR Analog_Input_Count(
     void)
 {
     return MAX_ANALOG_INPUTS;
@@ -168,7 +168,7 @@ unsigned Analog_Input_Count(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the instance */
 /* that correlates to the correct index */
-uint32_t Analog_Input_Index_To_Instance(
+uint32_t ICACHE_FLASH_ATTR Analog_Input_Index_To_Instance(
     unsigned index)
 {
     return index;
@@ -177,7 +177,7 @@ uint32_t Analog_Input_Index_To_Instance(
 /* we simply have 0-n object instances.  Yours might be */
 /* more complex, and then you need to return the index */
 /* that correlates to the correct instance number */
-unsigned Analog_Input_Instance_To_Index(
+unsigned ICACHE_FLASH_ATTR Analog_Input_Instance_To_Index(
     uint32_t object_instance)
 {
     unsigned index = MAX_ANALOG_INPUTS;
@@ -188,7 +188,7 @@ unsigned Analog_Input_Instance_To_Index(
     return index;
 }
 
-float Analog_Input_Present_Value(
+float ICACHE_FLASH_ATTR Analog_Input_Present_Value(
     uint32_t object_instance)
 {
     float value = 0.0;
@@ -202,7 +202,7 @@ float Analog_Input_Present_Value(
     return value;
 }
 
-static void Analog_Input_COV_Detect(unsigned int index,
+static void ICACHE_FLASH_ATTR Analog_Input_COV_Detect(unsigned int index,
     float value)
 {
     float prior_value = 0.0;
@@ -224,7 +224,7 @@ static void Analog_Input_COV_Detect(unsigned int index,
     }
 }
 
-void Analog_Input_Present_Value_Set(
+void ICACHE_FLASH_ATTR Analog_Input_Present_Value_Set(
     uint32_t object_instance,
     float value)
 {
@@ -237,7 +237,7 @@ void Analog_Input_Present_Value_Set(
     }
 }
 
-bool Analog_Input_Object_Name(
+bool ICACHE_FLASH_ATTR Analog_Input_Object_Name(
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -254,7 +254,7 @@ bool Analog_Input_Object_Name(
     return status;
 }
 
-bool Analog_Input_Change_Of_Value(
+bool ICACHE_FLASH_ATTR Analog_Input_Change_Of_Value(
     uint32_t object_instance)
 {
     unsigned index = 0;
@@ -268,7 +268,7 @@ bool Analog_Input_Change_Of_Value(
     return changed;
 }
 
-void Analog_Input_Change_Of_Value_Clear(
+void ICACHE_FLASH_ATTR Analog_Input_Change_Of_Value_Clear(
     uint32_t object_instance)
 {
     unsigned index = 0;
@@ -287,7 +287,7 @@ void Analog_Input_Change_Of_Value_Clear(
  *
  * @return true if values were encoded
 */
-bool Analog_Input_Encode_Value_List(
+bool ICACHE_FLASH_ATTR Analog_Input_Encode_Value_List(
     uint32_t object_instance,
     BACNET_PROPERTY_VALUE * value_list)
 {
@@ -332,7 +332,7 @@ bool Analog_Input_Encode_Value_List(
     return status;
 }
 
-float Analog_Input_COV_Increment(
+float ICACHE_FLASH_ATTR Analog_Input_COV_Increment(
     uint32_t object_instance)
 {
     unsigned index = 0;
@@ -346,7 +346,7 @@ float Analog_Input_COV_Increment(
     return value;
 }
 
-void Analog_Input_COV_Increment_Set(
+void ICACHE_FLASH_ATTR Analog_Input_COV_Increment_Set(
     uint32_t object_instance,
     float value)
 {
@@ -359,7 +359,7 @@ void Analog_Input_COV_Increment_Set(
     }
 }
 
-bool Analog_Input_Out_Of_Service(
+bool ICACHE_FLASH_ATTR Analog_Input_Out_Of_Service(
     uint32_t object_instance)
 {
     unsigned index = 0;
@@ -373,7 +373,7 @@ bool Analog_Input_Out_Of_Service(
     return value;
 }
 
-void Analog_Input_Out_Of_Service_Set(
+void ICACHE_FLASH_ATTR Analog_Input_Out_Of_Service_Set(
     uint32_t object_instance,
     bool value)
 {
@@ -390,7 +390,7 @@ void Analog_Input_Out_Of_Service_Set(
 
 /* return apdu length, or BACNET_STATUS_ERROR on error */
 /* assumption - object has already exists */
-int Analog_Input_Read_Property(
+int ICACHE_FLASH_ATTR Analog_Input_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -643,7 +643,7 @@ int Analog_Input_Read_Property(
 }
 
 /* returns true if successful */
-bool Analog_Input_Write_Property(
+bool ICACHE_FLASH_ATTR Analog_Input_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
@@ -865,7 +865,7 @@ bool Analog_Input_Write_Property(
 }
 
 
-void Analog_Input_Intrinsic_Reporting(
+void ICACHE_FLASH_ATTR Analog_Input_Intrinsic_Reporting(
     uint32_t object_instance)
 {
 #if defined(INTRINSIC_REPORTING)

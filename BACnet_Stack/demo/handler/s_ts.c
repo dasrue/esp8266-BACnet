@@ -52,7 +52,7 @@
  * @param bdate - #BACNET_DATE
  * @param btime - #BACNET_TIME
  */
-void Send_TimeSync_Remote(
+void ICACHE_FLASH_ATTR Send_TimeSync_Remote(
     BACNET_ADDRESS * dest,
     BACNET_DATE * bdate,
     BACNET_TIME * btime)
@@ -93,7 +93,7 @@ void Send_TimeSync_Remote(
  * @param bdate - #BACNET_DATE
  * @param btime - #BACNET_TIME
  */
-void Send_TimeSync(
+void ICACHE_FLASH_ATTR Send_TimeSync(
     BACNET_DATE * bdate,
     BACNET_TIME * btime)
 {
@@ -110,7 +110,7 @@ void Send_TimeSync(
  * @param bdate - #BACNET_DATE
  * @param btime - #BACNET_TIME
  */
-void Send_TimeSyncUTC_Remote(
+void ICACHE_FLASH_ATTR Send_TimeSyncUTC_Remote(
     BACNET_ADDRESS * dest,
     BACNET_DATE * bdate,
     BACNET_TIME * btime)
@@ -152,7 +152,7 @@ void Send_TimeSyncUTC_Remote(
  * @param bdate - #BACNET_DATE
  * @param btime - #BACNET_TIME
  */
-void Send_TimeSyncUTC(
+void ICACHE_FLASH_ATTR Send_TimeSyncUTC(
     BACNET_DATE * bdate,
     BACNET_TIME * btime)
 {
@@ -165,7 +165,7 @@ void Send_TimeSyncUTC(
 /**
  * Sends a UTC TimeSync message using the local time from the device.
  */
-void Send_TimeSyncUTC_Device(void)
+void ICACHE_FLASH_ATTR Send_TimeSyncUTC_Device(void)
 {
     int32_t utc_offset_minutes = 0;
     bool dst = false;
@@ -186,7 +186,7 @@ void Send_TimeSyncUTC_Device(void)
 /**
  * Sends a TimeSync message using the local time from the device.
  */
-void Send_TimeSync_Device(void)
+void ICACHE_FLASH_ATTR Send_TimeSync_Device(void)
 {
     BACNET_DATE_TIME local_time;
 

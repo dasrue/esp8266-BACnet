@@ -69,7 +69,7 @@
  *  				 bytes that have already been decoded.
  *  @param npdu_len [in] The length of the remaining NPDU message in npdu[].
  */
-static void network_control_handler(
+static void ICACHE_FLASH_ATTR network_control_handler(
     BACNET_ADDRESS * src,
     int *DNET_list,
     BACNET_NPDU_DATA * npdu_data,
@@ -191,7 +191,7 @@ static void network_control_handler(
  * @param apdu [in] The apdu portion of the request, to be processed.
  * @param apdu_len [in] The total (remaining) length of the apdu.
  */
-static void routed_apdu_handler(
+static void ICACHE_FLASH_ATTR routed_apdu_handler(
     BACNET_ADDRESS * src,
     BACNET_ADDRESS * dest,
     int *DNET_list,
@@ -265,7 +265,7 @@ static void routed_apdu_handler(
  *  @param pdu [in]  Buffer containing the NPDU and APDU of the received packet.
  *  @param pdu_len [in] The size of the received message in the pdu[] buffer.
  */
-void routing_npdu_handler(
+void ICACHE_FLASH_ATTR routing_npdu_handler(
     BACNET_ADDRESS * src,
     int *DNET_list,
     uint8_t * pdu,

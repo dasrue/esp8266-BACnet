@@ -65,7 +65,7 @@ static BACNET_TSM_DATA TSM_List[MAX_TSM_TRANSACTIONS];
 static uint8_t Current_Invoke_ID = 1;
 
 /* returns MAX_TSM_TRANSACTIONS if not found */
-static uint8_t tsm_find_invokeID_index(
+static uint8_t ICACHE_FLASH_ATTR tsm_find_invokeID_index(
     uint8_t invokeID)
 {
     unsigned i = 0;     /* counter */
@@ -81,7 +81,7 @@ static uint8_t tsm_find_invokeID_index(
     return index;
 }
 
-static uint8_t tsm_find_first_free_index(
+static uint8_t ICACHE_FLASH_ATTR tsm_find_first_free_index(
     void)
 {
     unsigned i = 0;     /* counter */
@@ -97,7 +97,7 @@ static uint8_t tsm_find_first_free_index(
     return index;
 }
 
-bool tsm_transaction_available(
+bool ICACHE_FLASH_ATTR tsm_transaction_available(
     void)
 {
     bool status = false;        /* return value */
@@ -114,7 +114,7 @@ bool tsm_transaction_available(
     return status;
 }
 
-uint8_t tsm_transaction_idle_count(
+uint8_t ICACHE_FLASH_ATTR tsm_transaction_idle_count(
     void)
 {
     uint8_t count = 0;  /* return value */
@@ -133,7 +133,7 @@ uint8_t tsm_transaction_idle_count(
 
 /* sets the invokeID */
 
-void tsm_invokeID_set(
+void ICACHE_FLASH_ATTR tsm_invokeID_set(
     uint8_t invokeID)
 {
     if (invokeID == 0) {
@@ -145,7 +145,7 @@ void tsm_invokeID_set(
 /* gets the next free invokeID,
    and reserves a spot in the table
    returns 0 if none are available */
-uint8_t tsm_next_free_invokeID(
+uint8_t ICACHE_FLASH_ATTR tsm_next_free_invokeID(
     void)
 {
     uint8_t index = 0;
@@ -187,7 +187,7 @@ uint8_t tsm_next_free_invokeID(
     return invokeID;
 }
 
-void tsm_set_confirmed_unsegmented_transaction(
+void ICACHE_FLASH_ATTR tsm_set_confirmed_unsegmented_transaction(
     uint8_t invokeID,
     BACNET_ADDRESS * dest,
     BACNET_NPDU_DATA * ndpu_data,
@@ -220,7 +220,7 @@ void tsm_set_confirmed_unsegmented_transaction(
 
 /* used to retrieve the transaction payload */
 /* if we wanted to find out what we sent (i.e. when we get an ack) */
-bool tsm_get_transaction_pdu(
+bool ICACHE_FLASH_ATTR tsm_get_transaction_pdu(
     uint8_t invokeID,
     BACNET_ADDRESS * dest,
     BACNET_NPDU_DATA * ndpu_data,
@@ -252,7 +252,7 @@ bool tsm_get_transaction_pdu(
 }
 
 /* called once a millisecond or slower */
-void tsm_timer_milliseconds(
+void ICACHE_FLASH_ATTR tsm_timer_milliseconds(
     uint16_t milliseconds)
 {
     unsigned i = 0;     /* counter */
@@ -283,7 +283,7 @@ void tsm_timer_milliseconds(
 }
 
 /* frees the invokeID and sets its state to IDLE */
-void tsm_free_invoke_id(
+void ICACHE_FLASH_ATTR tsm_free_invoke_id(
     uint8_t invokeID)
 {
     uint8_t index;
@@ -299,7 +299,7 @@ void tsm_free_invoke_id(
  * @param invokeID [in] The invokeID to be checked, normally of last message sent.
  * @return True if it is free (done with), False if still pending in the TSM.
  */
-bool tsm_invoke_id_free(
+bool ICACHE_FLASH_ATTR tsm_invoke_id_free(
     uint8_t invokeID)
 {
     bool status = true;
@@ -318,7 +318,7 @@ bool tsm_invoke_id_free(
  * @return True if already failed, False if done or segmented or still waiting
  *         for a confirmation.
  */
-bool tsm_invoke_id_failed(
+bool ICACHE_FLASH_ATTR tsm_invoke_id_failed(
     uint8_t invokeID)
 {
     bool status = false;

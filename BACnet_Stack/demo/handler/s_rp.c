@@ -59,7 +59,7 @@
  *   - BACNET_ARRAY_ALL (~0) for the full array to be read.
  * @return invoke id of outgoing message, or 0 if device is not bound or no tsm available
  */
-uint8_t Send_Read_Property_Request_Address(
+uint8_t ICACHE_FLASH_ATTR Send_Read_Property_Request_Address(
     BACNET_ADDRESS * dest,
     uint16_t max_apdu,
     BACNET_OBJECT_TYPE object_type,
@@ -143,7 +143,7 @@ uint8_t Send_Read_Property_Request_Address(
  *   - BACNET_ARRAY_ALL (~0) for the full array to be read.
  * @return invoke id of outgoing message, or 0 if device is not bound or no tsm available
  */
-uint8_t Send_Read_Property_Request(
+uint8_t ICACHE_FLASH_ATTR Send_Read_Property_Request(
     uint32_t device_id, /* destination device */
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance,

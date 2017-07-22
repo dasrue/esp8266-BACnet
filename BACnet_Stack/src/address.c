@@ -76,17 +76,17 @@ static struct Address_Cache_Entry {
 #define BAC_ADDR_FOREVER    0xFFFFFFFF  /* Permenant entry */
 
 
-void address_protected_entry_index_set(uint32_t top_protected_entry_index)
+void ICACHE_FLASH_ATTR address_protected_entry_index_set(uint32_t top_protected_entry_index)
 {
     Top_Protected_Entry = top_protected_entry_index;
 }
 
-void address_own_device_id_set(uint32_t own_id)
+void ICACHE_FLASH_ATTR address_own_device_id_set(uint32_t own_id)
 {
     Own_Device_ID = own_id;
 }
 
-bool address_match(
+bool ICACHE_FLASH_ATTR address_match(
     BACNET_ADDRESS * dest,
     BACNET_ADDRESS * src)
 {
@@ -122,7 +122,7 @@ bool address_match(
     return true;
 }
 
-void address_remove_device(
+void ICACHE_FLASH_ATTR address_remove_device(
     uint32_t device_id)
 {
     struct Address_Cache_Entry *pMatch;
@@ -154,7 +154,7 @@ void address_remove_device(
  *****************************************************************************/
 
 
-static struct Address_Cache_Entry *address_remove_oldest(
+static struct Address_Cache_Entry *ICACHE_FLASH_ATTR address_remove_oldest(
     void)
 {
     struct Address_Cache_Entry *pMatch;
@@ -283,7 +283,7 @@ static void address_file_init(
  * available. Assume no persistance of memory.                              *
  ****************************************************************************/
 
-void address_init(
+void ICACHE_FLASH_ATTR address_init(
     void)
 {
     struct Address_Cache_Entry *pMatch;
@@ -309,7 +309,7 @@ void address_init(
  * of its entries intact.                                                   *
  ****************************************************************************/
 
-void address_init_partial(void)
+void ICACHE_FLASH_ATTR address_init_partial(void)
 {
     struct Address_Cache_Entry *pMatch;
 
@@ -342,7 +342,7 @@ void address_init_partial(void)
  * to avoid breaking the current API.                                       *
  ****************************************************************************/
 
-void address_set_device_TTL(
+void ICACHE_FLASH_ATTR address_set_device_TTL(
     uint32_t device_id,
     uint32_t TimeOut,
     bool StaticFlag)
@@ -371,7 +371,7 @@ void address_set_device_TTL(
 }
 
 
-bool address_get_by_device(
+bool ICACHE_FLASH_ATTR address_get_by_device(
     uint32_t device_id,
     unsigned *max_apdu,
     BACNET_ADDRESS * src)
@@ -398,7 +398,7 @@ bool address_get_by_device(
 
 /* find a device id from a given MAC address */
 
-bool address_get_device_id(
+bool ICACHE_FLASH_ATTR address_get_device_id(
     BACNET_ADDRESS * src,
     uint32_t * device_id)
 {
@@ -422,7 +422,7 @@ bool address_get_device_id(
     return found;
 }
 
-void address_add(
+void ICACHE_FLASH_ATTR address_add(
     uint32_t device_id,
     unsigned max_apdu,
     BACNET_ADDRESS * src)
@@ -499,7 +499,7 @@ void address_add(
 
 /* returns true if device is already bound */
 /* also returns the address and max apdu if already bound */
-bool address_device_bind_request(
+bool ICACHE_FLASH_ATTR address_device_bind_request(
     uint32_t device_id,
     uint32_t * device_ttl,
     unsigned *max_apdu,
@@ -562,7 +562,7 @@ bool address_device_bind_request(
 
 /* returns true if device is already bound */
 /* also returns the address and max apdu if already bound */
-bool address_bind_request(
+bool ICACHE_FLASH_ATTR address_bind_request(
     uint32_t device_id,
     unsigned *max_apdu,
     BACNET_ADDRESS * src)
@@ -570,7 +570,7 @@ bool address_bind_request(
     return address_device_bind_request(device_id, NULL, max_apdu, src);
 }
 
-void address_add_binding(
+void ICACHE_FLASH_ATTR address_add_binding(
     uint32_t device_id,
     unsigned max_apdu,
     BACNET_ADDRESS * src)
@@ -598,7 +598,7 @@ void address_add_binding(
     return;
 }
 
-bool address_device_get_by_index(
+bool ICACHE_FLASH_ATTR address_device_get_by_index(
     unsigned index,
     uint32_t * device_id,
     uint32_t * device_ttl,
@@ -631,7 +631,7 @@ bool address_device_get_by_index(
     return found;
 }
 
-bool address_get_by_index(
+bool ICACHE_FLASH_ATTR address_get_by_index(
     unsigned index,
     uint32_t * device_id,
     unsigned *max_apdu,
@@ -640,7 +640,7 @@ bool address_get_by_index(
     return address_device_get_by_index(index, device_id, NULL, max_apdu, src);
 }
 
-unsigned address_count(
+unsigned ICACHE_FLASH_ATTR address_count(
     void)
 {
     struct Address_Cache_Entry *pMatch;
@@ -664,7 +664,7 @@ unsigned address_count(
  * property.                                                                *
  ****************************************************************************/
 
-int address_list_encode(
+int ICACHE_FLASH_ATTR address_list_encode(
     uint8_t * apdu,
     unsigned apdu_len)
 {
@@ -732,7 +732,7 @@ int address_list_encode(
 
 #define ACACHE_MAX_ENC 17       /* Maximum size of encoded cache entry, see above */
 
-int rr_address_list_encode(
+int ICACHE_FLASH_ATTR rr_address_list_encode(
     uint8_t * apdu,
     BACNET_READ_RANGE_DATA * pRequest)
 {
@@ -883,7 +883,7 @@ int rr_address_list_encode(
  * entries never expire unless explictely deleted.                          *
  ****************************************************************************/
 
-void address_cache_timer(
+void ICACHE_FLASH_ATTR address_cache_timer(
     uint16_t uSeconds)
 {       /* Approximate number of seconds since last call to this function */
     struct Address_Cache_Entry *pMatch;

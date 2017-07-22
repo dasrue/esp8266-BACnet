@@ -44,7 +44,7 @@
  * Anything not defined converts to ABORT_REASON_OTHER.
  * Will need reworking if it is required to return proprietary abort codes.
  */
-BACNET_ABORT_REASON abort_convert_error_code(
+BACNET_ABORT_REASON ICACHE_FLASH_ATTR abort_convert_error_code(
     BACNET_ERROR_CODE error_code)
 {
     BACNET_ABORT_REASON abort_code = ABORT_REASON_OTHER;
@@ -75,7 +75,7 @@ BACNET_ABORT_REASON abort_convert_error_code(
 }
 
 /* encode service */
-int abort_encode_apdu(
+int ICACHE_FLASH_ATTR abort_encode_apdu(
     uint8_t * apdu,
     uint8_t invoke_id,
     uint8_t abort_reason,
@@ -98,7 +98,7 @@ int abort_encode_apdu(
 
 #if !BACNET_SVC_SERVER
 /* decode the service request only */
-int abort_decode_service_request(
+int ICACHE_FLASH_ATTR abort_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     uint8_t * invoke_id,

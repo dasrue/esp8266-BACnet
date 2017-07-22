@@ -70,7 +70,7 @@
 #if defined(PRINT_ENABLED_RECEIVE)
 #define printf_receive debug_printf
 #else
-static inline void printf_receive(
+static inline void ICACHE_FLASH_ATTR printf_receive(
     const char *format,
     ...)
 {
@@ -81,7 +81,7 @@ static inline void printf_receive(
 #if defined(PRINT_ENABLED_RECEIVE_DATA)
 #define printf_receive_data debug_printf
 #else
-static inline void printf_receive_data(
+static inline void ICACHE_FLASH_ATTR printf_receive_data(
     const char *format,
     ...)
 {
@@ -92,7 +92,7 @@ static inline void printf_receive_data(
 #if defined(PRINT_ENABLED_RECEIVE_ERRORS)
 #define printf_receive_error debug_printf
 #else
-static inline void printf_receive_error(
+static inline void ICACHE_FLASH_ATTR printf_receive_error(
     const char *format,
     ...)
 {
@@ -103,7 +103,7 @@ static inline void printf_receive_error(
 #if defined(PRINT_ENABLED_MASTER)
 #define printf_master debug_printf
 #else
-static inline void printf_master(
+static inline void ICACHE_FLASH_ATTR printf_master(
     const char *format,
     ...)
 {
@@ -168,13 +168,13 @@ static inline void printf_master(
 /* we need to be able to increment without rolling over */
 #define INCREMENT_AND_LIMIT_UINT8(x) {if (x < 0xFF) x++;}
 
-bool MSTP_Line_Active(
+bool ICACHE_FLASH_ATTR MSTP_Line_Active(
     volatile struct mstp_port_struct_t *mstp_port)
 {
     return (mstp_port->EventCount > Nmin_octets);
 }
 
-void MSTP_Fill_BACnet_Address(
+void ICACHE_FLASH_ATTR MSTP_Fill_BACnet_Address(
     BACNET_ADDRESS * src,
     uint8_t mstp_address)
 {
@@ -199,7 +199,7 @@ void MSTP_Fill_BACnet_Address(
     }
 }
 
-uint16_t MSTP_Create_Frame(
+uint16_t ICACHE_FLASH_ATTR MSTP_Create_Frame(
     uint8_t * buffer,   /* where frame is loaded */
     uint16_t buffer_len,        /* amount of space available */
     uint8_t frame_type, /* type of frame to send - see defines */
@@ -253,7 +253,7 @@ uint16_t MSTP_Create_Frame(
     return index;       /* returns the frame length */
 }
 
-void MSTP_Create_And_Send_Frame(
+void ICACHE_FLASH_ATTR MSTP_Create_And_Send_Frame(
     volatile struct mstp_port_struct_t *mstp_port,      /* port to send from */
     uint8_t frame_type, /* type of frame to send - see defines */
     uint8_t destination,        /* destination address */
@@ -272,7 +272,7 @@ void MSTP_Create_And_Send_Frame(
     /* FIXME: be sure to reset SilenceTimer() after each octet is sent! */
 }
 
-void MSTP_Receive_Frame_FSM(
+void ICACHE_FLASH_ATTR MSTP_Receive_Frame_FSM(
     volatile struct mstp_port_struct_t *mstp_port)
 {
     MSTP_RECEIVE_STATE receive_state = mstp_port->receive_state;
@@ -582,7 +582,7 @@ void MSTP_Receive_Frame_FSM(
 }
 
 /* returns true if we need to transition immediately */
-bool MSTP_Master_Node_FSM(
+bool ICACHE_FLASH_ATTR MSTP_Master_Node_FSM(
     volatile struct mstp_port_struct_t * mstp_port)
 {
     unsigned length = 0;
@@ -1121,7 +1121,7 @@ bool MSTP_Master_Node_FSM(
     return transition_now;
 }
 
-void MSTP_Slave_Node_FSM(
+void ICACHE_FLASH_ATTR MSTP_Slave_Node_FSM(
     volatile struct mstp_port_struct_t *mstp_port)
 {
     unsigned length = 0;
@@ -1188,7 +1188,7 @@ void MSTP_Slave_Node_FSM(
 /* note: InputBuffer and InputBufferSize assumed to be set */
 /* note: OutputBuffer and OutputBufferSize assumed to be set */
 /* note: SilenceTimer and SilenceTimerReset assumed to be set */
-void MSTP_Init(
+void ICACHE_FLASH_ATTR MSTP_Init(
     volatile struct mstp_port_struct_t *mstp_port)
 {
     if (mstp_port) {

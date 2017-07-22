@@ -41,7 +41,7 @@
 
 /* encode service  - use -1 for limit for unlimited */
 
-int whohas_encode_apdu(
+int ICACHE_FLASH_ATTR whohas_encode_apdu(
     uint8_t * apdu,
     BACNET_WHO_HAS_DATA * data)
 {
@@ -81,7 +81,7 @@ int whohas_encode_apdu(
 }
 
 /* decode the service request only */
-int whohas_decode_service_request(
+int ICACHE_FLASH_ATTR whohas_decode_service_request(
     uint8_t * apdu,
     unsigned apdu_len,
     BACNET_WHO_HAS_DATA * data)

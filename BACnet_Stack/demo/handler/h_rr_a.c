@@ -43,7 +43,7 @@
 /** @file h_rr_a.c  Handles Read Range Acknowledgments. */
 
 /* for debugging... */
-static void PrintReadRangeData(
+static void ICACHE_FLASH_ATTR PrintReadRangeData(
     BACNET_READ_RANGE_DATA * data)
 {
     BACNET_OBJECT_PROPERTY_VALUE object_value;  /* for bacapp printing */
@@ -99,7 +99,7 @@ static void PrintReadRangeData(
     }
 }
 
-void handler_read_range_ack(
+void ICACHE_FLASH_ATTR handler_read_range_ack(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

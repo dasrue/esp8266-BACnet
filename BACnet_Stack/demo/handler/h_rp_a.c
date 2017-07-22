@@ -46,7 +46,7 @@
 /** For debugging...
  * @param [in] data portion of the ACK
  */
-void rp_ack_print_data(
+void ICACHE_FLASH_ATTR rp_ack_print_data(
     BACNET_READ_PROPERTY_DATA * data)
 {
     BACNET_OBJECT_PROPERTY_VALUE object_value;  /* for bacapp printing */
@@ -114,7 +114,7 @@ void rp_ack_print_data(
  * @param service_data [in] The BACNET_CONFIRMED_SERVICE_DATA information
  *                          decoded from the APDU header of this message.
  */
-void handler_read_property_ack(
+void ICACHE_FLASH_ATTR handler_read_property_ack(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,
@@ -147,7 +147,7 @@ void handler_read_property_ack(
  * @return Number of decoded bytes (could be less than apdu_len),
  * 			or -1 on decoding error.
  */
-int rp_ack_fully_decode_service_request(
+int ICACHE_FLASH_ATTR rp_ack_fully_decode_service_request(
     uint8_t * apdu,
     int apdu_len,
     BACNET_READ_ACCESS_DATA * read_access_data)

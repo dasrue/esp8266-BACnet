@@ -114,7 +114,7 @@ static FD_TABLE_ENTRY FD_Table[MAX_FD_ENTRIES];
  *
  * @param seconds - number of elapsed seconds since the last call
  */
-void bvlc_maintenance_timer(
+void ICACHE_FLASH_ATTR bvlc_maintenance_timer(
     time_t seconds)
 {
     unsigned i = 0;
@@ -144,7 +144,7 @@ void bvlc_maintenance_timer(
  *
  * @return number of bytes decoded
  */
-static void bvlc_internet_to_bacnet_address(
+static void ICACHE_FLASH_ATTR bvlc_internet_to_bacnet_address(
     BACNET_ADDRESS * src,
     struct sockaddr_in *sin)
 {
@@ -174,7 +174,7 @@ static void bvlc_internet_to_bacnet_address(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_bip_address(
+static int ICACHE_FLASH_ATTR bvlc_encode_bip_address(
     uint8_t * pdu,
     struct in_addr *address,
     uint16_t port)
@@ -198,7 +198,7 @@ static int bvlc_encode_bip_address(
  *
  * @return number of bytes decoded
  */
-static int bvlc_decode_bip_address(
+static int ICACHE_FLASH_ATTR bvlc_decode_bip_address(
     uint8_t * pdu,
     struct in_addr *address,
     uint16_t * port)
@@ -223,7 +223,7 @@ static int bvlc_decode_bip_address(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_address_entry(
+static int ICACHE_FLASH_ATTR bvlc_encode_address_entry(
     uint8_t * pdu,
     struct in_addr *address,
     uint16_t port,
@@ -249,7 +249,7 @@ static int bvlc_encode_address_entry(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_bvlc_result(
+static int ICACHE_FLASH_ATTR bvlc_encode_bvlc_result(
     uint8_t * pdu,
     BACNET_BVLC_RESULT result_code)
 {
@@ -302,7 +302,7 @@ int bvlc_encode_write_bdt_init(
  *
  * @return number of bytes encoded
  */
-int bvlc_encode_read_bdt(
+int ICACHE_FLASH_ATTR bvlc_encode_read_bdt(
     uint8_t * pdu)
 {
     int len = 0;
@@ -329,7 +329,7 @@ int bvlc_encode_read_bdt(
  * @return Upon successful completion, returns the number of bytes sent.
  *  Otherwise, -1 shall be returned and errno set to indicate the error.
  */
-int bvlc_bbmd_read_bdt(
+int ICACHE_FLASH_ATTR bvlc_bbmd_read_bdt(
     uint32_t bbmd_address,
     uint16_t bbmd_port)
 {
@@ -356,7 +356,7 @@ int bvlc_bbmd_read_bdt(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_read_bdt_ack_init(
+static int ICACHE_FLASH_ATTR bvlc_encode_read_bdt_ack_init(
     uint8_t * pdu,
     unsigned entries)
 {
@@ -384,7 +384,7 @@ static int bvlc_encode_read_bdt_ack_init(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_read_bdt_ack(
+static int ICACHE_FLASH_ATTR bvlc_encode_read_bdt_ack(
     uint8_t * pdu,
     uint16_t max_pdu)
 {
@@ -428,7 +428,7 @@ static int bvlc_encode_read_bdt_ack(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_forwarded_npdu(
+static int ICACHE_FLASH_ATTR bvlc_encode_forwarded_npdu(
     uint8_t * pdu,
     struct sockaddr_in *sin,
     uint8_t * npdu,
@@ -494,7 +494,7 @@ int bvlc_encode_read_fdt(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_read_fdt_ack_init(
+static int ICACHE_FLASH_ATTR bvlc_encode_read_fdt_ack_init(
     uint8_t * pdu,
     unsigned entries)
 {
@@ -522,7 +522,7 @@ static int bvlc_encode_read_fdt_ack_init(
  *
  * @return number of bytes encoded
  */
-static int bvlc_encode_read_fdt_ack(
+static int ICACHE_FLASH_ATTR bvlc_encode_read_fdt_ack(
     uint8_t * pdu,
     uint16_t max_pdu)
 {
@@ -677,7 +677,7 @@ int bvlc_encode_original_broadcast_npdu(
  *
  * @return true if all the entries fit in the table
  */
-static bool bvlc_create_bdt(
+static bool ICACHE_FLASH_ATTR bvlc_create_bdt(
     uint8_t * npdu,
     uint16_t npdu_length)
 {
@@ -717,7 +717,7 @@ static bool bvlc_create_bdt(
  *
  * @return true if the Foreign Device was added
  */
-static bool bvlc_register_foreign_device(
+static bool ICACHE_FLASH_ATTR bvlc_register_foreign_device(
     struct sockaddr_in *sin,
     uint16_t time_to_live)
 {
@@ -764,7 +764,7 @@ static bool bvlc_register_foreign_device(
  *
  * @return true if the Foreign Device was found and removed.
  */
-static bool bvlc_delete_foreign_device(
+static bool ICACHE_FLASH_ATTR bvlc_delete_foreign_device(
     uint8_t * pdu)
 {
     struct sockaddr_in sin = { 0 };     /* the ip address */
@@ -799,7 +799,7 @@ static bool bvlc_delete_foreign_device(
  * @return Upon successful completion, returns the number of bytes sent.
  *  Otherwise, -1 shall be returned and errno set to indicate the error.
  */
-int bvlc_send_mpdu(
+int ICACHE_FLASH_ATTR bvlc_send_mpdu(
     struct sockaddr_in *dest,
     uint8_t * mtu,
     uint16_t mtu_len)
@@ -836,7 +836,7 @@ int bvlc_send_mpdu(
  * @param npdu_length - length of the NPDU
  * @param original - was the message an original (not forwarded)
  */
-static void bvlc_bdt_forward_npdu(
+static void ICACHE_FLASH_ATTR bvlc_bdt_forward_npdu(
     struct sockaddr_in *sin,
     uint8_t * npdu,
     uint16_t max_npdu,
@@ -914,7 +914,7 @@ static void bvlc_bdt_forward_npdu(
  * @param max_npdu - amount of space available in the NPDU
  * @param npdu_length - reported length of the NPDU
  */
-static void bvlc_forward_npdu(
+static void ICACHE_FLASH_ATTR bvlc_forward_npdu(
     struct sockaddr_in *sin,
     uint8_t * npdu,
     uint16_t max_npdu,
@@ -941,7 +941,7 @@ static void bvlc_forward_npdu(
  * @param npdu_length - reported length of the NPDU
  * @param original - was the message an original (not forwarded)
  */
-static void bvlc_fdt_forward_npdu(
+static void ICACHE_FLASH_ATTR bvlc_fdt_forward_npdu(
     struct sockaddr_in *sin,
     uint8_t * npdu,
     uint16_t max_npdu,
@@ -1013,7 +1013,7 @@ static void bvlc_fdt_forward_npdu(
  *
  * @return number of bytes encoded to send
  */
-static int bvlc_send_result(
+static int ICACHE_FLASH_ATTR bvlc_send_result(
     struct sockaddr_in *dest,   /* the destination address */
     BACNET_BVLC_RESULT result_code)
 {
@@ -1035,7 +1035,7 @@ static int bvlc_send_result(
  *
  * @return number of bytes encoded to send
  */
-static int bvlc_send_bdt(
+static int ICACHE_FLASH_ATTR bvlc_send_bdt(
     struct sockaddr_in *dest)
 {
     uint8_t mtu[MAX_MPDU] = { 0 };
@@ -1055,7 +1055,7 @@ static int bvlc_send_bdt(
  *
  * @return number of bytes encoded to send
  */
-static int bvlc_send_fdt(
+static int ICACHE_FLASH_ATTR bvlc_send_fdt(
     struct sockaddr_in *dest)
 {
     uint8_t mtu[MAX_MPDU] = { 0 };
@@ -1075,7 +1075,7 @@ static int bvlc_send_fdt(
  *
  * @return True if BDT member is found and has a unicast mask
  */
-static bool bvlc_bdt_member_mask_is_unicast(
+static bool ICACHE_FLASH_ATTR bvlc_bdt_member_mask_is_unicast(
     struct sockaddr_in *sin)
 {
     bool unicast = false;
@@ -1446,7 +1446,7 @@ uint16_t bvlc_receive(
  *
  * @return returns number of bytes sent on success, negative number on failure
  */
-int bvlc_send_pdu(
+int ICACHE_FLASH_ATTR bvlc_send_pdu(
     BACNET_ADDRESS * dest,
     BACNET_NPDU_DATA * npdu_data,
     uint8_t * pdu,
@@ -1523,7 +1523,7 @@ int bvlc_send_pdu(
  * @return Number of bytes encoded) on success,
  *         or 0 if no encoding occurred.
  */
-static int bvlc_encode_register_foreign_device(
+static int ICACHE_FLASH_ATTR bvlc_encode_register_foreign_device(
     uint8_t * pdu,
     uint16_t time_to_live_seconds)
 {
@@ -1552,7 +1552,7 @@ static int bvlc_encode_register_foreign_device(
  *         0 if no registration request is sent, or
  *         -1 if registration fails.
  */
-int bvlc_register_with_bbmd(
+int ICACHE_FLASH_ATTR bvlc_register_with_bbmd(
     uint32_t bbmd_address,
     uint16_t bbmd_port,
     uint16_t time_to_live_seconds)
@@ -1587,7 +1587,7 @@ int bvlc_register_with_bbmd(
  * @return Non-zero BVLC_RESULT_ code if we sent a response (NAK) to this
  *      BVLC message.  If zero, may need further processing.
  */
-int bvlc_for_non_bbmd(
+int ICACHE_FLASH_ATTR bvlc_for_non_bbmd(
     struct sockaddr_in *sout,
     uint8_t * npdu,
     uint16_t received_bytes)
@@ -1648,7 +1648,7 @@ int bvlc_for_non_bbmd(
  * BVLC_RESULT_REGISTER_FOREIGN_DEVICE_NAK if registration failed,
  * or one of the other codes (if we are a BBMD).
  */
-BACNET_BVLC_RESULT bvlc_get_last_result(
+BACNET_BVLC_RESULT ICACHE_FLASH_ATTR bvlc_get_last_result(
     void)
 {
     return BVLC_Result_Code;
@@ -1661,7 +1661,7 @@ BACNET_BVLC_RESULT bvlc_get_last_result(
  *
  * @return A BVLC_ code, such as BVLC_ORIGINAL_UNICAST_NPDU.
  */
-BACNET_BVLC_FUNCTION bvlc_get_function_code(
+BACNET_BVLC_FUNCTION ICACHE_FLASH_ATTR bvlc_get_function_code(
     void)
 {
     return BVLC_Function_Code;
@@ -1677,7 +1677,7 @@ BACNET_BVLC_FUNCTION bvlc_get_function_code(
  *
  * @return Number of valid entries in the table or -1 on error.
  */
-int bvlc_get_bdt_local(
+int ICACHE_FLASH_ATTR bvlc_get_bdt_local(
      const BBMD_TABLE_ENTRY** table)
 {
     int count = 0;
@@ -1698,7 +1698,7 @@ int bvlc_get_bdt_local(
 
 /** Invalidate all entries in the broadcast distribution table (BDT).
  */
-void bvlc_clear_bdt_local(
+void ICACHE_FLASH_ATTR bvlc_clear_bdt_local(
     void)
 {
     int i = 0;
@@ -1714,7 +1714,7 @@ void bvlc_clear_bdt_local(
  *
  * @return True if the new entry was added successfully.
  */
-bool bvlc_add_bdt_entry_local(
+bool ICACHE_FLASH_ATTR bvlc_add_bdt_entry_local(
     BBMD_TABLE_ENTRY* entry)
 {
     bool found = false;
@@ -1751,7 +1751,7 @@ bool bvlc_add_bdt_entry_local(
 /** Enable NAT handling and set the global IP address
  * @param [in] - Global IP address visible to peer BBMDs and foreign devices
  */
-void bvlc_set_global_address_for_nat(const struct in_addr* addr)
+void ICACHE_FLASH_ATTR bvlc_set_global_address_for_nat(const struct in_addr* addr)
 {
     BVLC_Global_Address = *addr;
     BVLC_NAT_Handling = true;
@@ -1759,7 +1759,7 @@ void bvlc_set_global_address_for_nat(const struct in_addr* addr)
 
 /** Disable NAT handling.
  */
-void bvlc_disable_nat(void)
+void ICACHE_FLASH_ATTR bvlc_disable_nat(void)
 {
     BVLC_NAT_Handling = false;
     BVLC_Global_Address.s_addr = 0;

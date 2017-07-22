@@ -32,6 +32,7 @@
  -------------------------------------------
 ####COPYRIGHTEND####*/
 
+#include "c_types.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -44,35 +45,35 @@
 /* list of devices */
 static OS_Keylist Device_List = NULL;
 
-void objects_init(
+void ICACHE_FLASH_ATTR objects_init(
     void)
 {
     if (!Device_List)
         Device_List = Keylist_Create();
 }
 
-int objects_device_count(
+int ICACHE_FLASH_ATTR objects_device_count(
     void)
 {
     objects_init();
     return Keylist_Count(Device_List);
 }
 
-OBJECT_DEVICE_T *objects_device_data(
+OBJECT_DEVICE_T ICACHE_FLASH_ATTR *objects_device_data(
     int index)
 {
     objects_init();
     return Keylist_Data_Index(Device_List, index);
 }
 
-OBJECT_DEVICE_T *objects_device_by_instance(
+OBJECT_DEVICE_T ICACHE_FLASH_ATTR *objects_device_by_instance(
     uint32_t device_instance)
 {
     objects_init();
     return Keylist_Data(Device_List, device_instance);
 }
 
-OBJECT_DEVICE_T *objects_device_new(
+OBJECT_DEVICE_T ICACHE_FLASH_ATTR *objects_device_new(
     uint32_t device_instance)
 {
     OBJECT_DEVICE_T *pDevice = NULL;
@@ -102,7 +103,7 @@ OBJECT_DEVICE_T *objects_device_new(
     return pDevice;
 }
 
-OBJECT_DEVICE_T *objects_device_delete(
+OBJECT_DEVICE_T ICACHE_FLASH_ATTR *objects_device_delete(
     int index)
 {
     OBJECT_DEVICE_T *pDevice = NULL;

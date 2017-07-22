@@ -41,7 +41,7 @@
 
 /** @file bacint.c  Encode/Decode Integer Types */
 
-int encode_unsigned16(
+int ICACHE_FLASH_ATTR encode_unsigned16(
     uint8_t * apdu,
     uint16_t value)
 {
@@ -51,7 +51,7 @@ int encode_unsigned16(
     return 2;
 }
 
-int decode_unsigned16(
+int ICACHE_FLASH_ATTR decode_unsigned16(
     uint8_t * apdu,
     uint16_t * value)
 {
@@ -63,7 +63,7 @@ int decode_unsigned16(
     return 2;
 }
 
-int encode_unsigned24(
+int ICACHE_FLASH_ATTR encode_unsigned24(
     uint8_t * apdu,
     uint32_t value)
 {
@@ -74,7 +74,7 @@ int encode_unsigned24(
     return 3;
 }
 
-int decode_unsigned24(
+int ICACHE_FLASH_ATTR decode_unsigned24(
     uint8_t * apdu,
     uint32_t * value)
 {
@@ -87,7 +87,7 @@ int decode_unsigned24(
     return 3;
 }
 
-int encode_unsigned32(
+int ICACHE_FLASH_ATTR encode_unsigned32(
     uint8_t * apdu,
     uint32_t value)
 {
@@ -99,7 +99,7 @@ int encode_unsigned32(
     return 4;
 }
 
-int decode_unsigned32(
+int ICACHE_FLASH_ATTR decode_unsigned32(
     uint8_t * apdu,
     uint32_t * value)
 {
@@ -114,7 +114,7 @@ int decode_unsigned32(
 }
 
 #if BACNET_USE_SIGNED
-int encode_signed8(
+int ICACHE_FLASH_ATTR encode_signed8(
     uint8_t * apdu,
     int8_t value)
 {
@@ -123,7 +123,7 @@ int encode_signed8(
     return 1;
 }
 
-int decode_signed8(
+int ICACHE_FLASH_ATTR decode_signed8(
     uint8_t * apdu,
     int32_t * value)
 {
@@ -139,7 +139,7 @@ int decode_signed8(
     return 1;
 }
 
-int encode_signed16(
+int ICACHE_FLASH_ATTR encode_signed16(
     uint8_t * apdu,
     int16_t value)
 {
@@ -149,7 +149,7 @@ int encode_signed16(
     return 2;
 }
 
-int decode_signed16(
+int ICACHE_FLASH_ATTR decode_signed16(
     uint8_t * apdu,
     int32_t * value)
 {
@@ -166,7 +166,7 @@ int decode_signed16(
     return 2;
 }
 
-int encode_signed24(
+int ICACHE_FLASH_ATTR encode_signed24(
     uint8_t * apdu,
     int32_t value)
 {
@@ -177,7 +177,7 @@ int encode_signed24(
     return 3;
 }
 
-int decode_signed24(
+int ICACHE_FLASH_ATTR decode_signed24(
     uint8_t * apdu,
     int32_t * value)
 {
@@ -195,7 +195,7 @@ int decode_signed24(
     return 3;
 }
 
-int encode_signed32(
+int ICACHE_FLASH_ATTR encode_signed32(
     uint8_t * apdu,
     int32_t value)
 {
@@ -207,7 +207,7 @@ int encode_signed32(
     return 4;
 }
 
-int decode_signed32(
+int ICACHE_FLASH_ATTR decode_signed32(
     uint8_t * apdu,
     int32_t * value)
 {

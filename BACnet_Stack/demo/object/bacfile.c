@@ -79,7 +79,7 @@ static const int bacfile_Properties_Proprietary[] = {
     -1
 };
 
-void BACfile_Property_Lists(
+void ICACHE_FLASH_ATTR BACfile_Property_Lists(
     const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
@@ -94,7 +94,7 @@ void BACfile_Property_Lists(
     return;
 }
 
-static char *bacfile_name(
+static char *ICACHE_FLASH_ATTR bacfile_name(
     uint32_t instance)
 {
     uint32_t index = 0;
@@ -112,7 +112,7 @@ static char *bacfile_name(
     return filename;
 }
 
-bool bacfile_object_name(
+bool ICACHE_FLASH_ATTR bacfile_object_name(
     uint32_t instance,
     BACNET_CHARACTER_STRING * object_name)
 {
@@ -127,13 +127,13 @@ bool bacfile_object_name(
     return status;
 }
 
-bool bacfile_valid_instance(
+bool ICACHE_FLASH_ATTR bacfile_valid_instance(
     uint32_t object_instance)
 {
     return bacfile_name(object_instance) ? true : false;
 }
 
-uint32_t bacfile_count(
+uint32_t ICACHE_FLASH_ATTR bacfile_count(
     void)
 {
     uint32_t index = 0;
@@ -146,7 +146,7 @@ uint32_t bacfile_count(
     return index;
 }
 
-uint32_t bacfile_index_to_instance(
+uint32_t ICACHE_FLASH_ATTR bacfile_index_to_instance(
     unsigned find_index)
 {
     uint32_t instance = BACNET_MAX_INSTANCE + 1;
@@ -164,7 +164,7 @@ uint32_t bacfile_index_to_instance(
     return instance;
 }
 
-static long fsize(
+static long ICACHE_FLASH_ATTR fsize(
     FILE * pFile)
 {
     long size = 0;
@@ -179,7 +179,7 @@ static long fsize(
     return (size);
 }
 
-unsigned bacfile_file_size(
+unsigned ICACHE_FLASH_ATTR bacfile_file_size(
     uint32_t object_instance)
 {
     char *pFilename = NULL;
@@ -199,7 +199,7 @@ unsigned bacfile_file_size(
 }
 
 /* return the number of bytes used, or -1 on error */
-int bacfile_read_property(
+int ICACHE_FLASH_ATTR bacfile_read_property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;   /* return value */
@@ -290,7 +290,7 @@ int bacfile_read_property(
 }
 
 /* returns true if successful */
-bool bacfile_write_property(
+bool ICACHE_FLASH_ATTR bacfile_write_property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* return value */
@@ -370,7 +370,7 @@ bool bacfile_write_property(
     return status;
 }
 
-uint32_t bacfile_instance(
+uint32_t ICACHE_FLASH_ATTR bacfile_instance(
     char *filename)
 {
     uint32_t index = 0;
@@ -394,7 +394,7 @@ uint32_t bacfile_instance(
 /* Another way would be to store the */
 /* invokeID and file instance in a list or table */
 /* when the request was sent */
-uint32_t bacfile_instance_from_tsm(
+uint32_t ICACHE_FLASH_ATTR bacfile_instance_from_tsm(
     uint8_t invokeID)
 {
     BACNET_NPDU_DATA npdu_data = { 0 }; /* dummy for getting npdu length */
@@ -436,7 +436,7 @@ uint32_t bacfile_instance_from_tsm(
 }
 #endif
 
-bool bacfile_read_data(
+bool ICACHE_FLASH_ATTR bacfile_read_data(
     BACNET_ATOMIC_READ_FILE_DATA * data)
 {
     char *pFilename = NULL;
@@ -471,7 +471,7 @@ bool bacfile_read_data(
     return found;
 }
 
-bool bacfile_write_stream_data(
+bool ICACHE_FLASH_ATTR bacfile_write_stream_data(
     BACNET_ATOMIC_WRITE_FILE_DATA * data)
 {
     char *pFilename = NULL;
@@ -509,7 +509,7 @@ bool bacfile_write_stream_data(
     return found;
 }
 
-bool bacfile_read_ack_stream_data(
+bool ICACHE_FLASH_ATTR bacfile_read_ack_stream_data(
     uint32_t instance,
     BACNET_ATOMIC_READ_FILE_DATA * data)
 {
@@ -537,7 +537,7 @@ bool bacfile_read_ack_stream_data(
     return found;
 }
 
-void bacfile_init(
+void ICACHE_FLASH_ATTR bacfile_init(
     void)
 {
 }

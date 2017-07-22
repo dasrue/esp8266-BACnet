@@ -47,7 +47,7 @@
 
 extern uint8_t IOBufferPT[300]; /* Somewhere to build the encoded result block for Private Transfers */
 
-static void DecodeBlock(
+static void ICACHE_FLASH_ATTR DecodeBlock(
     char cBlockNum,
     uint8_t * pData)
 {
@@ -113,7 +113,7 @@ static void DecodeBlock(
     printf("  String      : %s\n\n", Response.sMyString);
 }
 
-static void ProcessPTA(
+static void ICACHE_FLASH_ATTR ProcessPTA(
     BACNET_PRIVATE_TRANSFER_DATA * data)
 {
     int iLen;   /* Index to current location in data */
@@ -183,7 +183,7 @@ static void ProcessPTA(
  * and decide what to do next...
  */
 
-void handler_conf_private_trans_ack(
+void ICACHE_FLASH_ATTR handler_conf_private_trans_ack(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

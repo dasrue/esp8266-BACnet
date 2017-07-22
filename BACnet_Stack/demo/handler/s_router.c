@@ -58,7 +58,7 @@
  * @param priority [in] One of the 4 priorities defined in section 6.2.2,
  *                      like B'11' = Life Safety message
  */
-static void npdu_encode_npdu_network(
+static void ICACHE_FLASH_ATTR npdu_encode_npdu_network(
     BACNET_NPDU_DATA * npdu_data,
     BACNET_NETWORK_MESSAGE_TYPE network_message_type,
     bool data_expecting_reply,
@@ -97,7 +97,7 @@ static void npdu_encode_npdu_network(
  *                   the type of message.
  * @return Number of bytes sent, or <=0 if no message was sent.
  */
-int Send_Network_Layer_Message(
+int ICACHE_FLASH_ATTR Send_Network_Layer_Message(
     BACNET_NETWORK_MESSAGE_TYPE network_message_type,
     BACNET_ADDRESS * dst,
     int *iArgs)
@@ -236,7 +236,7 @@ int Send_Network_Layer_Message(
  *                 will be sent and the receiving router(s) will send
  *                 their full list of reachable BACnet networks.
  */
-void Send_Who_Is_Router_To_Network(
+void ICACHE_FLASH_ATTR Send_Who_Is_Router_To_Network(
     BACNET_ADDRESS * dst,
     int dnet)
 {
@@ -253,7 +253,7 @@ void Send_Who_Is_Router_To_Network(
  * @param DNET_list [in] List of BACnet network numbers for which I am a router,
  *                       terminated with -1
  */
-void Send_I_Am_Router_To_Network(
+void ICACHE_FLASH_ATTR Send_I_Am_Router_To_Network(
     const int DNET_list[])
 {
     /* Use a NULL dst here since we want a broadcast MAC address. */
@@ -271,7 +271,7 @@ void Send_I_Am_Router_To_Network(
  * @param reject_reason [in] One of the BACNET_NETWORK_REJECT_REASONS codes.
  * @param dnet [in] Which BACnet network orginated the message.
  */
-void Send_Reject_Message_To_Network(
+void ICACHE_FLASH_ATTR Send_Reject_Message_To_Network(
     BACNET_ADDRESS * dst,
     uint8_t reject_reason,
     int dnet)
@@ -301,7 +301,7 @@ void Send_Reject_Message_To_Network(
  *                       terminated with -1.  Will be just -1 when we are
  *                       requesting a routing table.
  */
-void Send_Initialize_Routing_Table(
+void ICACHE_FLASH_ATTR Send_Initialize_Routing_Table(
     BACNET_ADDRESS * dst,
     const int DNET_list[])
 {
@@ -328,7 +328,7 @@ void Send_Initialize_Routing_Table(
  *                       terminated with -1.  May be just -1 when no table
  *                       should be sent.
  */
-void Send_Initialize_Routing_Table_Ack(
+void ICACHE_FLASH_ATTR Send_Initialize_Routing_Table_Ack(
     BACNET_ADDRESS * dst,
     const int DNET_list[])
 {

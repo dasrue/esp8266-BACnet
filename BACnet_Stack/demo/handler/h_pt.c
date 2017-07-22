@@ -52,7 +52,7 @@ DATABLOCK MyData[MYMAXBLOCK];
 
 uint8_t IOBufferPT[MAX_APDU];   /* Buffer for building response in  */
 
-static void ProcessPT(
+static void ICACHE_FLASH_ATTR ProcessPT(
     BACNET_PRIVATE_TRANSFER_DATA * data)
 {
     int iLen;   /* Index to current location in data */
@@ -199,7 +199,7 @@ static void ProcessPT(
  */
 
 
-void handler_conf_private_trans(
+void ICACHE_FLASH_ATTR handler_conf_private_trans(
     uint8_t * service_request,
     uint16_t service_len,
     BACNET_ADDRESS * src,

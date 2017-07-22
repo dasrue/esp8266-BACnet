@@ -132,7 +132,7 @@ uint16_t CRC_Calc_Data(
 /* */
 /*  The ^ operator means exclusive OR. */
 /* Note: This function is copied directly from the BACnet standard. */
-uint8_t CRC_Calc_Header(
+uint8_t ICACHE_FLASH_ATTR CRC_Calc_Header(
     uint8_t dataValue,
     uint8_t crcValue)
 {
@@ -154,7 +154,7 @@ uint8_t CRC_Calc_Header(
 /* */
 /*  The ^ operator means exclusive OR. */
 /* Note: This function is copied directly from the BACnet standard. */
-uint16_t CRC_Calc_Data(
+uint16_t ICACHE_FLASH_ATTR CRC_Calc_Data(
     uint8_t dataValue,
     uint16_t crcValue)
 {

@@ -44,7 +44,7 @@
 
 /** @file s_cov.c  Send a Change of Value (COV) update or a Subscribe COV request. */
 
-int ucov_notify_encode_pdu(
+int ICACHE_FLASH_ATTR ucov_notify_encode_pdu(
     uint8_t * buffer,
     BACNET_ADDRESS * dest,
     BACNET_NPDU_DATA * npdu_data,
@@ -75,7 +75,7 @@ int ucov_notify_encode_pdu(
  * @param cov_data [in]  The COV update information to be encoded.
  * @return Size of the message sent (bytes), or a negative value on error.
  */
-int Send_UCOV_Notify(
+int ICACHE_FLASH_ATTR Send_UCOV_Notify(
     uint8_t * buffer,
     BACNET_COV_DATA * cov_data)
 {
@@ -98,7 +98,7 @@ int Send_UCOV_Notify(
  * @return invoke id of outgoing message, or 0 if communication is disabled or
  *         no slot is available from the tsm for sending.
  */
-uint8_t Send_COV_Subscribe(
+uint8_t ICACHE_FLASH_ATTR Send_COV_Subscribe(
     uint32_t device_id,
     BACNET_SUBSCRIBE_COV_DATA * cov_data)
 {

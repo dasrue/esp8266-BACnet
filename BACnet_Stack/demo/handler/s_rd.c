@@ -53,7 +53,7 @@
  * @param password [in] Optional password, up to 20 chars.
  * @return The invokeID of the transmitted message, or 0 on failure.
  */
-uint8_t Send_Reinitialize_Device_Request(
+uint8_t ICACHE_FLASH_ATTR Send_Reinitialize_Device_Request(
     uint32_t device_id,
     BACNET_REINITIALIZED_STATE state,
     char *password)

@@ -55,7 +55,7 @@
  * @return The invokeID of the transmitted message, or 0 on failure.
  */
 
-uint8_t Send_Device_Communication_Control_Request(
+uint8_t ICACHE_FLASH_ATTR Send_Device_Communication_Control_Request(
     uint32_t device_id,
     uint16_t timeDuration,      /* 0=optional */
     BACNET_COMMUNICATION_ENABLE_DISABLE state,

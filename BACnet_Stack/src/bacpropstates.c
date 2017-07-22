@@ -39,7 +39,7 @@
 
 /** @file bacpropstates.c  Encode/Decode BACnet Application Property States */
 
-int bacapp_decode_property_state(
+int ICACHE_FLASH_ATTR bacapp_decode_property_state(
     uint8_t * apdu,
     BACNET_PROPERTY_STATE * value)
 {
@@ -187,7 +187,7 @@ int bacapp_decode_property_state(
     return len;
 }
 
-int bacapp_decode_context_property_state(
+int ICACHE_FLASH_ATTR bacapp_decode_context_property_state(
     uint8_t * apdu,
     uint8_t tag_number,
     BACNET_PROPERTY_STATE * value)
@@ -215,7 +215,7 @@ int bacapp_decode_context_property_state(
     return len;
 }
 
-int bacapp_encode_property_state(
+int ICACHE_FLASH_ATTR bacapp_encode_property_state(
     uint8_t * apdu,
     BACNET_PROPERTY_STATE * value)
 {

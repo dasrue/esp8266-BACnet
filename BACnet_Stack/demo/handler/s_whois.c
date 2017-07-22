@@ -56,7 +56,7 @@
  * @param low_limit [in] Device Instance Low Range, 0 - 4,194,303 or -1
  * @param high_limit [in] Device Instance High Range, 0 - 4,194,303 or -1
  */
-void Send_WhoIs_To_Network(
+void ICACHE_FLASH_ATTR Send_WhoIs_To_Network(
     BACNET_ADDRESS * target_address,
     int32_t low_limit,
     int32_t high_limit)
@@ -98,7 +98,7 @@ void Send_WhoIs_To_Network(
  * @param low_limit [in] Device Instance Low Range, 0 - 4,194,303 or -1
  * @param high_limit [in] Device Instance High Range, 0 - 4,194,303 or -1
  */
-void Send_WhoIs_Global(
+void ICACHE_FLASH_ATTR Send_WhoIs_Global(
     int32_t low_limit,
     int32_t high_limit)
 {
@@ -121,7 +121,7 @@ void Send_WhoIs_Global(
  * @param low_limit [in] Device Instance Low Range, 0 - 4,194,303 or -1
  * @param high_limit [in] Device Instance High Range, 0 - 4,194,303 or -1
  */
-void Send_WhoIs_Local(
+void ICACHE_FLASH_ATTR Send_WhoIs_Local(
     int32_t low_limit,
     int32_t high_limit)
 {
@@ -167,7 +167,7 @@ void Send_WhoIs_Local(
  * @param low_limit [in] Device Instance Low Range, 0 - 4,194,303 or -1
  * @param high_limit [in] Device Instance High Range, 0 - 4,194,303 or -1
  */
-void Send_WhoIs_Remote(
+void ICACHE_FLASH_ATTR Send_WhoIs_Remote(
     BACNET_ADDRESS * target_address,
     int32_t low_limit,
     int32_t high_limit)
@@ -190,7 +190,7 @@ void Send_WhoIs_Remote(
  * @param low_limit [in] Device Instance Low Range, 0 - 4,194,303 or -1
  * @param high_limit [in] Device Instance High Range, 0 - 4,194,303 or -1
  */
-void Send_WhoIs(
+void ICACHE_FLASH_ATTR Send_WhoIs(
     int32_t low_limit,
     int32_t high_limit)
 {

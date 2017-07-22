@@ -55,7 +55,7 @@ uint8_t Send_Private_Transfer_Request(
     char block_number,
     DATABLOCK * block);
 
-uint8_t Send_Private_Transfer_Request(
+uint8_t ICACHE_FLASH_ATTR Send_Private_Transfer_Request(
     uint32_t device_id,
     uint16_t vendor_id,
     uint32_t service_number,

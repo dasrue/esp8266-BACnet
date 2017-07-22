@@ -67,7 +67,7 @@ static const int Schedule_Properties_Proprietary[] = {
     -1
 };
 
-void Schedule_Property_Lists(const int **pRequired,
+void ICACHE_FLASH_ATTR Schedule_Property_Lists(const int **pRequired,
     const int **pOptional,
     const int **pProprietary)
 {
@@ -79,7 +79,7 @@ void Schedule_Property_Lists(const int **pRequired,
         *pProprietary = Schedule_Properties_Proprietary;
 }
 
-void Schedule_Init(void)
+void ICACHE_FLASH_ATTR Schedule_Init(void)
 {
     unsigned i, j;
     for (i = 0; i < MAX_SCHEDULES; i++) {
@@ -105,7 +105,7 @@ void Schedule_Init(void)
     }
 }
 
-bool Schedule_Valid_Instance(uint32_t object_instance)
+bool ICACHE_FLASH_ATTR Schedule_Valid_Instance(uint32_t object_instance)
 {
     unsigned int index = Schedule_Instance_To_Index(object_instance);
     if (index < MAX_SCHEDULES)
@@ -114,17 +114,17 @@ bool Schedule_Valid_Instance(uint32_t object_instance)
         return false;
 }
 
-unsigned Schedule_Count(void)
+unsigned ICACHE_FLASH_ATTR Schedule_Count(void)
 {
     return MAX_SCHEDULES;
 }
 
-uint32_t Schedule_Index_To_Instance(unsigned index)
+uint32_t ICACHE_FLASH_ATTR Schedule_Index_To_Instance(unsigned index)
 {
     return index;
 }
 
-unsigned Schedule_Instance_To_Index(uint32_t instance)
+unsigned ICACHE_FLASH_ATTR Schedule_Instance_To_Index(uint32_t instance)
 {
     unsigned index = MAX_SCHEDULES;
 
@@ -134,7 +134,7 @@ unsigned Schedule_Instance_To_Index(uint32_t instance)
     return index;
 }
 
-bool Schedule_Object_Name(uint32_t object_instance,
+bool ICACHE_FLASH_ATTR Schedule_Object_Name(uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
 {
     static char text_string[32] = "";   /* okay for single thread */
@@ -150,7 +150,7 @@ bool Schedule_Object_Name(uint32_t object_instance,
     return status;
 }
 
-void Schedule_Out_Of_Service_Set(
+void ICACHE_FLASH_ATTR Schedule_Out_Of_Service_Set(
     uint32_t object_instance,
     bool value)
 {
@@ -162,7 +162,7 @@ void Schedule_Out_Of_Service_Set(
     }
 }
 
-int Schedule_Read_Property(BACNET_READ_PROPERTY_DATA * rpdata)
+int ICACHE_FLASH_ATTR Schedule_Read_Property(BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = 0;
     unsigned object_index = 0;
@@ -287,7 +287,7 @@ int Schedule_Read_Property(BACNET_READ_PROPERTY_DATA * rpdata)
     return apdu_len;
 }
 
-bool Schedule_Write_Property(BACNET_WRITE_PROPERTY_DATA * wp_data)
+bool ICACHE_FLASH_ATTR Schedule_Write_Property(BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     unsigned object_index = 0;
     bool status = false;        /* return value */
@@ -345,7 +345,7 @@ bool Schedule_Write_Property(BACNET_WRITE_PROPERTY_DATA * wp_data)
     return status;
 }
 
-bool Schedule_In_Effective_Period(SCHEDULE_DESCR * desc,
+bool ICACHE_FLASH_ATTR Schedule_In_Effective_Period(SCHEDULE_DESCR * desc,
     BACNET_DATE * date)
 {
     bool res = false;
@@ -359,7 +359,7 @@ bool Schedule_In_Effective_Period(SCHEDULE_DESCR * desc,
     return res;
 }
 
-void Schedule_Recalculate_PV(SCHEDULE_DESCR * desc,
+void ICACHE_FLASH_ATTR Schedule_Recalculate_PV(SCHEDULE_DESCR * desc,
     BACNET_WEEKDAY wday,
     BACNET_TIME * time)
 {
