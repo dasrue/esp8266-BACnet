@@ -35,32 +35,44 @@ SOFTWARE.
 
 #define MAX_NUM_SOCKETS 8
 
+
 #define AF_INET		2
 #define AF_INET6	10
 
-typedef struct in_addr {
+struct in_addr {
 	uint32_t s_addr;
 };
 
-typedef struct sockaddr {
+struct sockaddr {
 	int16_t family;
 	uint16_t port;
 	uint8_t ip[4];
 	//uint8_t zero[8];
 };
 
-typedef struct sockaddr_in {
+struct sockaddr_in {
 	uint16_t sin_family;
 	uint16_t sin_port;
 	struct in_addr sin_addr;
 	//uint8_t sin_zero[8];
 };
 
-typedef struct rxPktBuffer_t {
+struct rxPktBuffer_t {
 	struct sockaddr remoteInfo;
 	int remoteInfoLen;
 	uint8_t *pktData;
 	unsigned short pktDataLen;
 };
+
+int ICACHE_FLASH_ATTR sendto(
+	int socketNum,		
+	const uint8_t *data,	// We don't modify data so ddeclare it as const.
+	int dataLen,
+	int flags,
+	const struct sockaddr *target,
+	int targetStructLen);
+
+struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
+	int socketNum);
 
 #endif /* NET_H */
