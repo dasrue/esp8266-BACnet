@@ -1114,6 +1114,7 @@ static bool bvlc_bdt_member_mask_is_unicast(
  *
  * @return Number of bytes received, or 0 if none or timeout.
  */
+#if 0
 uint16_t bvlc_receive(
     BACNET_ADDRESS * src,
     uint8_t * npdu,
@@ -1434,6 +1435,7 @@ uint16_t bvlc_receive(
 
     return npdu_len;
 }
+#endif
 
 /** Send a packet out the BACnet/IP socket (Annex J)
  *
