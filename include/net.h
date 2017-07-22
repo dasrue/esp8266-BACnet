@@ -36,6 +36,7 @@ SOFTWARE.
 #include "c_types.h"
 #include "ip_addr.h"
 #include "espconn.h"
+#include "osapi.h"
 
 #define MAX_NUM_SOCKETS 8
 
