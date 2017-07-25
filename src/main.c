@@ -38,12 +38,14 @@ void some_timerfunc(void *arg)
 
 void ICACHE_FLASH_ATTR user_init()
 {
-    // init gpio subsytem
-    gpio_init();
+	// init gpio subsytem
+	gpio_init();
 
-    // configure UART TXD to be GPIO1, set as output
-    PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTMS_U, FUNC_GPIO14);
-    gpio_output_set(0, 0, (1 << pin), 0);
+	// configure UART TXD to be GPIO1, set as output
+	PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTMS_U, FUNC_GPIO14);
+	PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDI_U, FUNC_GPIO12);
+	gpio_output_set(0, 0, (1 << pin), 0);
+	gpio_output_set(0, 0, (1 << 12), 0);
 	if(wifi_get_opmode()!=0x01)
 		wifi_set_opmode(0x01);		// Make sure we are in station mode.
 	user_set_station_config();
@@ -59,6 +61,7 @@ void ICACHE_FLASH_ATTR user_init()
   // setup timer (500ms, repeating)
 	setupHandlers();
 	bip_init(0);
+	os_printf("Ready for battle!\n");
 	os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
 	os_timer_arm(&some_timer, 500, 1);
 }

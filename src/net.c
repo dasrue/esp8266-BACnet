@@ -31,6 +31,7 @@ SOFTWARE.
 */
 
 #include "c_types.h"
+#include "ets_sys.h"
 #include <string.h>		// To provide memcpy
 #include <stdlib.h>
 #include "net.h"
@@ -89,6 +90,16 @@ void bip_recv_callback(
 	int function;
 	BACNET_ADDRESS src;
 	uint16_t i;
+	if (GPIO_REG_READ(GPIO_OUT_ADDRESS) & (1 << 12))
+	{
+		// set gpio low
+		gpio_output_set(0, (1 << 12), 0, 0);
+	}
+	else
+	{
+		// set gpio high
+		gpio_output_set((1 << 12), 0, 0, 0);
+	}
 
 	sin.sin_family = AF_INET;
 	sin.sin_port = thisSocket->proto.udp->remote_port;			// Copy over remote port
@@ -170,6 +181,7 @@ void bip_recv_callback(
             }
         }
     }
+	os_printf("Running NPDU handler with %u bytes of data\n", len);
     npdu_handler(&src, pdata, len);
 
 }

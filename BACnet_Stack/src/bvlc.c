@@ -76,13 +76,17 @@ BACNET_BVLC_FUNCTION BVLC_Function_Code = BVLC_RESULT;  /* A safe default */
  * Separately, define BBMD_CLIENT_ENABLED to get the
  * functions that allow a client to manage a BBMD.
  */
+
+#ifndef MAX_BBMD_ENTRIES
+#define MAX_BBMD_ENTRIES 5
+#endif
+static BBMD_TABLE_ENTRY BBMD_Table[MAX_BBMD_ENTRIES];
+
+
 #if defined(BBMD_ENABLED) && BBMD_ENABLED
 
 
-#ifndef MAX_BBMD_ENTRIES
-#define MAX_BBMD_ENTRIES 128
-#endif
-static BBMD_TABLE_ENTRY BBMD_Table[MAX_BBMD_ENTRIES];
+
 
 /*Each device that registers as a foreign device shall be placed
 in an entry in the BBMD's Foreign Device Table (FDT). Each
@@ -1453,6 +1457,7 @@ int ICACHE_FLASH_ATTR bvlc_send_pdu(
     uint8_t * pdu,
     unsigned pdu_len)
 {
+	os_printf("oops we are in the wrong place!\n");
     struct sockaddr_in bvlc_dest = { 0 };
     uint8_t mtu[MAX_MPDU] = { 0 };
     uint16_t mtu_len = 0;

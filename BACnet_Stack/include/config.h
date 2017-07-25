@@ -43,7 +43,7 @@
     USE_CLASSADDR = uses IN_CLASSx_HOST where x=A,B,C or D for broadcast
 */
 #if !defined(BBMD_ENABLED)
-#define BBMD_ENABLED 1
+#define BBMD_ENABLED 0
 #endif
 #endif
 

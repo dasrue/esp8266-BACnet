@@ -70,6 +70,7 @@ struct rxPktBuffer_t {
 };
 
 struct espconn BACnetESPsocket;
+esp_udp BACnetUDPinfo;
 
 #if 0
 int sendto(

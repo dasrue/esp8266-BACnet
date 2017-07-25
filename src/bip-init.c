@@ -66,6 +66,8 @@ bool ICACHE_FLASH_ATTR bip_init(
 	BACnetESPsocket.recv_callback = bip_recv_callback;	// Setup the recv callback
 	if(bip_get_port()==0)
 		bip_set_port(0xBAC0);	// If port hasn't been initialised, set it to BACnet default.
+	BACnetESPsocket.proto.udp = &BACnetUDPinfo;	// Setup the protocol pointer
 	BACnetESPsocket.proto.udp->local_port = bip_get_port();
-	espconn_create(&BACnetESPsocket);
+	if(espconn_create(&BACnetESPsocket)==0)
+		bip_set_socket(1);
 }

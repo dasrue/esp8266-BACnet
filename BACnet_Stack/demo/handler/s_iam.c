@@ -147,8 +147,9 @@ void ICACHE_FLASH_ATTR Send_I_Am(
     /* encode the data */
     pdu_len = iam_encode_pdu(buffer, &dest, &npdu_data);
     /* send data */
+	os_printf("Sending %u bytes in response to who is req\n",pdu_len);
     bytes_sent = datalink_send_pdu(&dest, &npdu_data, &buffer[0], pdu_len);
-
+	os_printf("send_pdu replied %d\n",bytes_sent);
     if (bytes_sent <= 0) {
 #if PRINT_ENABLED
         fprintf(stderr, "Failed to Send I-Am Reply (%s)!\n", strerror(errno));
