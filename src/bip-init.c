@@ -36,6 +36,8 @@ SOFTWARE.
 #include "osapi.h"
 #include "net.h"
 #include "bip.h"
+#include "apdu.h"
+#include "handlers.h"
 
 
 void ICACHE_FLASH_ATTR user_set_station_config() {
@@ -47,6 +49,11 @@ void ICACHE_FLASH_ATTR user_set_station_config() {
 	os_memcpy(&stationConf.ssid, ssid, 32);
 	os_memcpy(&stationConf.password, password, 32);
 	wifi_station_set_config(&stationConf);
+}
+
+void ICACHE_FLASH_ATTR setupHandlers() {
+	apdu_set_unconfirmed_handler(SERVICE_UNCONFIRMED_WHO_IS,handler_who_is);
+	apdu_set_confirmed_handler(SERVICE_CONFIRMED_READ_PROPERTY,handler_read_property);
 }
 
 bool ICACHE_FLASH_ATTR bip_init(

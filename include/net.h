@@ -81,6 +81,8 @@ int sendto(
 	int targetStructLen);
 #endif
 
+void ICACHE_FLASH_ATTR setupHandlers();
+
 void bip_recv_callback(
 	void *arg,
 	char *pdata,

@@ -6,6 +6,7 @@
 #include "espconn.h"
 #include "user_interface.h"
 #include "bip.h"
+#include "net.h"
 #include <string.h>
 
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
@@ -28,20 +29,21 @@ void some_timerfunc(void *arg)
     // set gpio high
     gpio_output_set((1 << pin), 0, 0, 0);
   }
+  /*
 	testConn.proto.udp->remote_port = 2567;
 	uint8_t remoteIP[] = {192,168,1,132};
 	os_memcpy(testConn.proto.udp->remote_ip, remoteIP, 4);
-	espconn_sendto(&testConn,sendString,strlen(sendString)+1);
+	espconn_sendto(&testConn,sendString,strlen(sendString)+1);*/
 }
 
 void ICACHE_FLASH_ATTR user_init()
 {
-  // init gpio subsytem
-  gpio_init();
+    // init gpio subsytem
+    gpio_init();
 
-  // configure UART TXD to be GPIO1, set as output
-  PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTMS_U, FUNC_GPIO14); 
-  gpio_output_set(0, 0, (1 << pin), 0);
+    // configure UART TXD to be GPIO1, set as output
+    PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTMS_U, FUNC_GPIO14);
+    gpio_output_set(0, 0, (1 << pin), 0);
 	if(wifi_get_opmode()!=0x01)
 		wifi_set_opmode(0x01);		// Make sure we are in station mode.
 	user_set_station_config();
@@ -55,7 +57,8 @@ void ICACHE_FLASH_ATTR user_init()
 	testConn.proto.udp = &testUDPinfo;
 	espconn_create(&testConn);
   // setup timer (500ms, repeating)
+	setupHandlers();
 	bip_init(0);
-  os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
-  os_timer_arm(&some_timer, 500, 1);
+	os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
+	os_timer_arm(&some_timer, 500, 1);
 }
