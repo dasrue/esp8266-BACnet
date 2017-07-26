@@ -411,7 +411,7 @@ static object_functions_t My_Object_Table[] = {
  * @return Pointer to the group of object helper functions that implement this
  *         type of Object.
  */
-static struct object_functions *ICACHE_FLASH_ATTR Device_Objects_Find_Functions(
+static struct object_functions* ICACHE_FLASH_ATTR Device_Objects_Find_Functions(
     BACNET_OBJECT_TYPE Object_Type)
 {
     struct object_functions *pObject = NULL;
