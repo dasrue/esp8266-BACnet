@@ -46,7 +46,8 @@ SRCS = 	src/main.c \
 	$(BAC_HNDLR)/h_wp.c \
 	$(BAC_HNDLR)/txbuf.c \
 	$(BAC_HNDLR)/s_iam.c \
-	$(BAC_OBJ)/device.c
+	$(BAC_OBJ)/device.c \
+	$(BAC_OBJ)/bo.c
 	
 
 OBJS = ${SRCS:.c=.o}

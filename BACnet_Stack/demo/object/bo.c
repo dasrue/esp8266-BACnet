@@ -27,7 +27,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
+//#include <stdio.h>
+#include "osapi.h"
 #include "bacdef.h"
 #include "bacdcode.h"
 #include "bacenum.h"
@@ -199,7 +200,7 @@ bool ICACHE_FLASH_ATTR Binary_Output_Object_Name(
     bool status = false;
 
     if (object_instance < MAX_BINARY_OUTPUTS) {
-        sprintf(text_string, "BINARY OUTPUT %lu",
+        os_sprintf(text_string, "BINARY OUTPUT %lu",
             (unsigned long) object_instance);
         status = characterstring_init_ansi(object_name, text_string);
     }

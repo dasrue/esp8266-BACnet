@@ -8,6 +8,7 @@
 #include "bip.h"
 #include "net.h"
 #include <string.h>
+#include "bo.h"
 
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
 // for other boards.
@@ -34,6 +35,8 @@ void some_timerfunc(void *arg)
 	uint8_t remoteIP[] = {192,168,1,132};
 	os_memcpy(testConn.proto.udp->remote_ip, remoteIP, 4);
 	espconn_sendto(&testConn,sendString,strlen(sendString)+1);*/
+    WRITE_PERI_REG(RTC_GPIO_OUT,
+		(READ_PERI_REG(RTC_GPIO_OUT) & 0xfffffffeUL) | (0x1UL & (Binary_Output_Present_Value(0)==BINARY_ACTIVE)));
 }
 
 void ICACHE_FLASH_ATTR user_init()
@@ -46,6 +49,13 @@ void ICACHE_FLASH_ATTR user_init()
 	PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDI_U, FUNC_GPIO12);
 	gpio_output_set(0, 0, (1 << pin), 0);
 	gpio_output_set(0, 0, (1 << 12), 0);
+  	WRITE_PERI_REG(PAD_XPD_DCDC_CONF,
+      	(READ_PERI_REG(PAD_XPD_DCDC_CONF) & 0xffffffbcUL) | 0x1UL); // mux configuration for XPD_DCDC to output rtc_gpio0
+  	WRITE_PERI_REG(RTC_GPIO_CONF,
+      	(READ_PERI_REG(RTC_GPIO_CONF) & 0xfffffffeUL) | 0x0UL); //mux configuration for out enable
+  	WRITE_PERI_REG(RTC_GPIO_ENABLE,
+		(READ_PERI_REG(RTC_GPIO_ENABLE) & 0xfffffffeUL) | 0x1UL); //out enable
+
 	if(wifi_get_opmode()!=0x01)
 		wifi_set_opmode(0x01);		// Make sure we are in station mode.
 	user_set_station_config();
