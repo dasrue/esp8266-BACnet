@@ -182,6 +182,7 @@ void bip_recv_callback(
         }
     }
 	os_printf("Running NPDU handler with %u bytes of data\n", len);
+	os_printf("SRC address is %u.%u.%u.%u\n", src.mac[0],src.mac[1],src.mac[2],src.mac[3]);
     npdu_handler(&src, pdata, len);
 
 }
