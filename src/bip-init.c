@@ -42,7 +42,7 @@ SOFTWARE.
 
 void ICACHE_FLASH_ATTR user_set_station_config() {
 	char ssid[32] = "test";
-	char password[64] = "test123";
+	char password[64] = "test1234";
 	struct station_config stationConf;
 
 	stationConf.bssid_set = 0;

@@ -165,7 +165,7 @@ int ICACHE_FLASH_ATTR bip_send_pdu(
     (void) npdu_data;
     /* assumes that the driver has already been initialized */
     if (BIP_Socket < 0) {
-        os_printf("socket not inited\n");
+        //os_printf("socket not inited\n");
         return BIP_Socket;
     }
 
@@ -190,7 +190,7 @@ int ICACHE_FLASH_ATTR bip_send_pdu(
         mtu[1] = BVLC_ORIGINAL_UNICAST_NPDU;
     } else {
         /* invalid address */
-    os_printf("invalid address\n");
+        //os_printf("invalid address\n");
         return -1;
     }
     //bip_dest.sin_addr.s_addr = address.s_addr;
@@ -208,15 +208,15 @@ int ICACHE_FLASH_ATTR bip_send_pdu(
     //    sendto(BIP_Socket, (char *) mtu, mtu_len, 0,
     //    (struct sockaddr *) &bip_dest, sizeof(struct sockaddr));
     BACnetESPsocket.proto.udp->remote_port = port;
-    os_printf("copying over ip as %lu", address.s_addr);
+    //os_printf("copying over ip as %lu", address.s_addr);
     //os_memcpy(BACnetESPsocket.proto.udp->remote_ip,address,4);	// Copy ip address in.
     BACnetESPsocket.proto.udp->remote_ip[0] = address.s_addr & 0xFF;
     BACnetESPsocket.proto.udp->remote_ip[1] = (address.s_addr >> 8)& 0xFF;
     BACnetESPsocket.proto.udp->remote_ip[2] = (address.s_addr >> 16)& 0xFF;
     BACnetESPsocket.proto.udp->remote_ip[3] = (address.s_addr >> 24)& 0xFF;
-    os_printf("sending response containing %u bytes... ",mtu_len);
+    //os_printf("sending response containing %u bytes... ",mtu_len);
     sendStatus = espconn_sendto(&BACnetESPsocket, mtu, mtu_len);
-    os_printf("The result returned %d \n",sendStatus);
+    //os_printf("The result returned %d \n",sendStatus);
     if(sendStatus==ESPCONN_OK)
     	return mtu_len;
     else

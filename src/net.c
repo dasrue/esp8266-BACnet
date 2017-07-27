@@ -87,6 +87,8 @@ void bip_recv_callback(
 {
 	struct espconn *thisSocket = arg;
 	struct sockaddr_in sin;
+	remot_info remIP;
+	remot_info *remIPptr = &remIP;
 	int function;
 	BACNET_ADDRESS src;
 	uint16_t i;
@@ -102,6 +104,7 @@ void bip_recv_callback(
 	}
 
 	sin.sin_family = AF_INET;
+	espconn_get_connection_info(thisSocket,&remIPptr,0);
 	sin.sin_port = thisSocket->proto.udp->remote_port;			// Copy over remote port
 	sin.sin_addr.s_addr = (uint32_t)thisSocket->proto.udp->remote_ip;	// Copy over remote IP
 
@@ -131,7 +134,8 @@ void bip_recv_callback(
         } else {
             /* data in src->mac[] is in network format */
             src.mac_len = 6;
-            os_memcpy(&src.mac[0], &sin.sin_addr.s_addr, 4);
+            //os_memcpy(&src.mac[0], &thisSocket->proto.udp->remote_ip[0], 4);
+			os_memcpy(&src.mac[0], &remIPptr->remote_ip[0], 4);
             os_memcpy(&src.mac[4], &sin.sin_port, 2);
             /* FIXME: check destination address */
             /* see if it is broadcast or for us */
@@ -181,8 +185,8 @@ void bip_recv_callback(
             }
         }
     }
-	os_printf("Running NPDU handler with %u bytes of data\n", len);
-	os_printf("SRC address is %u.%u.%u.%u\n", src.mac[0],src.mac[1],src.mac[2],src.mac[3]);
+	//os_printf("Running NPDU handler with %u bytes of data\n", len);
+	//os_printf("SRC address is %u.%u.%u.%u\n", src.mac[0],src.mac[1],src.mac[2],src.mac[3]);
     npdu_handler(&src, pdata, len);
 
 }
