@@ -35,6 +35,7 @@ SRCS = 	src/main.c \
 	$(BAC_SRC)/proplist.c \
 	$(BAC_SRC)/reject.c \
 	$(BAC_SRC)/rp.c \
+	$(BAC_SRC)/rpm.c \
 	$(BAC_SRC)/tsm.c \
 	$(BAC_SRC)/whois.c \
 	$(BAC_SRC)/wp.c \
@@ -43,6 +44,7 @@ SRCS = 	src/main.c \
 	$(BAC_HNDLR)/h_npdu.c \
 	$(BAC_HNDLR)/h_whois.c \
 	$(BAC_HNDLR)/h_rp.c \
+	$(BAC_HNDLR)/h_rpm.c \
 	$(BAC_HNDLR)/h_wp.c \
 	$(BAC_HNDLR)/txbuf.c \
 	$(BAC_HNDLR)/s_iam.c \
@@ -63,7 +65,7 @@ $(PROJNAME): $(OBJS)
 	$(CC) -c -o $@ $^ $(CFLAGS)
 
 flash: $(PROJNAME)-0x00000.bin
-	esptool.py write_flash 0 $(PROJNAME)-0x00000.bin 0x10000 $(PROJNAME)-0x10000.bin
+	esptool.py -b 9600 write_flash --flash_mode dio 0x00000 $(PROJNAME)-0x00000.bin 0x10000 $(PROJNAME)-0x10000.bin
 
 clean:
 	rm -rf $(PROJNAME) *.o src/*.o $(BAC_SRC)/*.o $(BAC_HNDLR)/*.o $(BAC_OBJ)/*.o $(PROJNAME)-0x00000.bin $(PROJNAME)-0x10000.bin

@@ -31,7 +31,7 @@
 #include <errno.h>
 #include "config.h"
 #include "txbuf.h"
-#include "memcopy.h"
+#include "osapi.h"
 #include "bacdef.h"
 #include "bacdcode.h"
 #include "apdu.h"
@@ -117,7 +117,7 @@ static int ICACHE_FLASH_ATTR RPM_Encode_Property(
     len =
         rpm_ack_encode_apdu_object_property(&Temp_Buf[0],
         rpmdata->object_property, rpmdata->array_index);
-    copy_len = memcopy(&apdu[0], &Temp_Buf[0], offset, len, max_apdu);
+    copy_len = os_memcpy(&apdu[0], &Temp_Buf[0], offset, len, max_apdu);
     if (copy_len == 0) {
         rpmdata->error_code = ERROR_CODE_ABORT_SEGMENTATION_NOT_SUPPORTED;
         return BACNET_STATUS_ABORT;
@@ -144,7 +144,7 @@ static int ICACHE_FLASH_ATTR RPM_Encode_Property(
             rpm_ack_encode_apdu_object_property_error(&Temp_Buf[0],
             rpdata.error_class, rpdata.error_code);
         copy_len =
-            memcopy(&apdu[0], &Temp_Buf[0], offset + apdu_len, len, max_apdu);
+            os_memcpy(&apdu[0], &Temp_Buf[0], offset + apdu_len, len, max_apdu);
 
         if (copy_len == 0) {
             rpmdata->error_code = ERROR_CODE_ABORT_SEGMENTATION_NOT_SUPPORTED;
@@ -249,7 +249,7 @@ void ICACHE_FLASH_ATTR handler_read_property_multiple(
         /* Stick this object id into the reply - if it will fit */
         len = rpm_ack_encode_apdu_object_begin(&Temp_Buf[0], &rpmdata);
         copy_len =
-            memcopy(&Handler_Transmit_Buffer[npdu_len], &Temp_Buf[0], apdu_len,
+            os_memcpy(&Handler_Transmit_Buffer[npdu_len], &Temp_Buf[0], apdu_len,
             len, MAX_APDU);
         if (copy_len == 0) {
 #if PRINT_ENABLED
@@ -292,7 +292,7 @@ void ICACHE_FLASH_ATTR handler_read_property_multiple(
                         rpm_ack_encode_apdu_object_property(&Temp_Buf[0],
                         rpmdata.object_property, rpmdata.array_index);
                     copy_len =
-                        memcopy(&Handler_Transmit_Buffer[npdu_len],
+                        os_memcpy(&Handler_Transmit_Buffer[npdu_len],
                         &Temp_Buf[0], apdu_len, len, MAX_APDU);
                     if (copy_len == 0) {
 #if PRINT_ENABLED
@@ -310,7 +310,7 @@ void ICACHE_FLASH_ATTR handler_read_property_multiple(
                         ERROR_CLASS_PROPERTY,
                         ERROR_CODE_PROPERTY_IS_NOT_AN_ARRAY);
                     copy_len =
-                        memcopy(&Handler_Transmit_Buffer[npdu_len],
+                        os_memcpy(&Handler_Transmit_Buffer[npdu_len],
                         &Temp_Buf[0], apdu_len, len, MAX_APDU);
                     if (copy_len == 0) {
 #if PRINT_ENABLED
@@ -379,7 +379,7 @@ void ICACHE_FLASH_ATTR handler_read_property_multiple(
                 decode_len++;
                 len = rpm_ack_encode_apdu_object_end(&Temp_Buf[0]);
                 copy_len =
-                    memcopy(&Handler_Transmit_Buffer[npdu_len], &Temp_Buf[0],
+                    os_memcpy(&Handler_Transmit_Buffer[npdu_len], &Temp_Buf[0],
                     apdu_len, len, MAX_APDU);
                 if (copy_len == 0) {
 #if PRINT_ENABLED
