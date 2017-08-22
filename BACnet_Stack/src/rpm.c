@@ -31,14 +31,15 @@
  License.
  -------------------------------------------
 ####COPYRIGHTEND####*/
+
 #include "c_types.h"
+#include "osapi.h"
 #include <stdint.h>
 #include "bacenum.h"
 #include "bacerror.h"
 #include "bacdcode.h"
 #include "bacdef.h"
 #include "bacapp.h"
-#include "memcopy.h"
 #include "rpm.h"
 
 /** @file rpm.c  Encode/Decode Read Property Multiple and RPM ACKs  */
@@ -132,7 +133,7 @@ int ICACHE_FLASH_ATTR rpm_encode_apdu(
 
     len = rpm_encode_apdu_init(&apdu_temp[0], invoke_id);
     len =
-        (int) memcopy(&apdu[0], &apdu_temp[0], (size_t) apdu_len, (size_t) len,
+        (int) os_memcpy(&apdu[0], &apdu_temp[0], (size_t) apdu_len, (size_t) len,
         (size_t) max_apdu);
     if (len == 0) {
         return 0;
@@ -144,7 +145,7 @@ int ICACHE_FLASH_ATTR rpm_encode_apdu(
             encode_context_object_id(&apdu_temp[0], 0, rpm_object->object_type,
             rpm_object->object_instance);
         len =
-            (int) memcopy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
+            (int) os_memcpy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
             (size_t) len, (size_t) max_apdu);
         if (len == 0) {
             return 0;
@@ -153,7 +154,7 @@ int ICACHE_FLASH_ATTR rpm_encode_apdu(
         /* Tag 1: sequence of ReadAccessSpecification */
         len = encode_opening_tag(&apdu_temp[0], 1);
         len =
-            (int) memcopy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
+            (int) os_memcpy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
             (size_t) len, (size_t) max_apdu);
         if (len == 0) {
             return 0;
@@ -166,7 +167,7 @@ int ICACHE_FLASH_ATTR rpm_encode_apdu(
                 encode_context_enumerated(&apdu_temp[0], 0,
                 rpm_property->propertyIdentifier);
             len =
-                (int) memcopy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
+                (int) os_memcpy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
                 (size_t) len, (size_t) max_apdu);
             if (len == 0) {
                 return 0;
@@ -178,7 +179,7 @@ int ICACHE_FLASH_ATTR rpm_encode_apdu(
                     encode_context_unsigned(&apdu_temp[0], 1,
                     rpm_property->propertyArrayIndex);
                 len =
-                    (int) memcopy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
+                    (int) os_memcpy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
                     (size_t) len, (size_t) max_apdu);
                 if (len == 0) {
                     return 0;
@@ -189,7 +190,7 @@ int ICACHE_FLASH_ATTR rpm_encode_apdu(
         }
         len = encode_closing_tag(&apdu_temp[0], 1);
         len =
-            (int) memcopy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
+            (int) os_memcpy(&apdu[0], &apdu_temp[0], (size_t) apdu_len,
             (size_t) len, (size_t) max_apdu);
         if (len == 0) {
             return 0;
