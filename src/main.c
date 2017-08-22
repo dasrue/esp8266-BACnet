@@ -9,6 +9,7 @@
 #include "net.h"
 #include <string.h>
 #include "bo.h"
+#include "nvmem.h"
 
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
 // for other boards.
@@ -41,6 +42,7 @@ void some_timerfunc(void *arg)
 
 void ICACHE_FLASH_ATTR user_init()
 {
+	nvmem_readData();		// Load the non-volatile data.
 	// init gpio subsytem
 	gpio_init();
 
