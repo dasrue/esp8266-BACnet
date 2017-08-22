@@ -78,7 +78,7 @@ struct nvmem_data_t nvmem_data;
 
 void nvmem_writeData();		// Call this when data needs updating
 void nvmem_readData();		// Call this in init function
-void nvmem_initData();
+void nvmem_initData();		// This function will be run when a read fails.
 
 
 #endif	/* _NVMEM_H */
