@@ -41,8 +41,8 @@ SOFTWARE.
 
 
 void ICACHE_FLASH_ATTR user_set_station_config() {
-	char ssid[32] = "a";
-	char password[64] = "AForOriginal";
+	char ssid[32] = "test";
+	char password[64] = "test";
 	struct station_config stationConf;
 
 	stationConf.bssid_set = 0;
@@ -55,7 +55,7 @@ void ICACHE_FLASH_ATTR setupHandlers() {
 	Device_Init(NULL);
 	apdu_set_unconfirmed_handler(SERVICE_UNCONFIRMED_WHO_IS,handler_who_is);
 	apdu_set_confirmed_handler(SERVICE_CONFIRMED_READ_PROPERTY,handler_read_property);
-	apdu_set_confirmed_handler(SERVICE_CONFIRMED_READ_PROP_MULTIPLE,handler_read_property_multiple);
+	//apdu_set_confirmed_handler(SERVICE_CONFIRMED_READ_PROP_MULTIPLE,handler_read_property_multiple);
 	apdu_set_confirmed_handler(SERVICE_CONFIRMED_WRITE_PROPERTY,handler_write_property);
 }
 

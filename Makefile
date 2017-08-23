@@ -13,6 +13,7 @@ PROJNAME = test
 SRCS = 	src/main.c \
 	src/net.c \
 	src/bip-init.c \
+	src/nvmem.c \
 	$(BAC_SRC)/abort.c \
 	$(BAC_SRC)/address.c \
 	$(BAC_SRC)/apdu.c \
@@ -51,6 +52,7 @@ SRCS = 	src/main.c \
 	$(BAC_OBJ)/device.c \
 	$(BAC_OBJ)/bo.c
 	
+	
 
 OBJS = ${SRCS:.c=.o}
 
@@ -65,7 +67,7 @@ $(PROJNAME): $(OBJS)
 	$(CC) -c -o $@ $^ $(CFLAGS)
 
 flash: $(PROJNAME)-0x00000.bin
-	esptool.py -b 9600 write_flash --flash_mode dio 0x00000 $(PROJNAME)-0x00000.bin 0x10000 $(PROJNAME)-0x10000.bin
+	esptool.py -b 460800 write_flash --flash_mode dio 0x00000 $(PROJNAME)-0x00000.bin 0x10000 $(PROJNAME)-0x10000.bin
 
 clean:
 	rm -rf $(PROJNAME) *.o src/*.o $(BAC_SRC)/*.o $(BAC_HNDLR)/*.o $(BAC_OBJ)/*.o $(PROJNAME)-0x00000.bin $(PROJNAME)-0x10000.bin
