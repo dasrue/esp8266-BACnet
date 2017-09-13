@@ -25,7 +25,7 @@
 #ifndef UART_APP_H
 #define UART_APP_H
 
-#include "uart_register.h"
+#include "driver/uart_register.h"
 #include "eagle_soc.h"
 #include "c_types.h"
 
@@ -37,7 +37,7 @@
 #endif
 
 #ifndef UART_BUFF_EN
-#define UART_BUFF_EN  0   //use uart buffer  , FOR UART0
+#define UART_BUFF_EN  1   //use uart buffer  , FOR UART0
 #endif
 #ifndef UART_SELFTEST
 #define UART_SELFTEST  0  //set 1:enable the loop test demo for uart buffer, FOR UART0

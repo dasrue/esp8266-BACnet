@@ -21,7 +21,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-
+#define UART_BUFF_EN 1
 #include "ets_sys.h"
 #include "osapi.h"
 #include "uart_driver.h"
