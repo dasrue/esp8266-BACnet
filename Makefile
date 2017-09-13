@@ -15,6 +15,7 @@ SRCS = 	src/main.c \
 	src/bip-init.c \
 	src/nvmem.c \
 	src/uart_console.c \
+	src/driver/uart.c \
 	$(BAC_SRC)/abort.c \
 	$(BAC_SRC)/address.c \
 	$(BAC_SRC)/apdu.c \
