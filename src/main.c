@@ -10,6 +10,7 @@
 #include <string.h>
 #include "bo.h"
 #include "nvmem.h"
+#include "uart_console.h"
 
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
 // for other boards.
@@ -76,4 +77,5 @@ void ICACHE_FLASH_ATTR user_init()
 	os_printf("Ready for battle!\n");
 	os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
 	os_timer_arm(&some_timer, 500, 1);
+	debug_console_init();
 }
