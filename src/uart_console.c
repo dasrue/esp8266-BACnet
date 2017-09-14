@@ -105,7 +105,7 @@ void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 		uint16_t i = 0;
 		char apNumber[8];
 		while(this_bss_info!=NULL) {			// Iterate through the linked list.
-			sprintf(apNumber,"%4u",i);
+			itoa(i,apNumber,10);
 			uart0_sendStr(apNumber);
 			uart0_sendStr(this_bss_info->ssid);	// Print the SSID
 			uart0_sendStr("\r\n");				// And a newline afterwards.
@@ -113,4 +113,28 @@ void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 			i++;
 		}
 	}
+}
+
+char* ICACHE_FLASH_ATTR itoa (int value, char *result, int base) {
+    // check that the base if valid
+    if (base < 2 || base > 36) { *result = '\0'; return result; }
+
+    char* ptr = result, *ptr1 = result, tmp_char;
+    int tmp_value;
+
+    do {
+        tmp_value = value;
+        value /= base;
+        *ptr++ = "zyxwvutsrqponmlkjihgfedcba9876543210123456789abcdefghijklmnopqrstuvwxyz" [35 + (tmp_value - value * base)];
+    } while ( value );
+
+    // Apply negative sign
+    if (tmp_value < 0) *ptr++ = '-';
+    *ptr-- = '\0';
+    while (ptr1 < ptr) {
+        tmp_char = *ptr;
+        *ptr--= *ptr1;
+        *ptr1++ = tmp_char;
+    }
+    return result;
 }
