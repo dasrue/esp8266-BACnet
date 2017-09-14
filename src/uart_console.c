@@ -39,22 +39,16 @@ SOFTWARE.
 #include "user_interface.h"
 #include "mem.h"
 
-static ETSTimer debug_console_timer;
+static ETSTimer wifi_check_timer;
+static ETSTimer wifi_connect_timer;
 
 void wifi_scanDone_cb(void *arg, STATUS status);
 
 char** ssid_list;
 uint16_t ssid_list_len;
 
-void debug_console_task() {
-    uint8 uart_buf[128]={0};
-    uint16 len = 0;
-
-    os_timer_disarm(&debug_console_timer);
-    len = rx_buff_deq(uart_buf, 128 );
-    if(len > 0)
-    	os_printf("WW Received %s \r\n", uart_buf);
-
+void ICACHE_FLASH_ATTR wifi_check_task() {
+    os_timer_disarm(&wifi_check_timer);
     uint8_t wifiState = wifi_station_get_connect_status();
     char ssid[64];
     wifi_getSSID(ssid);
@@ -67,15 +61,32 @@ void debug_console_task() {
     	uart0_sendStr("\r\nScanning for other wifi networks...\r\n");
     	wifi_station_scan(NULL,wifi_scanDone_cb);
     } else {
-    	os_timer_arm(&debug_console_timer, 1000, 0);
+    	os_timer_arm(&wifi_check_timer, 1000, 0);
     }
+}
+
+void ICACHE_FLASH_ATTR wifi_connect_task() {
+	uint8 uart_buf[8];
+	uint16 len = 0;
+	len = rx_buff_deq(uart_buf, 8);
+	if(len > 0) {
+		os_timer_disarm(&wifi_connect_timer);
+		uart_buf[(len >= 8) ? 7 : len] = 0;		// Null terminate the string
+		uart0_sendStr(uart_buf);
+		uart0_sendStr("\r\nConnecting to ");
+		int selection = atoi(uart_buf);
+		if((selection < ssid_list_len) && (selection >= 0)) {
+			uart0_sendStr(ssid_list[selection]);
+		}
+		uart0_sendStr("\r\n");
+	}
 }
 
 void ICACHE_FLASH_ATTR debug_console_init() {
 	UART_SetPrintPort(UART1);	// Redirect the debug output to the other UART.
 	uart_init(BIT_RATE_57600,BIT_RATE_57600);	// Set both UART ports to 57600 baud (something reasonably fast but still reliable)
-	os_timer_setfn(&debug_console_timer,(os_timer_func_t *) debug_console_task, NULL);
-	os_timer_arm(&debug_console_timer, 1000, 0);
+	os_timer_setfn(&wifi_check_timer,(os_timer_func_t *) wifi_check_task, NULL);
+	os_timer_arm(&wifi_check_timer, 1000, 0);
 }
 
 char* ICACHE_FLASH_ATTR wifi_state_to_string(uint8_t wifiState) {
@@ -133,6 +144,8 @@ void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 			ssid_list_len++;
 		}
 		uart0_sendStr("Enter the number of the network you wish to connect to:\r\n");
+		os_timer_setfn(&wifi_connect_timer,(os_timer_func_t *) wifi_connect_task, NULL);
+		os_timer_arm(&wifi_connect_timer, 1000, 0);
 	}
 
 }
