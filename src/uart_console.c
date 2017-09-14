@@ -42,6 +42,9 @@ static ETSTimer debug_console_timer;
 
 void wifi_scanDone_cb(void *arg, STATUS status);
 
+char** ssid_list;
+uint16_t ssid_list_len;
+
 void debug_console_task() {
     uint8 uart_buf[128]={0};
     uint16 len = 0;
@@ -100,19 +103,39 @@ void ICACHE_FLASH_ATTR wifi_getSSID(char* ssidBuffer) {		// ssidBuffer should be
 
 void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 	if(status==OK) {
+		if(ssid_list!=NULL)
+			os_free(ssid_list);
+		ssid_list = malloc(sizeof(char**));
+		if(ssid_list==NULL)
+			return;
+		ssid_list_len = 1;
 		uart0_sendStr("Scan finished. Found the following networks:\r\n");
 		struct bss_info *this_bss_info = (struct bss_info*)arg;	// Create a pointer to the first info in the linked list
 		uint16_t i = 0;
 		char apNumber[8];
 		while(this_bss_info!=NULL) {			// Iterate through the linked list.
+			if(i>=ssid_list_len) {
+				char** tempPtr = os_realloc(ssid_list,sizeof(char**)*(ssid_list_len+1));
+				if(tempPtr!=NULL)
+					ssid_list = tempPtr;
+				else
+					break;
+			}
+			ssid_list[i] = os_malloc(this_bss_info->ssid_len+1);
+			if(ssid_list[i]!=NULL)
+				os_memcpy(ssid_list[i],this_bss_info->ssid,this_bss_info->ssid_len+1);
 			itoa(i,apNumber,10);
 			uart0_sendStr(apNumber);
+			uart0_sendStr("\t\t");
 			uart0_sendStr(this_bss_info->ssid);	// Print the SSID
 			uart0_sendStr("\r\n");				// And a newline afterwards.
 			this_bss_info = this_bss_info->next.stqe_next;	// Move to next scan item
 			i++;
+			ssid_list_len++;
 		}
+		uart0_sendStr("Enter the number of the network you wish to connect to:\r\n");
 	}
+
 }
 
 char* ICACHE_FLASH_ATTR itoa (int value, char *result, int base) {
