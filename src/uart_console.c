@@ -66,12 +66,12 @@ void ICACHE_FLASH_ATTR wifi_check_task() {
 }
 
 void ICACHE_FLASH_ATTR wifi_connect_task() {
+	os_timer_disarm(&wifi_connect_timer);
 	uint8 uart_buf[8];
 	uint16 len = 0;
 	len = rx_buff_deq(uart_buf, 8);
 	uart0_sendStr(".");
 	if(len > 0) {
-		os_timer_disarm(&wifi_connect_timer);
 		uart_buf[(len >= 8) ? 7 : len] = 0;		// Null terminate the string
 		uart0_sendStr(uart_buf);
 		uart0_sendStr("\r\nConnecting to ");
@@ -80,6 +80,8 @@ void ICACHE_FLASH_ATTR wifi_connect_task() {
 			uart0_sendStr(ssid_list[selection]);
 		}
 		uart0_sendStr("\r\n");
+	} else {
+		os_timer_arm(&wifi_connect_timer, 1000, 0);
 	}
 }
 
