@@ -102,10 +102,15 @@ void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 	if(status==OK) {
 		uart0_sendStr("Scan finished. Found the following networks:\r\n");
 		struct bss_info *this_bss_info = (struct bss_info*)arg;	// Create a pointer to the first info in the linked list
+		uint16_t i = 0;
+		char apNumber[8];
 		while(this_bss_info!=NULL) {			// Iterate through the linked list.
+			sprintf(apNumber,"%4u",i);
+			uart0_sendStr(apNumber);
 			uart0_sendStr(this_bss_info->ssid);	// Print the SSID
 			uart0_sendStr("\r\n");				// And a newline afterwards.
 			this_bss_info = this_bss_info->next.stqe_next;	// Move to next scan item
+			i++;
 		}
 	}
 }
