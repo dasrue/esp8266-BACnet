@@ -35,6 +35,7 @@ SOFTWARE.
 #include "uart_driver.h"
 #include "c_types.h"
 #include "os_type.h"
+#include "user_interface.h"
 
 static ETSTimer debug_console_timer;
 
@@ -45,15 +46,33 @@ void debug_console_task() {
     os_timer_disarm(&debug_console_timer);
     len = rx_buff_deq(uart_buf, 128 );
     if(len > 0)
-    os_printf("WW Received %s \r\n", uart_buf);
+    	os_printf("WW Received %s \r\n", uart_buf);
+    uint8_t wifiState = wifi_station_get_connect_status();
+    os_printf("Wifi state: %s \r\n", wifi_state_to_string(wifiState));
     os_timer_arm(&debug_console_timer, 1000, 0);
 }
 
 void ICACHE_FLASH_ATTR debug_console_init() {
-	//UART_SetPrintPort(UART1);	// Redirect the debug output to the other UART.
+	UART_SetPrintPort(UART1);	// Redirect the debug output to the other UART.
 	uart_init(BIT_RATE_57600,BIT_RATE_57600);	// Set both UART ports to 57600 baud (something reasonably fast but still reliable)
 	os_timer_setfn(&debug_console_timer,(os_timer_func_t *) debug_console_task, NULL);
 	os_timer_arm(&debug_console_timer, 1000, 0);
 }
 
-
+char* ICACHE_FLASH_ATTR wifi_state_to_string(uint8_t wifiState) {
+	switch(wifiState) {
+	case STATION_IDLE:
+		return "idle";
+	case STATION_CONNECTING:
+		return "connecting";
+	case STATION_WRONG_PASSWORD:
+		return "wrong password";
+	case STATION_NO_AP_FOUND:
+		return "AP not found";
+	case STATION_CONNECT_FAIL:
+		return "connection failed";
+	case STATION_GOT_IP:
+		return "connected";
+	}
+	return "unknown";
+}
