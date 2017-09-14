@@ -69,6 +69,7 @@ void ICACHE_FLASH_ATTR wifi_connect_task() {
 	uint8 uart_buf[8];
 	uint16 len = 0;
 	len = rx_buff_deq(uart_buf, 8);
+	uart0_sendStr(".");
 	if(len > 0) {
 		os_timer_disarm(&wifi_connect_timer);
 		uart_buf[(len >= 8) ? 7 : len] = 0;		// Null terminate the string
