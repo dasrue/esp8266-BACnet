@@ -33,3 +33,4 @@ void debug_console_init();
 char* wifi_state_to_string(uint8_t wifiState);
 void wifi_getSSID(char* ssidBuffer);
 char* itoa (int value, char *result, int base);
+int myAtoi(char *str);
