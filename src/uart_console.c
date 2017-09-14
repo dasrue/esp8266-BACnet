@@ -115,13 +115,11 @@ void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 		uint16_t i = 0;
 		char apNumber[8];
 		while(this_bss_info!=NULL) {			// Iterate through the linked list.
-			if(i>=ssid_list_len) {
-				char** tempPtr = os_realloc(ssid_list,sizeof(char**)*(ssid_list_len+1));
-				if(tempPtr!=NULL)
-					ssid_list = tempPtr;
-				else
-					break;
-			}
+			char** tempPtr = os_realloc(ssid_list,sizeof(char**)*(ssid_list_len+1));
+			if(tempPtr!=NULL)
+				ssid_list = tempPtr;
+			else
+				break;
 			ssid_list[i] = os_malloc(this_bss_info->ssid_len+1);
 			if(ssid_list[i]!=NULL)
 				os_memcpy(ssid_list[i],this_bss_info->ssid,this_bss_info->ssid_len+1);
