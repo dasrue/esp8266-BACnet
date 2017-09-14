@@ -40,6 +40,8 @@ SOFTWARE.
 
 static ETSTimer debug_console_timer;
 
+void wifi_scanDone_cb(void *arg, STATUS status);
+
 void debug_console_task() {
     uint8 uart_buf[128]={0};
     uint16 len = 0;
@@ -48,15 +50,21 @@ void debug_console_task() {
     len = rx_buff_deq(uart_buf, 128 );
     if(len > 0)
     	os_printf("WW Received %s \r\n", uart_buf);
+
     uint8_t wifiState = wifi_station_get_connect_status();
-    uart0_sendStr("Current wifi state is ");
-    uart0_sendStr(wifi_state_to_string(wifiState));
-    uart0_sendStr(" for the AP ");
     char ssid[64];
     wifi_getSSID(ssid);
-    uart0_sendStr(ssid);
-    uart0_sendStr("\r\n");
-    os_timer_arm(&debug_console_timer, 1000, 0);
+
+    if((wifiState!=STATION_CONNECTING) && (wifiState!=STATION_GOT_IP)) {
+    	uart0_sendStr("There was an error connecting to the wifi network \"");
+    	uart0_sendStr(ssid);
+    	uart0_sendStr("\". The reason was ");
+    	uart0_sendStr(wifi_state_to_string(wifiState));
+    	uart0_sendStr("\r\nScanning for other wifi networks...\r\n");
+    	wifi_station_scan(NULL,wifi_scanDone_cb);
+    } else {
+    	os_timer_arm(&debug_console_timer, 1000, 0);
+    }
 }
 
 void ICACHE_FLASH_ATTR debug_console_init() {
@@ -90,3 +98,14 @@ void ICACHE_FLASH_ATTR wifi_getSSID(char* ssidBuffer) {		// ssidBuffer should be
 	os_memcpy(ssidBuffer,currentConfig.ssid,os_strlen(currentConfig.ssid));	// Copy the name into the buffer.
 }
 
+void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
+	if(status==OK) {
+		uart0_sendStr("Scan finished. Found the following networks:\r\n");
+		struct bss_info *this_bss_info = (struct bss_info*)arg;	// Create a pointer to the first info in the linked list
+		while(this_bss_info!=NULL) {			// Iterate through the linked list.
+			uart0_sendStr(this_bss_info->ssid);	// Print the SSID
+			uart0_sendStr("\r\n");				// And a newline afterwards.
+			this_bss_info = this_bss_info->next.stqe_next;	// Move to next scan item
+		}
+	}
+}
