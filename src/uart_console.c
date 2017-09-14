@@ -37,6 +37,7 @@ SOFTWARE.
 #include "c_types.h"
 #include "os_type.h"
 #include "user_interface.h"
+#include "mem.h"
 
 static ETSTimer debug_console_timer;
 
@@ -105,7 +106,7 @@ void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 	if(status==OK) {
 		if(ssid_list!=NULL)
 			os_free(ssid_list);
-		ssid_list = malloc(sizeof(char**));
+		ssid_list = os_malloc(sizeof(char**));
 		if(ssid_list==NULL)
 			return;
 		ssid_list_len = 1;
