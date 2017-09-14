@@ -49,7 +49,9 @@ void debug_console_task() {
     if(len > 0)
     	os_printf("WW Received %s \r\n", uart_buf);
     uint8_t wifiState = wifi_station_get_connect_status();
-    os_printf("Wifi state: %s \r\n", wifi_state_to_string(wifiState));
+    uart0_sendStr("Current wifi state is ");
+    uart0_sendStr(wifi_state_to_string(wifiState));
+    uart0_sendStr("\r\n");
     os_timer_arm(&debug_console_timer, 1000, 0);
 }
 
