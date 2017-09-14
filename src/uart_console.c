@@ -51,6 +51,10 @@ void debug_console_task() {
     uint8_t wifiState = wifi_station_get_connect_status();
     uart0_sendStr("Current wifi state is ");
     uart0_sendStr(wifi_state_to_string(wifiState));
+    uart0_sendStr(" for the AP ");
+    char ssid[64];
+    wifi_getSSID(ssid);
+    uart0_sendStr(ssid);
     uart0_sendStr("\r\n");
     os_timer_arm(&debug_console_timer, 1000, 0);
 }
@@ -79,3 +83,10 @@ char* ICACHE_FLASH_ATTR wifi_state_to_string(uint8_t wifiState) {
 	}
 	return "unknown";
 }
+
+void ICACHE_FLASH_ATTR wifi_getSSID(char* ssidBuffer) {		// ssidBuffer should be at least 64 chars.
+	struct station_config currentConfig;
+	wifi_station_get_config(&currentConfig);	// Get the current wifi config
+	os_memcpy(ssidBuffer,currentConfig.ssid,os_strlen(currentConfig.ssid));	// Copy the name into the buffer.
+}
+
