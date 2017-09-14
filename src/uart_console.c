@@ -31,6 +31,7 @@ SOFTWARE.
 #define UART_BUFF_EN  1
 
 #include <stdint.h>     /* for standard integer types uint8_t etc. */
+#include "uart_console.h"
 #include "osapi.h"
 #include "uart_driver.h"
 #include "c_types.h"
