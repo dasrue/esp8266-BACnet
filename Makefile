@@ -36,6 +36,7 @@ SRCS = 	src/main.c \
 	$(BAC_SRC)/debug.c \
 	$(BAC_SRC)/iam.c \
 	$(BAC_SRC)/npdu.c \
+	$(BAC_SRC)/memcopy.c \
 	$(BAC_SRC)/proplist.c \
 	$(BAC_SRC)/reject.c \
 	$(BAC_SRC)/rp.c \

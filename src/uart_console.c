@@ -26,7 +26,7 @@ SOFTWARE.
 ####COPYRIGHTEND####*/
 
 /*
-	This file contains a debug console running through the UART7
+	This file contains a debug console running through the UART
 */
 #define UART_BUFF_EN  1
 
