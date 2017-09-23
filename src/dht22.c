@@ -63,7 +63,8 @@ int8_t ICACHE_FLASH_ATTR dht22_read(uint16_t* temp, uint16_t* humid) {
 	highTime = system_get_time() - startTime;
 	if(highTime < 60)			// High time should be 80us. Give +-20us tolerance.
 		return DHT_ERR_TIMING;
-	for(uint8_t i=0; i<8*5; i++) {
+	uint8_t i;	// Gotta be C89 compliant lol.
+	for(i=0; i<8*5; i++) {
 		startTime = system_get_time();
 		while(!(gpio_input_get() & DHT22_PIN)) {	// Wait for DHT22 to pull pin high
 			if((system_get_time()-startTime) > 70)	// If we waited longer than 70us, then the device is not responding.
