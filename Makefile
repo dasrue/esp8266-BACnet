@@ -11,8 +11,9 @@ LDFLAGS = -Teagle.app.v6.ld
 PROJNAME = test
 
 SRCS = 	src/main.c \
-	src/net.c \
 	src/bip-init.c \
+	src/dht22.c \
+	src/net.c \
 	src/nvmem.c \
 	src/uart_console.c \
 	src/driver/uart.c \
