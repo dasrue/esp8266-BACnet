@@ -35,6 +35,7 @@
 #include "memcopy.h"
 #include <string.h>
 #include "c_types.h"
+#include "osapi.h"
 
 /** @file memcopy.c  Custom memcopy function */
 
