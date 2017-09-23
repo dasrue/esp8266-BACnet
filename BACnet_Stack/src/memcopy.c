@@ -34,6 +34,7 @@
 #include <stddef.h>
 #include "memcopy.h"
 #include <string.h>
+#include "c_types.h"
 
 /** @file memcopy.c  Custom memcopy function */
 
