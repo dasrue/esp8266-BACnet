@@ -116,6 +116,11 @@ void ICACHE_FLASH_ATTR wifi_getSSID(char* ssidBuffer) {		// ssidBuffer should be
 	os_memcpy(ssidBuffer,currentConfig.ssid,os_strlen(currentConfig.ssid));	// Copy the name into the buffer.
 }
 
+void ICACHE_FLASH_ATTR wifi_getIP(char* myIP) {		// myIP should be a string of at least 17 chars
+	struct ip_info currentIpInfo;
+	wifi_get_ip_info(STATION_IF,&currentIpInfo);
+	os_sprintf(myIP,"%u.%u.%u.%u",IP2STR(currentIpInfo.ip.addr));
+}
 void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 	if(status==OK) {
 		if(ssid_list!=NULL)
@@ -211,4 +216,129 @@ int ICACHE_FLASH_ATTR myAtoi(char *str) {
 
     // Return result with sign
     return sign*res;
+}
+
+
+char* uart_console_getLine_currentQueue;
+uint8_t uart_console_getLine_currentIndex;
+const uint8_t uart_console_getLine_bufferSize = 70;
+
+int16_t ICACHE_FLASH_ATTR uart_console_getLine(char* thisLine, uint16_t maxLen) {
+	// This function will get chars from the console until a newline char is sent. This function should be run over and over.
+	// It will return the length of the line (not including newline/cr chars) once the line has been fully sent.
+
+	if(uart_console_getLine_currentQueue == NULL) {		// If this variable is NULL, then we need to start a new transaction.
+		uart_console_getLine_currentQueue = os_malloc(uart_console_getLine_bufferSize);
+		if(uart_console_getLine_currentQueue==NULL)		// If malloc failed, return -10.
+			return -10;
+		uart_console_getLine_currentIndex = 0;
+	}
+
+	if(uart_console_getLine_currentIndex >= uart_console_getLine_bufferSize)	// If buffer is full, delete the last char to make room for more data.
+		uart_console_getLine_currentIndex--;
+
+	uint16_t amountOfData = rx_buff_deq(&uart_console_getLine_currentQueue[uart_console_getLine_currentIndex], uart_console_getLine_bufferSize - uart_console_getLine_currentIndex);
+	uart_console_getLine_currentIndex+=amountOfData;
+	for(uint8_t i=0; i < uart_console_getLine_currentIndex; i++) {
+		if(uart_console_getLine_currentQueue[i]=='\n' || uart_console_getLine_currentQueue[i]=='\r') {
+			uint16_t cpyLen = (i > maxLen) ? maxLen : i;	// Copy length is minimum of maxlen or index.
+			os_memcpy(thisLine,uart_console_getLine_currentQueue,cpyLen);
+			os_free(uart_console_getLine_currentQueue);
+			uart_console_getLine_currentQueue = NULL;
+			return uart_console_getLine_currentIndex;
+		}
+	}
+	return -1;	// If we have not found \r or \n in our buffer, then return -1 to signifiy that more data needs to be collected.
+}
+
+
+enum uart_console_state_t {
+	console_init = 0,
+	console_wifi_connect,
+	console_wifi_connecting,
+	console_wifi_get_action,
+	console_wifi_scanning,
+	console_wifi_get_ssid,
+	console_wifi_get_bssid,
+	console_wifi_get_passwd,
+	console_bacnet_get_id,
+	console_idle
+};
+
+enum uart_console_state_t uart_console_state;
+
+void ICACHE_FLASH_ATTR uart_console_process() {
+	switch(uart_console_state) {
+	case console_init:
+		uart0_sendStr("Initialising... Please wait...\r\n");
+		uart_console_state = console_wifi_connect;	// Connect to saved wifi, and print it out.
+		break;
+	case console_wifi_connect:
+		uart0_sendStr("Connecting to ");
+		char ssidBuffer[64];
+		wifi_getSSID(ssidBuffer);
+		uart0_sendStr(ssidBuffer);
+		uart0_sendStr("\r\n");
+		uart_console_state = console_wifi_connecting;	// Go to state where we wait for wifi to connect.
+		break;
+	case console_wifi_connecting:
+		uint8_t wifiState = wifi_station_get_connect_status();
+		if((wifiState!=STATION_CONNECTING) && (wifiState!=STATION_GOT_IP)) {
+			uart0_sendStr("There was an error connecting to the wifi network. The reason was ");
+			uart0_sendStr(wifi_state_to_string(wifiState));
+			uart0_sendStr("\r\n");
+			uart0_sendStr("What would you like to do?\r\n");
+			uart0_sendStr("\t0 - Retry connection\r\n");
+			uart0_sendStr("\t1 - Enter new SSID\r\n");
+			uart0_sendStr("\t2 - Enter new BSSID (Hidden network)\r\n");
+			uart0_sendStr("\t3 - Scan for new network\r\n");
+			uart_console_state = console_wifi_get_action;
+		}
+		if(wifiState==STATION_GOT_IP) {
+			char myIP[17];
+			uart0_sendStr("Connected OK. My IP is ");
+			wifi_getSSID(myIP);
+			uart0_sendStr(myIP);
+			uart0_sendStr("\r\n");
+			uart_console_state = console_idle;
+		}
+		break;
+	case console_wifi_get_action:
+		char uart_buf[8];
+		uint8_t len = rx_buff_deq(uart_buf, 8);
+		if(len > 0) {
+			uint8_t selection = myAtoi(uart_buf);
+			switch(selection) {
+			case 0:		// Retry connection
+				uart0_sendStr("Retrying connection...\r\n");
+				wifi_station_connect();
+				uart_console_state = console_wifi_connect;
+				break;
+			case 1:		// Enter new SSID.
+				uart0_sendStr("Enter the new SSID:\r\n");
+				uart_console_state = console_wifi_get_ssid;
+				break;
+			case 2:		// Enter new BSSID
+				uart0_sendStr("Enter the new BSSID:\r\n");
+				uart_console_state = console_wifi_get_bssid;
+				break;
+			case 3:
+				uart0_sendStr("Scanning for networks... Please wait.\r\n");
+				wifi_station_scan(NULL,wifi_scanDone_cb);
+				uart_console_state = console_wifi_scanning;
+				break;
+			}
+		}
+		break;
+	case console_wifi_get_ssid:
+		char line_buf[32];
+		if(uart_console_getLine(line_buf, 32) >=0 ) {	// Try to get a line from the console
+			struct station_config currentConfig;
+			wifi_station_get_config(&currentConfig);	// Get the current wifi config
+			uart_console_state = console_wifi_connect;
+		}
+		break;
+	default:
+		break;
+	}
 }
