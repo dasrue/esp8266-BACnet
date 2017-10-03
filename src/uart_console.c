@@ -31,7 +31,6 @@ SOFTWARE.
 #define UART_BUFF_EN  1
 
 #include <stdint.h>     /* for standard integer types uint8_t etc. */
-#include <stdio.h>
 #include "uart_console.h"
 #include "osapi.h"
 #include "uart_driver.h"
@@ -365,12 +364,18 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 	case console_wifi_get_bssid:
 		lineLen = uart_console_getLine(line_buf, 32);
 		if(lineLen >= 18) {	// Try to get a line from the console
-			int bssid[6];
-			if(sscanf(line_buf, "%x:%x:%x:%x:%x:%x", &bssid[0], &bssid[1], &bssid[2], &bssid[3], &bssid[4], &bssid[5]) != 6)
-				return;		// Return immediatley if sscanf fails to recognise the string.
-			uint8_t bssid_8[6], i;
-			for(i = 0; i < 6; ++i )
-				bssid_8[i] = (uint8_t) bssid[i];	// Convert ints to uint8s
+			int tempRes;
+			char tempChars[3];
+			uint8_t bssid[6], i;
+			for(i = 0; i < 6; i++ ) {
+				os_memcpy(tempChars,&line_buf[3*i],3);
+				tempChars[2] = '\0';
+				tempRes = myAtoi(tempChars);
+				if(tempRes > 255 || tempRes < 0)
+					return;
+				bssid[i] = (uint8_t) tempRes;	// Convert ints to uint8s
+
+			}
 			uart0_sendStr(line_buf);
 			uart0_sendStr("\r\n");
 			struct station_config currentConfig;
