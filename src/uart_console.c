@@ -246,7 +246,8 @@ int16_t ICACHE_FLASH_ATTR uart_console_getLine(char* thisLine, uint16_t maxLen) 
 
 	uint16_t amountOfData = rx_buff_deq(&uart_console_getLine_currentQueue[uart_console_getLine_currentIndex], uart_console_getLine_bufferSize - uart_console_getLine_currentIndex);
 	uart_console_getLine_currentIndex+=amountOfData;
-	for(uint8_t i=0; i < uart_console_getLine_currentIndex; i++) {
+	uint16_t i;
+	for(i=0; i < uart_console_getLine_currentIndex; i++) {
 		if(uart_console_getLine_currentQueue[i]=='\n' || uart_console_getLine_currentQueue[i]=='\r') {
 			uint16_t cpyLen = (i > maxLen) ? maxLen : i;	// Copy length is minimum of maxlen or index.
 			os_memcpy(thisLine,uart_console_getLine_currentQueue,cpyLen);
@@ -289,6 +290,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		uart_console_state = console_wifi_connecting;	// Go to state where we wait for wifi to connect.
 		break;
 	case console_wifi_connecting:
+		;
 		uint8_t wifiState = wifi_station_get_connect_status();
 		if((wifiState!=STATION_CONNECTING) && (wifiState!=STATION_GOT_IP)) {
 			uart0_sendStr("There was an error connecting to the wifi network. The reason was ");
@@ -311,8 +313,9 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		}
 		break;
 	case console_wifi_get_action:
+		;
 		char uart_buf[8];
-		uint8_t len = rx_buff_deq(uart_buf, 8);
+		uint16_t len = rx_buff_deq(uart_buf, 8);
 		if(len > 0) {
 			if(len > 7)
 				len = 7;	// Prepare for null termination. Need to overwrite last char.
@@ -343,6 +346,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		}
 		break;
 	case console_wifi_get_ssid:
+		;
 		char line_buf[32];
 		int16_t lineLen = uart_console_getLine(line_buf, 32);
 		if(lineLen >= 0) {	// Try to get a line from the console
@@ -358,6 +362,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		}
 		break;
 	case console_wifi_get_bssid:
+		;
 		char line_buf[32];
 		int16_t lineLen = uart_console_getLine(line_buf, 32);
 		if(lineLen >= 18) {	// Try to get a line from the console
@@ -377,6 +382,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		}
 		break;
 	case console_wifi_get_passwd:
+		;
 		char line_buf[64];
 		int16_t lineLen = uart_console_getLine(line_buf, 64);
 		if(lineLen >= 1) {	// Try to get a line from the console
