@@ -40,13 +40,14 @@ SOFTWARE.
 #include "mem.h"
 
 static ETSTimer wifi_check_timer;
-static ETSTimer wifi_connect_timer;
+//static ETSTimer wifi_connect_timer;
 
 void wifi_scanDone_cb(void *arg, STATUS status);
 
 char** ssid_list;
 uint16_t ssid_list_len;
 
+#if 0	// Some old functions. Decided to use a state machine instead.
 void ICACHE_FLASH_ATTR wifi_check_task() {
     os_timer_disarm(&wifi_check_timer);
     uint8_t wifiState = wifi_station_get_connect_status();
@@ -84,12 +85,13 @@ void ICACHE_FLASH_ATTR wifi_connect_task() {
 		os_timer_arm(&wifi_connect_timer, 1000, 0);
 	}
 }
+#endif
 
 void ICACHE_FLASH_ATTR debug_console_init() {
 	UART_SetPrintPort(UART1);	// Redirect the debug output to the other UART.
 	uart_init(BIT_RATE_57600,BIT_RATE_57600);	// Set both UART ports to 57600 baud (something reasonably fast but still reliable)
-	os_timer_setfn(&wifi_check_timer,(os_timer_func_t *) wifi_check_task, NULL);
-	os_timer_arm(&wifi_check_timer, 1000, 0);
+	os_timer_setfn(&wifi_check_timer,(os_timer_func_t *) uart_console_process, NULL);
+	os_timer_arm(&wifi_check_timer, 100, 1);
 }
 
 char* ICACHE_FLASH_ATTR wifi_state_to_string(uint8_t wifiState) {
@@ -113,7 +115,7 @@ char* ICACHE_FLASH_ATTR wifi_state_to_string(uint8_t wifiState) {
 void ICACHE_FLASH_ATTR wifi_getSSID(char* ssidBuffer) {		// ssidBuffer should be at least 64 chars.
 	struct station_config currentConfig;
 	wifi_station_get_config(&currentConfig);	// Get the current wifi config
-	os_memcpy(ssidBuffer,currentConfig.ssid,os_strlen(currentConfig.ssid));	// Copy the name into the buffer.
+	os_strcpy(ssidBuffer,currentConfig.ssid);	// Copy the name into the buffer.
 }
 
 void ICACHE_FLASH_ATTR wifi_getIP(char* myIP) {		// myIP should be a string of at least 17 chars
@@ -123,8 +125,13 @@ void ICACHE_FLASH_ATTR wifi_getIP(char* myIP) {		// myIP should be a string of a
 }
 void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 	if(status==OK) {
-		if(ssid_list!=NULL)
-			os_free(ssid_list);
+		if(ssid_list!=NULL) {
+			uint16_t i;
+			for(i = 0; i < ssid_list_len; i++) {
+				os_free(ssid_list[i]);	// Free the memory used for each of the SSID strings.
+			}
+			os_free(ssid_list);	// Then free the memory used for the string pointer array.
+		}
 		ssid_list = os_malloc(sizeof(char**));
 		if(ssid_list==NULL)
 			return;
@@ -152,8 +159,8 @@ void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 			ssid_list_len++;
 		}
 		uart0_sendStr("Enter the number of the network you wish to connect to:\r\n");
-		os_timer_setfn(&wifi_connect_timer,(os_timer_func_t *) wifi_connect_task, NULL);
-		os_timer_arm(&wifi_connect_timer, 1000, 0);
+		//os_timer_setfn(&wifi_connect_timer,(os_timer_func_t *) wifi_connect_task, NULL);
+		//os_timer_arm(&wifi_connect_timer, 1000, 0);
 	}
 
 }
@@ -307,7 +314,10 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		char uart_buf[8];
 		uint8_t len = rx_buff_deq(uart_buf, 8);
 		if(len > 0) {
-			uint8_t selection = myAtoi(uart_buf);
+			if(len > 7)
+				len = 7;	// Prepare for null termination. Need to overwrite last char.
+			uart_buf[len] = '\0';	// Null terminate input string.
+			int selection = myAtoi(uart_buf);
 			switch(selection) {
 			case 0:		// Retry connection
 				uart0_sendStr("Retrying connection...\r\n");
@@ -327,15 +337,96 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 				wifi_station_scan(NULL,wifi_scanDone_cb);
 				uart_console_state = console_wifi_scanning;
 				break;
+			default:
+				break;
 			}
 		}
 		break;
 	case console_wifi_get_ssid:
 		char line_buf[32];
-		if(uart_console_getLine(line_buf, 32) >=0 ) {	// Try to get a line from the console
+		int16_t lineLen = uart_console_getLine(line_buf, 32);
+		if(lineLen >= 0) {	// Try to get a line from the console
+			line_buf[lineLen] = '\0';	// Null terminate string before sending it
+			uart0_sendStr(line_buf);
+			uart0_sendStr("\r\n");
 			struct station_config currentConfig;
 			wifi_station_get_config(&currentConfig);	// Get the current wifi config
+			os_memcpy(currentConfig.ssid,line_buf,lineLen);
+			wifi_station_set_config(&currentConfig);
+			uart0_sendStr("Enter password:\r\n");
+			uart_console_state = console_wifi_get_passwd;
+		}
+		break;
+	case console_wifi_get_bssid:
+		char line_buf[32];
+		int16_t lineLen = uart_console_getLine(line_buf, 32);
+		if(lineLen >= 18) {	// Try to get a line from the console
+			int bssid[6];
+			if(sscanf(line_buf, "%x:%x:%x:%x:%x:%x", &bssid[0], &bssid[1], &bssid[2], &bssid[3], &bssid[4], &bssid[5]) != 6)
+				return;		// Return immediatley if sscanf fails to recognise the string.
+			uint8_t bssid_8[6], i;
+			for(i = 0; i < 6; ++i )
+				bssid_8[i] = (uint8_t) bssid[i];	// Convert ints to uint8s
+			uart0_sendStr(line_buf);
+			uart0_sendStr("\r\n");
+			struct station_config currentConfig;
+			wifi_station_get_config(&currentConfig);	// Get the current wifi config
+			os_memcpy(currentConfig.bssid,bssid,6);
+			wifi_station_set_config(&currentConfig);
+			uart_console_state = console_wifi_get_passwd;
+		}
+		break;
+	case console_wifi_get_passwd:
+		char line_buf[64];
+		int16_t lineLen = uart_console_getLine(line_buf, 64);
+		if(lineLen >= 1) {	// Try to get a line from the console
+			line_buf[lineLen] = '\0';	// Null terminate string before using it
+			//uart0_sendStr(line_buf);
+			uint8_t i;
+			for(i = 0; i < lineLen; i++) {
+				uart_tx_one_char(UART0, '*');	// Transmit stars instead of password... super secure
+			}
+			uart0_sendStr("\r\n");
+			struct station_config currentConfig;
+			wifi_station_get_config(&currentConfig);	// Get the current wifi config
+			os_memcpy(currentConfig.password,line_buf,lineLen);
+			wifi_station_set_config(&currentConfig);
+			uart0_sendStr("Connecting to ");
+			uart0_sendStr(currentConfig.ssid);
+			uart0_sendStr("...\r\n");
+			wifi_station_connect();
 			uart_console_state = console_wifi_connect;
+		}
+		break;
+	case console_wifi_scanning:
+		if(ssid_list_len > 0) {
+			char line_buf[8];
+			int16_t lineLen = uart_console_getLine(line_buf, 8);
+			if(lineLen >= 1) {
+				uart0_sendStr(line_buf);
+				uart0_sendStr("\r\n");
+				int selection = myAtoi(line_buf);
+				if(selection >= ssid_list_len) {
+					uart0_sendStr("Invalid network specified.\r\n");
+					uart0_sendStr("Scanning for networks... Please wait.\r\n");
+					uint16_t i;
+					for(i = 0; i < ssid_list_len; i++) {
+						os_free(ssid_list[i]);
+					}
+					os_free(ssid_list);
+					ssid_list = NULL;
+					wifi_station_scan(NULL,wifi_scanDone_cb);
+				} else {
+					struct station_config currentConfig;
+					wifi_station_get_config(&currentConfig);	// Get the current wifi config
+					os_strcpy(currentConfig.ssid,ssid_list[selection]);
+					wifi_station_set_config(&currentConfig);
+					uart0_sendStr("Enter password for ");
+					uart0_sendStr(currentConfig.ssid);
+					uart0_sendStr(".\r\n");
+					uart_console_state = console_wifi_get_passwd;
+				}
+			}
 		}
 		break;
 	default:
