@@ -31,6 +31,7 @@ SOFTWARE.
 #define UART_BUFF_EN  1
 
 #include <stdint.h>     /* for standard integer types uint8_t etc. */
+#include <stdio.h>
 #include "uart_console.h"
 #include "osapi.h"
 #include "uart_driver.h"
@@ -276,6 +277,8 @@ enum uart_console_state_t {
 enum uart_console_state_t uart_console_state;
 
 void ICACHE_FLASH_ATTR uart_console_process() {
+	char line_buf[64];
+	int16_t lineLen;
 	switch(uart_console_state) {
 	case console_init:
 		uart0_sendStr("Initialising... Please wait...\r\n");
@@ -346,9 +349,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		}
 		break;
 	case console_wifi_get_ssid:
-		;
-		char line_buf[32];
-		int16_t lineLen = uart_console_getLine(line_buf, 32);
+		lineLen = uart_console_getLine(line_buf, 32);
 		if(lineLen >= 0) {	// Try to get a line from the console
 			line_buf[lineLen] = '\0';	// Null terminate string before sending it
 			uart0_sendStr(line_buf);
@@ -362,9 +363,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		}
 		break;
 	case console_wifi_get_bssid:
-		;
-		char line_buf[32];
-		int16_t lineLen = uart_console_getLine(line_buf, 32);
+		lineLen = uart_console_getLine(line_buf, 32);
 		if(lineLen >= 18) {	// Try to get a line from the console
 			int bssid[6];
 			if(sscanf(line_buf, "%x:%x:%x:%x:%x:%x", &bssid[0], &bssid[1], &bssid[2], &bssid[3], &bssid[4], &bssid[5]) != 6)
@@ -382,9 +381,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		}
 		break;
 	case console_wifi_get_passwd:
-		;
-		char line_buf[64];
-		int16_t lineLen = uart_console_getLine(line_buf, 64);
+		lineLen = uart_console_getLine(line_buf, 64);
 		if(lineLen >= 1) {	// Try to get a line from the console
 			line_buf[lineLen] = '\0';	// Null terminate string before using it
 			//uart0_sendStr(line_buf);
@@ -406,8 +403,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		break;
 	case console_wifi_scanning:
 		if(ssid_list_len > 0) {
-			char line_buf[8];
-			int16_t lineLen = uart_console_getLine(line_buf, 8);
+			lineLen = uart_console_getLine(line_buf, 8);
 			if(lineLen >= 1) {
 				uart0_sendStr(line_buf);
 				uart0_sendStr("\r\n");
