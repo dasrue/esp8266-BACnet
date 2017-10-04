@@ -389,7 +389,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		lineLen = uart_console_getLine(line_buf, 64);
 		if(lineLen >= 1) {	// Try to get a line from the console
 			line_buf[lineLen] = '\0';	// Null terminate string before using it
-			//uart0_sendStr(line_buf);
+			uart0_sendStr(line_buf);
 			uint8_t i;
 			for(i = 0; i < lineLen; i++) {
 				uart_tx_one_char(UART0, '*');	// Transmit stars instead of password... super secure
