@@ -121,7 +121,7 @@ void ICACHE_FLASH_ATTR wifi_getSSID(char* ssidBuffer) {		// ssidBuffer should be
 void ICACHE_FLASH_ATTR wifi_getIP(char* myIP) {		// myIP should be a string of at least 17 chars
 	struct ip_info currentIpInfo;
 	wifi_get_ip_info(STATION_IF,&currentIpInfo);
-	os_sprintf(myIP,"%u.%u.%u.%u",IP2STR(currentIpInfo.ip.addr));
+	os_sprintf(myIP,"%u.%u.%u.%u",IP2STR(&(currentIpInfo.ip.addr)));
 }
 void ICACHE_FLASH_ATTR wifi_scanDone_cb(void *arg, STATUS status) {
 	if(status==OK) {
@@ -253,7 +253,7 @@ int16_t ICACHE_FLASH_ATTR uart_console_getLine(char* thisLine, uint16_t maxLen) 
 			os_memcpy(thisLine,uart_console_getLine_currentQueue,cpyLen);
 			os_free(uart_console_getLine_currentQueue);
 			uart_console_getLine_currentQueue = NULL;
-			return uart_console_getLine_currentIndex;
+			return uart_console_getLine_currentIndex - 1;
 		}
 	}
 	return -1;	// If we have not found \r or \n in our buffer, then return -1 to signifiy that more data needs to be collected.
@@ -308,7 +308,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		if(wifiState==STATION_GOT_IP) {
 			char myIP[17];
 			uart0_sendStr("Connected OK. My IP is ");
-			wifi_getSSID(myIP);
+			wifi_getIP(myIP);
 			uart0_sendStr(myIP);
 			uart0_sendStr("\r\n");
 			uart_console_state = console_idle;
@@ -389,7 +389,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		lineLen = uart_console_getLine(line_buf, 64);
 		if(lineLen >= 1) {	// Try to get a line from the console
 			line_buf[lineLen] = '\0';	// Null terminate string before using it
-			uart0_sendStr(line_buf);
+			//uart0_sendStr(line_buf);
 			uint8_t i;
 			for(i = 0; i < lineLen; i++) {
 				uart_tx_one_char(UART0, '*');	// Transmit stars instead of password... super secure

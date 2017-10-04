@@ -41,6 +41,7 @@ SOFTWARE.
 
 
 void ICACHE_FLASH_ATTR user_set_station_config() {
+#if 0
 	char ssid[32] = "test";
 	char password[64] = "test";
 	struct station_config stationConf;
@@ -49,6 +50,7 @@ void ICACHE_FLASH_ATTR user_set_station_config() {
 	os_memcpy(&stationConf.ssid, ssid, 32);
 	os_memcpy(&stationConf.password, password, 32);
 	wifi_station_set_config(&stationConf);
+#endif
 }
 
 void ICACHE_FLASH_ATTR setupHandlers() {
