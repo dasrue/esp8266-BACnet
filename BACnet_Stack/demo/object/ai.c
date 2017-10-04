@@ -28,7 +28,8 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
+//#include <stdio.h>
+#include "osapi.h"
 
 #include "bacdef.h"
 #include "bacdcode.h"
@@ -45,6 +46,11 @@
 #define MAX_ANALOG_INPUTS 4
 #endif
 
+#define malloc		os_malloc
+#define realloc		os_realloc
+#define free		os_free
+#define sprintf		os_sprintf
+#define memcpy		os_memcpy
 
 ANALOG_INPUT_DESCR AI_Descr[MAX_ANALOG_INPUTS];
 

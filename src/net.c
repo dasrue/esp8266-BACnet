@@ -80,7 +80,7 @@ struct espconn * ICACHE_FLASH_ATTR socketNumberToPointer(
 }
 #endif
 
-void bip_recv_callback(
+void ICACHE_FLASH_ATTR bip_recv_callback(
 	void *arg,
 	char *pdata,
 	unsigned short len)

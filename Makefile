@@ -7,7 +7,7 @@ CC = xtensa-lx106-elf-gcc
 SIZE = xtensa-lx106-elf-size
 CFLAGS = -I. -I$(BAC_STK)/include -I$(BAC_OBJ) -Iinclude -mlongcalls -DICACHE_FLASH
 LDLIBS = -nostdlib -Wl,--start-group -lmain -lnet80211 -lwpa -llwip -lpp -lphy -lc -Wl,--end-group -lgcc
-LDFLAGS = -Teagle.app.v6.ld
+LDFLAGS = -Teagle.app.v6.ld -Wl,-Map,Test.map -Wl,--cref
 PROJNAME = test
 
 SRCS = 	src/main.c \
