@@ -109,7 +109,6 @@ static object_functions_t My_Object_Table[] = {
             NULL /* COV */ ,
             NULL /* COV Clear */ ,
         NULL /* Intrinsic Reporting */ },
-#if 0
     {OBJECT_ANALOG_INPUT,
             Analog_Input_Init,
             Analog_Input_Count,
@@ -125,6 +124,7 @@ static object_functions_t My_Object_Table[] = {
             NULL /* COV */ ,
             NULL /* COV Clear */ ,
         Analog_Input_Intrinsic_Reporting},
+#if 0
     {OBJECT_ANALOG_OUTPUT,
             Analog_Output_Init,
             Analog_Output_Count,

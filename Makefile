@@ -54,6 +54,7 @@ SRCS = 	src/main.c \
 	$(BAC_HNDLR)/txbuf.c \
 	$(BAC_HNDLR)/s_iam.c \
 	$(BAC_OBJ)/device.c \
+	$(BAC_OBJ)/ai.c \
 	$(BAC_OBJ)/bo.c
 	
 	
