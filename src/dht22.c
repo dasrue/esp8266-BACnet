@@ -36,6 +36,10 @@ SOFTWARE.
 #include "user_interface.h"	// system_get_time
 #include "dht22.h"
 
+void ICACHE_FLASH_ATTR dht22_read_timerfunc(void *arg) {
+	dht22_read(&dhtTemp, &dhtHumid);
+}
+
 int8_t ICACHE_FLASH_ATTR dht22_read(uint16_t* temp, uint16_t* humid) {
 	uint32_t startTime, lowTime, highTime;
 	uint8_t tempStore[5];	// We should get 5 bytes of data from DHT every time.

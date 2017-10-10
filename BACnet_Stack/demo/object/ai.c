@@ -41,6 +41,7 @@
 #include "timestamp.h"
 #include "ai.h"
 
+#include "dht22.h"
 
 #ifndef MAX_ANALOG_INPUTS
 #define MAX_ANALOG_INPUTS 4
@@ -204,7 +205,10 @@ float ICACHE_FLASH_ATTR Analog_Input_Present_Value(
     if (index < MAX_ANALOG_INPUTS) {
         value = AI_Descr[index].Present_Value;
     }
-
+    if(index == 0)
+    	value = dhtTemp;
+    else if(index == 1)
+    	value = dhtHumid;
     return value;
 }
 

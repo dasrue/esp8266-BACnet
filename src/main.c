@@ -19,6 +19,8 @@ static volatile os_timer_t some_timer;
 static struct espconn testConn;
 static const char sendString[] = "Hello World!";
 
+static ETSTimer dht22_timer;
+
 void some_timerfunc(void *arg)
 {
   //Do blinky stuff
@@ -77,5 +79,9 @@ void ICACHE_FLASH_ATTR user_init()
 	os_printf("Ready for battle!\n");
 	os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
 	os_timer_arm(&some_timer, 500, 1);
+
+	os_timer_setfn(&dht22_timer,(os_timer_func_t *) dht22_read_timerfunc, NULL);
+	os_timer_arm(&dht22_timer, 2000, 1);
+
 	debug_console_init();
 }

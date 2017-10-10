@@ -39,6 +39,10 @@ SOFTWARE.
 
 #define DHT22_PIN		(1<<4)		// Use pin 4.
 
+uint16_t dhtTemp;
+uint16_t dhtHumid;
+
+void dht22_read_timerfunc(void *arg);
 int8_t dht22_read(uint16_t* temp, uint16_t* humid);
 
 #endif // _DHT22_H
