@@ -11,6 +11,7 @@
 #include "bo.h"
 #include "nvmem.h"
 #include "uart_console.h"
+#include "dht22.h"
 
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
 // for other boards.
