@@ -37,7 +37,7 @@ SOFTWARE.
 #include "dht22.h"
 
 void ICACHE_FLASH_ATTR dht22_read_timerfunc(void *arg) {
-	dht22_read(&dhtTemp, &dhtHumid);
+	dhtStatus = dht22_read(&dhtTemp, &dhtHumid);
 }
 
 int8_t ICACHE_FLASH_ATTR dht22_read(uint16_t* temp, uint16_t* humid) {

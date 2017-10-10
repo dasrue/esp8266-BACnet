@@ -446,9 +446,14 @@ int ICACHE_FLASH_ATTR Analog_Input_Read_Property(
             break;
 
         case PROP_PRESENT_VALUE:
-            apdu_len =
-                encode_application_real(&apdu[0],
-                Analog_Input_Present_Value(rpdata->object_instance));
+        	if(rpdata->object_instance == 0)
+        		apdu_len = encode_application_unsigned(&apdu[0], dhtTemp);
+        	else if(rpdata->object_instance == 1)
+        		apdu_len = encode_application_unsigned(&apdu[0], dhtHumid);
+        	else if(rpdata->object_instance == 2)
+        	    apdu_len = encode_application_signed(&apdu[0], dhtStatus);
+        	else
+        		apdu_len =	encode_application_real(&apdu[0], Analog_Input_Present_Value(rpdata->object_instance));
             break;
 
         case PROP_STATUS_FLAGS:

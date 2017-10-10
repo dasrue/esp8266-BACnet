@@ -41,6 +41,7 @@ SOFTWARE.
 
 uint16_t dhtTemp;
 uint16_t dhtHumid;
+int16_t dhtStatus;
 
 void dht22_read_timerfunc(void *arg);
 int8_t dht22_read(uint16_t* temp, uint16_t* humid);
