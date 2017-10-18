@@ -167,7 +167,7 @@ typedef struct object_functions {
 } object_functions_t;
 
 /* String Lengths - excluding any nul terminator */
-#define MAX_DEV_NAME_LEN 32
+#define MAX_DEV_NAME_LEN 64
 #define MAX_DEV_LOC_LEN  64
 #define MAX_DEV_MOD_LEN  32
 #define MAX_DEV_VER_LEN  16

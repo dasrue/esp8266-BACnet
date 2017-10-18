@@ -71,6 +71,8 @@
 #include "bacfile.h"
 #endif /* defined(BACFILE) */
 
+#include "nvmem.h"
+
 
 #if defined(__BORLANDC__) || defined(_WIN32)
 #endif
@@ -680,7 +682,7 @@ uint32_t ICACHE_FLASH_ATTR Device_Object_Instance_Number(
 #ifdef BAC_ROUTING
     return Routed_Device_Object_Instance_Number();
 #else
-    return Object_Instance_Number;
+    return  nvmem_data.Object_Instance_Number;
 #endif
 }
 
@@ -691,7 +693,8 @@ bool ICACHE_FLASH_ATTR Device_Set_Object_Instance_Number(
 
     if (object_id <= BACNET_MAX_INSTANCE) {
         /* Make the change and update the database revision */
-        Object_Instance_Number = object_id;
+        nvmem_data.Object_Instance_Number = object_id;
+        nvmem_writeData();
         Device_Inc_Database_Revision();
     } else
         status = false;
@@ -702,7 +705,7 @@ bool ICACHE_FLASH_ATTR Device_Set_Object_Instance_Number(
 bool ICACHE_FLASH_ATTR Device_Valid_Object_Instance_Number(
     uint32_t object_id)
 {
-    return (Object_Instance_Number == object_id);
+    return ( nvmem_data.Object_Instance_Number == object_id);
 }
 
 bool ICACHE_FLASH_ATTR Device_Object_Name(
@@ -712,7 +715,8 @@ bool ICACHE_FLASH_ATTR Device_Object_Name(
     bool status = false;
 
     if (object_instance == Object_Instance_Number) {
-        status = characterstring_copy(object_name, &My_Object_Name);
+    	status = characterstring_init_ansi(object_name,nvmem_data.Device_Name);
+        //status = characterstring_copy(object_name, &My_Object_Name);
     }
 
     return status;
@@ -723,9 +727,11 @@ bool ICACHE_FLASH_ATTR Device_Set_Object_Name(
 {
     bool status = false;        /*return value */
 
-    if (!characterstring_same(&My_Object_Name, object_name)) {
+    if (!characterstring_ansi_same(object_name, nvmem_data.Device_Name)) {
         /* Make the change and update the database revision */
-        status = characterstring_copy(&My_Object_Name, object_name);
+        status = characterstring_ansi_copy(nvmem_data.Device_Name, MAX_DEV_NAME_LEN + 1, object_name);
+        nvmem_writeData();
+    	//status = characterstring_copy(&My_Object_Name, object_name);
         Device_Inc_Database_Revision();
     }
 
@@ -828,7 +834,7 @@ void ICACHE_FLASH_ATTR Device_Set_Vendor_Identifier(
 const char *ICACHE_FLASH_ATTR Device_Model_Name(
     void)
 {
-    return Model_Name;
+    return nvmem_data.Model_Name;
 }
 
 bool ICACHE_FLASH_ATTR Device_Set_Model_Name(
@@ -837,12 +843,12 @@ bool ICACHE_FLASH_ATTR Device_Set_Model_Name(
 {
     bool status = false;        /*return value */
 
-    if (length < sizeof(Model_Name)) {
-        memmove(Model_Name, name, length);
-        Model_Name[length] = 0;
+    if (length < sizeof(nvmem_data.Model_Name)) {
+        memmove(nvmem_data.Model_Name, name, length);
+        nvmem_data.Model_Name[length] = 0;
         status = true;
     }
-
+    nvmem_writeData();
     return status;
 }
 
@@ -876,7 +882,7 @@ bool ICACHE_FLASH_ATTR Device_Set_Application_Software_Version(
 const char *ICACHE_FLASH_ATTR Device_Description(
     void)
 {
-    return Description;
+    return nvmem_data.Description;
 }
 
 bool ICACHE_FLASH_ATTR Device_Set_Description(
@@ -885,19 +891,19 @@ bool ICACHE_FLASH_ATTR Device_Set_Description(
 {
     bool status = false;        /*return value */
 
-    if (length < sizeof(Description)) {
-        memmove(Description, name, length);
-        Description[length] = 0;
+    if (length < sizeof(nvmem_data.Description)) {
+        memmove(nvmem_data.Description, name, length);
+        nvmem_data.Description[length] = 0;
         status = true;
     }
-
+    nvmem_writeData();
     return status;
 }
 
 const char *ICACHE_FLASH_ATTR Device_Location(
     void)
 {
-    return Location;
+    return nvmem_data.Location;
 }
 
 bool ICACHE_FLASH_ATTR Device_Set_Location(
@@ -906,12 +912,12 @@ bool ICACHE_FLASH_ATTR Device_Set_Location(
 {
     bool status = false;        /*return value */
 
-    if (length < sizeof(Location)) {
-        memmove(Location, name, length);
-        Location[length] = 0;
+    if (length < sizeof(nvmem_data.Location)) {
+        memmove(nvmem_data.Location, name, length);
+        nvmem_data.Location[length] = 0;
         status = true;
     }
-
+    nvmem_writeData();
     return status;
 }
 
@@ -1861,7 +1867,9 @@ void ICACHE_FLASH_ATTR Device_Init(
 {
     struct object_functions *pObject = NULL;
 
-    characterstring_init_ansi(&My_Object_Name, "SimpleServer");
+    //characterstring_init_ansi(&My_Object_Name, "SimpleServer");
+    nvmem_readData();	// Read device data from flash memory. Or attempt to at least.
+
     if (object_table) {
         Object_Table = object_table;
     } else {

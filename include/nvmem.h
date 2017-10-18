@@ -47,16 +47,7 @@ SOFTWARE.
 // This byte is used to check if the data has been stored in the flash at some point. If this byte is not present,
 // then we know the data has never been initialised.
 #define FLASH_INIT_BYTE		0x43
-
-struct nv_wifi_t {
-	int status;					// 2 bytes
-	char ssid[32];				// 32 bytes
-	char password[64];			// 64 bytes
-	bool dhcp_en;				// 1 byte
-	uint8_t static_ip[4];		// 4 bytes
-	uint8_t static_netmask[4];	// 4 bytes
-	uint8_t static_gateway[4];	// 4 bytes
-};								// 111 bytes
+							// 111 bytes
 
 struct nv_bacnet_t {
 	uint16_t udp_port;										// 2 bytes
@@ -68,13 +59,7 @@ struct nv_bacnet_t {
 	char Description[MAX_DEV_DESC_LEN + 1];					// 65 bytes
 };															// 219 bytes
 
-struct nvmem_data_t {
-	uint8_t flash_initState;		// 1 byte
-	struct nv_wifi_t nv_wifi;		// 111 bytes
-	struct nv_bacnet_t nv_bacnet;	// 219 bytes
-};									// 331 bytes
-
-struct nvmem_data_t nvmem_data;
+struct nv_bacnet_t nvmem_data;
 
 void nvmem_writeData();		// Call this when data needs updating
 void nvmem_readData();		// Call this in init function
