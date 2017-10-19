@@ -665,7 +665,8 @@ uint32_t ICACHE_FLASH_ATTR Device_Index_To_Instance(
     unsigned index)
 {
     index = index;
-    return Object_Instance_Number;
+    //return Object_Instance_Number;
+    return nvmem_data.Object_Instance_Number;
 }
 
 /* methods to manipulate the data */
@@ -714,7 +715,7 @@ bool ICACHE_FLASH_ATTR Device_Object_Name(
 {
     bool status = false;
 
-    if (object_instance == Object_Instance_Number) {
+    if (object_instance == nvmem_data.Object_Instance_Number) {
     	status = characterstring_init_ansi(object_name,nvmem_data.Device_Name);
         //status = characterstring_copy(object_name, &My_Object_Name);
     }
@@ -1235,7 +1236,7 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
         case PROP_OBJECT_IDENTIFIER:
             apdu_len =
                 encode_application_object_id(&apdu[0], OBJECT_DEVICE,
-                Object_Instance_Number);
+                nvmem_data.Object_Instance_Number);
             break;
         case PROP_OBJECT_NAME:
             apdu_len =

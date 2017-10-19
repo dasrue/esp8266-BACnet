@@ -155,10 +155,10 @@ SECTIONS
   {
     _irom0_text_start = ABSOLUTE(.);
 
-    *libmbedtls.a:(.literal .text .literal.* .text.*)
-	*libm.a:(.literal .text .literal.* .text.*)
-	*libc.a:(.literal .text .literal.* .text.*)
-	*libgcc.a:(.literal .text .literal.* .text.*)
+/*    *libmbedtls.a:(.literal .text .literal.* .text.*) */
+/*	*libm.a:(.literal .text .literal.* .text.*)			*/
+/*	*libc.a:(.literal .text .literal.* .text.*)			*/
+/*	*libgcc.a:(.literal .text .literal.* .text.*)		*/
 	
     *(.irom0.literal .irom.literal .irom.text.literal .irom0.text .irom.text)
     _irom0_text_end = ABSOLUTE(.);
