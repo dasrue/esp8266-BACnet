@@ -433,8 +433,11 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 					ssid_list = NULL;
 					wifi_station_scan(NULL,wifi_scanDone_cb);
 				} else {
+					uart0_sendStr("DEBUG: Getting config \r\n");
 					wifi_station_get_config(&currentConfig);	// Get the current wifi config
+					uart0_sendStr("DEBUG: Setting SSID \r\n");
 					os_strcpy(currentConfig.ssid,ssid_list[selection]);
+					uart0_sendStr("DEBUG: Setting config \r\n");
 					wifi_station_set_config(&currentConfig);
 					uart0_sendStr("Enter password for ");
 					uart0_sendStr(currentConfig.ssid);
