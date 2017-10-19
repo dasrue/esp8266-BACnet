@@ -303,7 +303,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		;
 		uint8_t wifiState = wifi_station_get_connect_status();
 		if((wifiState!=STATION_CONNECTING) && (wifiState!=STATION_GOT_IP)) {
-			wifi_station_set_reconnect_policy(false);
+			//wifi_station_set_reconnect_policy(false);
 			uart0_sendStr("There was an error connecting to the wifi network. The reason was ");
 			uart0_sendStr(wifi_state_to_string(wifiState));
 			uart0_sendStr("\r\n");
