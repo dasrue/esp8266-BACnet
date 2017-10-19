@@ -1239,6 +1239,7 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
                 nvmem_data.Object_Instance_Number);
             break;
         case PROP_OBJECT_NAME:
+        	Device_Object_Name(Device_Object_Instance_Number(), &char_string);
             apdu_len =
                 encode_application_character_string(&apdu[0], &My_Object_Name);
             break;
@@ -1246,7 +1247,7 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
             apdu_len = encode_application_enumerated(&apdu[0], OBJECT_DEVICE);
             break;
         case PROP_DESCRIPTION:
-            characterstring_init_ansi(&char_string, Description);
+            characterstring_init_ansi(&char_string, Device_Description());
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
             break;
@@ -1254,16 +1255,16 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
             apdu_len = encode_application_enumerated(&apdu[0], System_Status);
             break;
         case PROP_VENDOR_NAME:
-            characterstring_init_ansi(&char_string, Vendor_Name);
+            characterstring_init_ansi(&char_string, Device_Vendor_Name());
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
             break;
         case PROP_VENDOR_IDENTIFIER:
             apdu_len =
-                encode_application_unsigned(&apdu[0], Vendor_Identifier);
+                encode_application_unsigned(&apdu[0], Device_Vendor_Identifier());
             break;
         case PROP_MODEL_NAME:
-            characterstring_init_ansi(&char_string, Model_Name);
+            characterstring_init_ansi(&char_string, Device_Model_Name());
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
             break;
@@ -1279,7 +1280,7 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
                 encode_application_character_string(&apdu[0], &char_string);
             break;
         case PROP_LOCATION:
-            characterstring_init_ansi(&char_string, Location);
+            characterstring_init_ansi(&char_string, Device_Location());
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
             break;
