@@ -284,9 +284,17 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		uart_console_state = console_wifi_connect;	// Connect to saved wifi, and print it out.
 		break;
 	case console_wifi_connect:
-		uart0_sendStr("Connecting to ");
+		;
 		char ssidBuffer[64];
 		wifi_getSSID(ssidBuffer);
+		if(os_strcmp(ssidBuffer,"")==0) {
+			struct station_config currentConfig;
+			wifi_station_get_config(&currentConfig);	// Get the current wifi config
+			os_strcpy(currentConfig.ssid,"No Network");
+			wifi_station_set_config(&currentConfig);
+			wifi_getSSID(ssidBuffer);
+		}
+		uart0_sendStr("Connecting to ");
 		uart0_sendStr(ssidBuffer);
 		uart0_sendStr("\r\n");
 		uart_console_state = console_wifi_connecting;	// Go to state where we wait for wifi to connect.
