@@ -728,7 +728,8 @@ bool ICACHE_FLASH_ATTR Device_Set_Object_Name(
 {
     bool status = false;        /*return value */
 
-    if (!characterstring_ansi_same(object_name, nvmem_data.Device_Name)) {
+    //if (!characterstring_ansi_same(object_name, nvmem_data.Device_Name)) {
+    if(1) {
         /* Make the change and update the database revision */
         status = characterstring_ansi_copy(nvmem_data.Device_Name, MAX_DEV_NAME_LEN + 1, object_name);
         nvmem_writeData();
