@@ -278,6 +278,7 @@ enum uart_console_state_t uart_console_state;
 void ICACHE_FLASH_ATTR uart_console_process() {
 	char line_buf[65];
 	int16_t lineLen;
+	struct station_config currentConfig;
 	switch(uart_console_state) {
 	case console_init:
 		uart0_sendStr("Initialising... Please wait...\r\n");
@@ -288,7 +289,6 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 		char ssidBuffer[64];
 		wifi_getSSID(ssidBuffer);
 		if(os_strcmp(ssidBuffer,"")==0) {
-			struct station_config currentConfig;
 			wifi_station_get_config(&currentConfig);	// Get the current wifi config
 			os_strcpy(currentConfig.ssid,"No Network");
 			wifi_station_set_config(&currentConfig);
@@ -362,10 +362,10 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 			line_buf[lineLen] = '\0';	// Null terminate string before sending it
 			uart0_sendStr(line_buf);
 			uart0_sendStr("\r\n");
-			struct station_config currentConfig;
 			wifi_station_get_config(&currentConfig);	// Get the current wifi config
 			os_strncpy(currentConfig.ssid,line_buf,32);
 			currentConfig.ssid[31] = '\0';
+			currentConfig.password[0] = '\0';
 			wifi_station_set_config(&currentConfig);
 			uart0_sendStr("Enter password:\r\n");
 			uart_console_state = console_wifi_get_passwd;
@@ -388,7 +388,6 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 			}
 			uart0_sendStr(line_buf);
 			uart0_sendStr("\r\n");
-			struct station_config currentConfig;
 			wifi_station_get_config(&currentConfig);	// Get the current wifi config
 			os_memcpy(currentConfig.bssid,bssid,6);
 			wifi_station_set_config(&currentConfig);
@@ -405,7 +404,6 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 				uart_tx_one_char(UART0, '*');	// Transmit stars instead of password... super secure
 			}
 			uart0_sendStr("\r\n");
-			struct station_config currentConfig;
 			wifi_station_get_config(&currentConfig);	// Get the current wifi config
 			os_memcpy(currentConfig.password,line_buf,lineLen+1);
 			wifi_station_set_config(&currentConfig);
@@ -435,7 +433,6 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 					ssid_list = NULL;
 					wifi_station_scan(NULL,wifi_scanDone_cb);
 				} else {
-					struct station_config currentConfig;
 					wifi_station_get_config(&currentConfig);	// Get the current wifi config
 					os_strcpy(currentConfig.ssid,ssid_list[selection]);
 					wifi_station_set_config(&currentConfig);
