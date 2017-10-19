@@ -88,7 +88,7 @@ void ICACHE_FLASH_ATTR wifi_connect_task() {
 #endif
 
 void ICACHE_FLASH_ATTR debug_console_init() {
-	UART_SetPrintPort(UART1);	// Redirect the debug output to the other UART.
+	//UART_SetPrintPort(UART1);	// Redirect the debug output to the other UART.
 	uart_init(BIT_RATE_57600,BIT_RATE_57600);	// Set both UART ports to 57600 baud (something reasonably fast but still reliable)
 	os_timer_setfn(&wifi_check_timer,(os_timer_func_t *) uart_console_process, NULL);
 	os_timer_arm(&wifi_check_timer, 100, 1);
@@ -276,7 +276,7 @@ enum uart_console_state_t {
 enum uart_console_state_t uart_console_state;
 
 void ICACHE_FLASH_ATTR uart_console_process() {
-	char line_buf[64];
+	char line_buf[65];
 	int16_t lineLen;
 	switch(uart_console_state) {
 	case console_init:
