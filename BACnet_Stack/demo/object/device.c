@@ -1243,7 +1243,7 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
         	//Device_Object_Name(Device_Object_Instance_Number(), &char_string);
             //apdu_len =
             //    encode_application_character_string(&apdu[0], &My_Object_Name);
-            characterstring_init_ansi(&char_string, Device_Description());
+            characterstring_init_ansi(&char_string, nvmem_data.Device_Name);
 			apdu_len =
 				encode_application_character_string(&apdu[0], &char_string);
             break;
