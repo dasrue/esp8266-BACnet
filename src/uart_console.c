@@ -366,6 +366,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 			os_strncpy(currentConfig.ssid,line_buf,32);
 			currentConfig.ssid[31] = '\0';
 			currentConfig.password[0] = '\0';
+			currentConfig.bssid_set = 0;
 			wifi_station_set_config(&currentConfig);
 			uart0_sendStr("Enter password:\r\n");
 			uart_console_state = console_wifi_get_passwd;
