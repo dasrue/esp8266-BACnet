@@ -1240,9 +1240,12 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
                 nvmem_data.Object_Instance_Number);
             break;
         case PROP_OBJECT_NAME:
-        	Device_Object_Name(Device_Object_Instance_Number(), &char_string);
-            apdu_len =
-                encode_application_character_string(&apdu[0], &My_Object_Name);
+        	//Device_Object_Name(Device_Object_Instance_Number(), &char_string);
+            //apdu_len =
+            //    encode_application_character_string(&apdu[0], &My_Object_Name);
+            characterstring_init_ansi(&char_string, Device_Description());
+			apdu_len =
+				encode_application_character_string(&apdu[0], &char_string);
             break;
         case PROP_OBJECT_TYPE:
             apdu_len = encode_application_enumerated(&apdu[0], OBJECT_DEVICE);
