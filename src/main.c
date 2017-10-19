@@ -65,7 +65,7 @@ void ICACHE_FLASH_ATTR user_init()
 
 	if(wifi_get_opmode()!=0x01)
 		wifi_set_opmode(0x01);		// Make sure we are in station mode.
-	//wifi_station_set_reconnect_policy(true);	// Enable reconnection
+	wifi_station_set_reconnect_policy(false);	// Enable reconnection
 	wifi_station_set_auto_connect(true);
 	user_set_station_config();
 	
