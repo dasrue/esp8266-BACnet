@@ -5,7 +5,7 @@ BAC_OBJ = $(BAC_STK)/demo/object
 
 CC = xtensa-lx106-elf-gcc
 SIZE = xtensa-lx106-elf-size
-CFLAGS = -I. -I$(BAC_STK)/include -I$(BAC_OBJ) -Iinclude -Iesp-httpd/extras -Iesp-httpd/examples/http_server/fsdata -mlongcalls -DICACHE_FLASH
+CFLAGS = -I. -I$(BAC_STK)/include -I$(BAC_OBJ) -Iinclude -Iesp-httpd/extras/httpd -Iesp-httpd/examples/http_server/fsdata -mlongcalls -DICACHE_FLASH
 LDLIBS = -nostdlib -Wl,--start-group -lmain -lnet80211 -lwpa -llwip -lpp -lphy -lc -Wl,--end-group -lgcc
 LDFLAGS = -Tmyapp.ld -Wl,-Map,Test.map -Wl,--cref
 PROJNAME = test
@@ -17,9 +17,9 @@ SRCS = 	src/main.c \
 	src/nvmem.c \
 	src/uart_console.c \
 	src/driver/uart.c \
-	esp-httpd/extras/httpd.c \
-	esp-httpd/extras/strcasestr.c \
-	esp-httpd/extras/fs.c \
+	esp-httpd/extras/httpd/httpd.c \
+	esp-httpd/extras/httpd/strcasestr.c \
+	esp-httpd/extras/httpd/fs.c \
 	$(BAC_SRC)/abort.c \
 	$(BAC_SRC)/address.c \
 	$(BAC_SRC)/apdu.c \
