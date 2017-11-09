@@ -18,6 +18,7 @@ SRCS = 	src/main.c \
 	src/nvmem.c \
 	src/uart_console.c \
 	src/driver/uart.c \
+	src/driver/i2c_master.c \
 	$(BAC_SRC)/abort.c \
 	$(BAC_SRC)/address.c \
 	$(BAC_SRC)/apdu.c \

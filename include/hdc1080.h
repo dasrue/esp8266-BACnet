@@ -34,6 +34,7 @@ SOFTWARE.
 
 #include "c_types.h"
 
+void hdc1080_init();
 void hdc1080_startMeasurement();
 void hdc1080_getTempHumid(float* temp, float* humid);
 

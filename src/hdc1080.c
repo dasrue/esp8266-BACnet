@@ -31,8 +31,14 @@ SOFTWARE.
 
 #include "c_types.h"
 #include "user_interface.h"
+#include "i2c_master.h"
 
 #define HDC1080_ADDR	0b01000000
+
+void ICACHE_FLASH_ATTR hdc1080_init() {
+	i2c_master_gpio_init();
+	i2c_master_init();
+}
 
 void ICACHE_FLASH_ATTR hdc1080_startMeasurement() {
 	i2c_master_start();
