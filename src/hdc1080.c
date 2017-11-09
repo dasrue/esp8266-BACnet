@@ -31,7 +31,7 @@ SOFTWARE.
 
 #include "c_types.h"
 #include "user_interface.h"
-#include "i2c_master.h"
+#include "driver/i2c_master.h"
 
 #define HDC1080_ADDR	0b01000000
 
