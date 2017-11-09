@@ -6,7 +6,7 @@ BAC_OBJ = $(BAC_STK)/demo/object
 CC = xtensa-lx106-elf-gcc
 SIZE = xtensa-lx106-elf-size
 CFLAGS = -I. -I$(BAC_STK)/include -I$(BAC_OBJ) -Iinclude -Iesp-httpd/extras/httpd -Iesp-httpd/examples/http_server/fsdata -mlongcalls -DICACHE_FLASH
-LDLIBS = -nostdlib -Wl,--start-group -lmain -lnet80211 -lwpa -llwip -lpp -lphy -lc -Wl,--end-group -lgcc
+LDLIBS = -nostdlib -Wl,--start-group -lmain -lnet80211 -lwpa -llwip -lpp -lphy -Wl,--end-group -lcirom -lgcc
 LDFLAGS = -Tmyapp.ld -Wl,-Map,Test.map -Wl,--cref
 PROJNAME = test
 
