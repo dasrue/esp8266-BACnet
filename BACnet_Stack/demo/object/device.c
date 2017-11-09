@@ -579,10 +579,6 @@ static const int Device_Properties_Optional[] = {
     PROP_MAX_INFO_FRAMES,
 #endif
     PROP_DESCRIPTION,
-    PROP_LOCAL_TIME,
-    PROP_UTC_OFFSET,
-    PROP_LOCAL_DATE,
-    PROP_DAYLIGHT_SAVINGS_STATUS,
     PROP_LOCATION,
     PROP_ACTIVE_COV_SUBSCRIPTIONS,
     -1
@@ -1230,23 +1226,6 @@ int ICACHE_FLASH_ATTR Device_Read_Property_Local(
             characterstring_init_ansi(&char_string, Device_Location());
             apdu_len =
                 encode_application_character_string(&apdu[0], &char_string);
-            break;
-        case PROP_LOCAL_TIME:
-            Update_Current_Time();
-            apdu_len = encode_application_time(&apdu[0], &Local_Time);
-            break;
-        case PROP_UTC_OFFSET:
-            Update_Current_Time();
-            apdu_len = encode_application_signed(&apdu[0], UTC_Offset);
-            break;
-        case PROP_LOCAL_DATE:
-            Update_Current_Time();
-            apdu_len = encode_application_date(&apdu[0], &Local_Date);
-            break;
-        case PROP_DAYLIGHT_SAVINGS_STATUS:
-            Update_Current_Time();
-            apdu_len =
-                encode_application_boolean(&apdu[0], Daylight_Savings_Status);
             break;
         case PROP_PROTOCOL_VERSION:
             apdu_len =
