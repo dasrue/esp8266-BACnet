@@ -33,7 +33,6 @@ SRCS = 	src/main.c \
 	$(BAC_SRC)/bip.c \
 	$(BAC_SRC)/bvlc.c \
 	$(BAC_SRC)/cov.c \
-	$(BAC_SRC)/datetime.c \
 	$(BAC_SRC)/dcc.c \
 	$(BAC_SRC)/debug.c \
 	$(BAC_SRC)/iam.c \

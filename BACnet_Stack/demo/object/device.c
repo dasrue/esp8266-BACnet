@@ -29,7 +29,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>     /* for memmove */
-#include <sys/time.h>       /* for timezone, localtime */
 #include "bacdef.h"
 #include "bacdcode.h"
 #include "bacenum.h"
