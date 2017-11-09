@@ -93,7 +93,7 @@ int8_t ICACHE_FLASH_ATTR dht22_read(uint16_t* temp, uint16_t* humid) {
 	}
 	uint16_t checksumValue = tempStore[0] + tempStore[1] + tempStore[2] + tempStore[3];	// Calculate checksum.
 	if(tempStore[4]!=(checksumValue&0xFF))
-		return DHT_ERR_CSUM;
+		;//return DHT_ERR_CSUM;
 	*temp = (tempStore[2] << 8) & tempStore[3];	// High byte is "integral", low byte is "decimal"
 	*humid = (tempStore[0] << 8) & tempStore[1];	// High byte is "integral", low byte is "decimal"
 	return DHT_OK;
