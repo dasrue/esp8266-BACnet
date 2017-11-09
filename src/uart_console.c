@@ -38,6 +38,7 @@ SOFTWARE.
 #include "os_type.h"
 #include "user_interface.h"
 #include "mem.h"
+#include "hdc1080.h"
 
 static ETSTimer wifi_check_timer;
 //static ETSTimer wifi_connect_timer;
@@ -312,6 +313,7 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 			uart0_sendStr("\t1 - Enter new SSID\r\n");
 			uart0_sendStr("\t2 - Enter new BSSID (Hidden network)\r\n");
 			uart0_sendStr("\t3 - Scan for new network\r\n");
+			uart0_sendStr("\t4 - Read Temp\r\n");
 			uart_console_state = console_wifi_get_action;
 		}
 		if(wifiState==STATION_GOT_IP) {
@@ -350,6 +352,21 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 				uart0_sendStr("Scanning for networks... Please wait.\r\n");
 				wifi_station_scan(NULL,wifi_scanDone_cb);
 				uart_console_state = console_wifi_scanning;
+				break;
+			case 4:
+				uart0_sendStr("Reading temperature and humidity... Please wait.\r\n");
+				hdc1080_startMeasurement();
+				float temp, humidity;
+				os_delay_us(13000);		// Wait 13ms for temp measurement to become avaliable
+				hdc1080_getTempHumid(&temp, &humidity);
+				int32_t tempint;
+				uint8_t tempStringBuffer[64];
+				tempint = (int32_t)(temp * 100) - ((int32_t)temp * 100);
+				os_sprintf(tempStringBuffer, "The temperature is %d.%u\r\n", (int32_t)temp, tempint < 0 ? -tempint : tempint);
+				uart0_sendStr(tempStringBuffer);
+				tempint = (int32_t)(humidity * 100) - ((int32_t)humidity * 100);
+				os_sprintf(tempStringBuffer, "The humidity is %d.%u%%\r\n", (int32_t)humidity, tempint < 0 ? -tempint : tempint);
+				uart0_sendStr(tempStringBuffer);
 				break;
 			default:
 				break;

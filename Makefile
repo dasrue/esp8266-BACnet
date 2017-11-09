@@ -13,6 +13,7 @@ PROJNAME = test
 SRCS = 	src/main.c \
 	src/bip-init.c \
 	src/dht22.c \
+	src/hdc1080.c \
 	src/net.c \
 	src/nvmem.c \
 	src/uart_console.c \
