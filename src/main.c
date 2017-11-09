@@ -15,7 +15,7 @@
 
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
 // for other boards.
-static const int pin = 14;
+static const int pin = 5;
 static volatile os_timer_t some_timer;
 static struct espconn testConn;
 static const char sendString[] = "Hello World!";
