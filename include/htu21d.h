@@ -35,9 +35,9 @@ SOFTWARE.
 #include "c_types.h"
 
 void htu21d_init();
-void htu21d_startTempMeasurement();
-void htu21d_startHumidMeasurement();
-void htu21d_getTemp(float* temp);
-void htu21d_getHumid(float* humid);
+int htu21d_startTempMeasurement();
+int htu21d_startHumidMeasurement();
+int htu21d_getTemp(float* temp);
+int htu21d_getHumid(float* humid);
 
 #endif /* HDU21D_H_ */

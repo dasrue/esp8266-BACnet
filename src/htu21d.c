@@ -40,33 +40,35 @@ void ICACHE_FLASH_ATTR htu21d_init() {
 	i2c_master_init();
 }
 
-void ICACHE_FLASH_ATTR htu21d_startTempMeasurement() {
+int ICACHE_FLASH_ATTR htu21d_startTempMeasurement() {
 	i2c_master_start();
 	i2c_master_writeByte(HTU21D_ADDR << 1);	// Send HTU21D addr, write mode
 	if(i2c_master_checkAck()==0)
-		return;
+		return -1;
 	i2c_master_writeByte(0xF3);		// Start HTU21D temp measurement
 	if(i2c_master_checkAck()==0)
-		return;
+		return -2;
 	i2c_master_stop();
+	return 0;
 }
 
-void ICACHE_FLASH_ATTR htu21d_startHumidMeasurement() {
+int ICACHE_FLASH_ATTR htu21d_startHumidMeasurement() {
 	i2c_master_start();
 	i2c_master_writeByte(HTU21D_ADDR << 1);	// Send HTU21D addr, write mode
 	if(i2c_master_checkAck()==0)
-		return;
+		return -1;
 	i2c_master_writeByte(0xF5);		// Start HTU21D temp measurement
 	if(i2c_master_checkAck()==0)
-		return;
+		return -2;
 	i2c_master_stop();
+	return 0;
 }
 
-void ICACHE_FLASH_ATTR htu21d_getTemp(float* temp) {
+int ICACHE_FLASH_ATTR htu21d_getTemp(float* temp) {
 	i2c_master_start();
 	i2c_master_writeByte((HTU21D_ADDR << 1 )| 1);	// Send HTU21D addr, read mode
 	if(i2c_master_checkAck()==0)
-		return;
+		return -1;
 	uint16_t tempVal;
 	tempVal = i2c_master_readByte() << 8;
 	i2c_master_send_ack();
@@ -74,13 +76,14 @@ void ICACHE_FLASH_ATTR htu21d_getTemp(float* temp) {
 	i2c_master_send_ack();
 	*temp = ((float)tempVal / 65536)*175.72 - 46.85;
 	i2c_master_stop();
+	return 0;
 }
 
-void ICACHE_FLASH_ATTR htu21d_getHumid(float* humid) {
+int ICACHE_FLASH_ATTR htu21d_getHumid(float* humid) {
 	i2c_master_start();
 	i2c_master_writeByte((HTU21D_ADDR << 1 )| 1);	// Send HTU21D addr, read mode
 	if(i2c_master_checkAck()==0)
-		return;
+		return -1;
 	uint16_t tempVal;
 	tempVal = i2c_master_readByte() << 8;
 	i2c_master_send_ack();
@@ -88,4 +91,5 @@ void ICACHE_FLASH_ATTR htu21d_getHumid(float* humid) {
 	i2c_master_send_ack();
 	*humid = ((float)tempVal / 65536)*125 - 6;
 	i2c_master_stop();
+	return 0;
 }
