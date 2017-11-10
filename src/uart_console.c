@@ -352,6 +352,11 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 				break;
 			case 3:
 				uart0_sendStr("Scanning for networks... Please wait.\r\n");
+				os_strcpy(currentConfig.ssid,"null");
+				os_strcpy(currentConfig.password,"null");
+				currentConfig.bssid_set = 0;
+				os_memset(currentConfig.bssid,0,6);
+				wifi_station_set_config(&currentConfig);
 				wifi_station_scan(NULL,wifi_scanDone_cb);
 				uart_console_state = console_wifi_scanning;
 				break;
