@@ -42,9 +42,10 @@
 #include "ai.h"
 
 #include "dht22.h"
+#include "htu21d.h"
 
 #ifndef MAX_ANALOG_INPUTS
-#define MAX_ANALOG_INPUTS 4
+#define MAX_ANALOG_INPUTS 2
 #endif
 
 #define malloc		os_malloc
@@ -88,9 +89,6 @@ static const int Properties_Optional[] = {
 };
 
 static const int Properties_Proprietary[] = {
-    9997,
-    9998,
-    9999,
     -1
 };
 
@@ -121,7 +119,10 @@ void ICACHE_FLASH_ATTR Analog_Input_Init(
     for (i = 0; i < MAX_ANALOG_INPUTS; i++) {
         AI_Descr[i].Present_Value = 0.0f;
         AI_Descr[i].Out_Of_Service = false;
-        AI_Descr[i].Units = UNITS_PERCENT;
+        if(i==0)
+        	AI_Descr[i].Units = UNITS_DEGREES_CELSIUS;
+        else
+        	AI_Descr[i].Units = UNITS_PERCENT;
         AI_Descr[i].Reliability = RELIABILITY_NO_FAULT_DETECTED;
         AI_Descr[i].Prior_Value = 0.0f;
         AI_Descr[i].COV_Increment = 1.0f;
@@ -206,9 +207,9 @@ float ICACHE_FLASH_ATTR Analog_Input_Present_Value(
         value = AI_Descr[index].Present_Value;
     }
     if(index == 0)
-    	value = dhtTemp;
+    	value = currentTemperature;
     else if(index == 1)
-    	value = dhtHumid;
+    	value = currentHumidity;
     return value;
 }
 
@@ -257,8 +258,11 @@ bool ICACHE_FLASH_ATTR Analog_Input_Object_Name(
 
     index = Analog_Input_Instance_To_Index(object_instance);
     if (index < MAX_ANALOG_INPUTS) {
-        sprintf(text_string, "ANALOG INPUT %lu", (unsigned long) index);
-        status = characterstring_init_ansi(object_name, text_string);
+        //sprintf(text_string, "ANALOG INPUT %lu", (unsigned long) index);
+    	if(index==0)
+    		status = characterstring_init_ansi(object_name, "Current Temperature");
+    	else
+    		status = characterstring_init_ansi(object_name, "Current Humidity");
     }
 
     return status;
@@ -446,14 +450,7 @@ int ICACHE_FLASH_ATTR Analog_Input_Read_Property(
             break;
 
         case PROP_PRESENT_VALUE:
-        	if(rpdata->object_instance == 0)
-        		apdu_len = encode_application_unsigned(&apdu[0], dhtTemp);
-        	else if(rpdata->object_instance == 1)
-        		apdu_len = encode_application_unsigned(&apdu[0], dhtHumid);
-        	else if(rpdata->object_instance == 2)
-        	    apdu_len = encode_application_signed(&apdu[0], dhtStatus);
-        	else
-        		apdu_len =	encode_application_real(&apdu[0], Analog_Input_Present_Value(rpdata->object_instance));
+        	apdu_len =	encode_application_real(&apdu[0], Analog_Input_Present_Value(rpdata->object_instance));
             break;
 
         case PROP_STATUS_FLAGS:

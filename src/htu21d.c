@@ -35,9 +35,16 @@ SOFTWARE.
 
 #define HTU21D_ADDR	0x40
 
+static ETSTimer htu21d_timer;
+uint8_t htu21d_timer_state;
+
+void htu21d_timerFunc(void* arg);
+
 void ICACHE_FLASH_ATTR htu21d_init() {
 	i2c_master_gpio_init();
 	i2c_master_init();
+	os_timer_setfn(&htu21d_timer,(os_timer_func_t *) htu21d_timerFunc, NULL);
+	os_timer_arm(&htu21d_timer, 1000, 0);
 }
 
 int ICACHE_FLASH_ATTR htu21d_startTempMeasurement() {
@@ -92,4 +99,44 @@ int ICACHE_FLASH_ATTR htu21d_getHumid(float* humid) {
 	*humid = ((float)tempVal / 65536)*125 - 6;
 	i2c_master_stop();
 	return 0;
+}
+
+void ICACHE_FLASH_ATTR htu21d_timerFunc(void* arg) {
+	arg = 0;	//unused
+	switch(htu21d_timer_state) {
+	case 0:		// Start a temp measurement
+		if(htu21d_startTempMeasurement() < 0) {
+			os_timer_arm(&htu21d_timer, 100, 0);
+		} else {
+			htu21d_timer_state = 1;
+			os_timer_arm(&htu21d_timer, 50, 0);		// Wait 50ms for temperature
+		}
+		break;
+	case 1:		// Get temperature measurement
+		if(htu21d_getTemp(&currentTemperature) < 0) {
+			htu21d_timer_state = 0;
+			os_timer_arm(&htu21d_timer, 100, 0);
+		} else {
+			htu21d_timer_state = 2;
+			os_timer_arm(&htu21d_timer, 10, 0);
+		}
+		break;
+	case 2:		// Start a humid measurement
+		if(htu21d_startHumidMeasurement() < 0) {
+			os_timer_arm(&htu21d_timer, 100, 0);
+		} else {
+			htu21d_timer_state = 3;
+			os_timer_arm(&htu21d_timer, 16, 0);		// Wait 16ms for humidity
+		}
+		break;
+	case 3:		// Get humidity measurement
+		if(htu21d_getHumid(&currentHumidity) < 0) {
+			htu21d_timer_state = 2;
+			os_timer_arm(&htu21d_timer, 100, 0);
+		} else {
+			htu21d_timer_state = 0;
+			os_timer_arm(&htu21d_timer, 1000, 0);	// Wait 1 second till next measurement
+		}
+		break;
+	}
 }

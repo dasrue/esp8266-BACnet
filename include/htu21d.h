@@ -40,4 +40,6 @@ int htu21d_startHumidMeasurement();
 int htu21d_getTemp(float* temp);
 int htu21d_getHumid(float* humid);
 
+float currentTemperature, currentHumidity;
+
 #endif /* HDU21D_H_ */
