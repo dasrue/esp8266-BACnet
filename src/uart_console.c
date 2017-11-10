@@ -38,7 +38,7 @@ SOFTWARE.
 #include "os_type.h"
 #include "user_interface.h"
 #include "mem.h"
-#include "hdc1080.h"
+#include "htu21d.h"
 
 static ETSTimer wifi_check_timer;
 //static ETSTimer wifi_connect_timer;
@@ -90,7 +90,7 @@ void ICACHE_FLASH_ATTR wifi_connect_task() {
 
 void ICACHE_FLASH_ATTR debug_console_init() {
 	//UART_SetPrintPort(UART1);	// Redirect the debug output to the other UART.
-	hdc1080_init();
+	htu21d_init();
 	uart_init(BIT_RATE_57600,BIT_RATE_57600);	// Set both UART ports to 57600 baud (something reasonably fast but still reliable)
 	os_timer_setfn(&wifi_check_timer,(os_timer_func_t *) uart_console_process, NULL);
 	os_timer_arm(&wifi_check_timer, 100, 1);
@@ -356,15 +356,18 @@ void ICACHE_FLASH_ATTR uart_console_process() {
 				break;
 			case 4:
 				uart0_sendStr("Reading temperature and humidity... Please wait.\r\n");
-				hdc1080_startMeasurement();
+				htu21d_startTempMeasurement();
 				float temp, humidity;
-				os_delay_us(13000);		// Wait 13ms for temp measurement to become avaliable
-				hdc1080_getTempHumid(&temp, &humidity);
+				os_delay_us(50000);		// Wait 13ms for temp measurement to become avaliable
+				htu21d_getTemp(&temp);
+				htu21d_startHumidMeasurement();
 				int32_t tempint;
 				uint8_t tempStringBuffer[64];
 				tempint = (int32_t)(temp * 100) - ((int32_t)temp * 100);
 				os_sprintf(tempStringBuffer, "The temperature is %d.%u\r\n", (int32_t)temp, tempint < 0 ? -tempint : tempint);
 				uart0_sendStr(tempStringBuffer);
+				os_delay_us(16000);
+				htu21d_getHumid(&humidity);
 				tempint = (int32_t)(humidity * 100) - ((int32_t)humidity * 100);
 				os_sprintf(tempStringBuffer, "The humidity is %d.%u%%\r\n", (int32_t)humidity, tempint < 0 ? -tempint : tempint);
 				uart0_sendStr(tempStringBuffer);
