@@ -33,6 +33,7 @@ SOFTWARE.
 #include "user_interface.h"
 #include "driver/i2c_master_user.h"
 #include "htu21d.h"
+#include "osapi.h"
 
 #define HTU21D_ADDR	0x40
 
