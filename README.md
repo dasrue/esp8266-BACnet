@@ -8,11 +8,13 @@ These microcontrollers are very inexpensive, designed for IoT and home automatio
 - Read property
 - Write property
 - Binary output object
+- Storing and retreiving WiFi and BACnet information in the Flash memory
+- Interfacing with hardware
+    - Analogue inputs to HTU21D Temp/Humidity sensor
 
 # Features Still in Progress
 - Change of value subscribe and notify
-- Storing and retreiving WiFi and BACnet information in the Flash memory
-- Webserver for setting up WiFi settings initially
+- Webserver/App interface for setting up WiFi settings initially
 - Get proper broadcast address (eg 192.168.1.255 instead of 255.255.255.255)
 - Interfacing with hardware
     - Binary inputs and outputs to GPIO
@@ -20,12 +22,22 @@ These microcontrollers are very inexpensive, designed for IoT and home automatio
     - Analogue input to ADC input
     - Analogue outputs to PWM output
 - Extra BACnet objects
-    - Access control (maybe?)
-    - Network
+    - Network (wifi configuration)
+
+# How to Build
+Step 1:	Install the [esp-open-sdk]. Instructions are avaliable on the github page
+
+Step 2:	Clone this repository.
+
+Step 3:	Edit the makefile to reflect your ESP8266 SDK install location.
+
+Step 4:	Run Make to make the current test application (as of this commit it is a HTU21D temperature/humidity sensor monitor)
+
 
 License
 ----
 [BACnet Stack] original and modified files:     eCos (GPL-like) license
+
 Files created by me, for use in this port:      MIT license
 
 In general, the files within the src/, include/, and Demos/ directories are licensed under MIT. Files within the BACnet-Stack/ directory are under the eCos license
@@ -37,4 +49,4 @@ In general, the files within the src/, include/, and Demos/ directories are lice
    [Espressif Systems]: <https://espressif.com/>
    [ESP8266]: <https://en.wikipedia.org/wiki/ESP8266>
    [BACnet]: <http://www.bacnet.org/>
-   
+   [esp-open-sdk]: <https://github.com/pfalcon/esp-open-sdk>
