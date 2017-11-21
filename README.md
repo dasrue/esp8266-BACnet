@@ -33,6 +33,8 @@ Step 3:	Edit the makefile to reflect your ESP8266 SDK install location.
 
 Step 4:	Run Make to make the current test application (as of this commit it is a HTU21D temperature/humidity sensor monitor)
 
+Step 5: Run "Make Flash" to flash the firmware to a connected ESP8266, using the default serial port (/dev/ttyUSB0 on Ubuntu)
+
 
 License
 ----
