@@ -13,6 +13,8 @@
 #include "uart_console.h"
 #include "dht22.h"
 
+void ICACHE_FLASH_ATTR httpd_setup();
+
 // ESP-12 modules have LED on GPIO2. Change to another GPIO
 // for other boards.
 static const int pin = 5;
@@ -88,4 +90,5 @@ void ICACHE_FLASH_ATTR user_init()
 	//os_timer_arm(&dht22_timer, 2000, 1);
 
 	debug_console_init();
+	httpd_setup();
 }
