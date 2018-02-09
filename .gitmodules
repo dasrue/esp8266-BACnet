@@ -1,3 +1,6 @@
 [submodule "esp-httpd"]
 	path = esp-httpd
 	url = https://github.com/lujji/esp-httpd.git
+[submodule "libesphttpd"]
+	path = libesphttpd
+	url = https://github.com/Spritetm/libesphttpd.git
