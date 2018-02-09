@@ -2,11 +2,12 @@ BAC_STK = BACnet_Stack
 BAC_SRC = $(BAC_STK)/src
 BAC_HNDLR = $(BAC_STK)/demo/handler
 BAC_OBJ = $(BAC_STK)/demo/object
+HTTP = libesphttpd
 ESP_SDK = /home/Brad/esp-open-sdk/ESP8266_NONOS_SDK-2.1.0-18-g61248df
 
 CC = xtensa-lx106-elf-gcc
 SIZE = xtensa-lx106-elf-size
-CFLAGS = -I. -I$(BAC_STK)/include -I$(BAC_OBJ) -Iinclude -Iesp-httpd/extras/httpd -Iesp-httpd/examples/http_server/fsdata -I$(ESP_SDK)/driver_lib/include -mlongcalls -DICACHE_FLASH
+CFLAGS = -I. -I$(BAC_STK)/include -I$(BAC_OBJ) -Iinclude -Iesp-httpd/extras/httpd -Iesp-httpd/examples/http_server/fsdata -I$(ESP_SDK)/driver_lib/include -I$(HTTP)/include -mlongcalls -DICACHE_FLASH
 LDLIBS = -nostdlib -Wl,--start-group -lmain -lnet80211 -lwpa -llwip -lpp -lphy -Wl,--end-group -lcirom -L $(ESP_SDK)/lib -lgcc
 LDFLAGS = -Teagle.app.v6.ld -Wl,-Map,Test.map -Wl,--cref
 PROJNAME = test
@@ -58,7 +59,8 @@ SRCS = 	src/main.c \
 	$(BAC_HNDLR)/s_iam.c \
 	$(BAC_OBJ)/device.c \
 	$(BAC_OBJ)/ai.c \
-	$(BAC_OBJ)/bo.c
+	$(BAC_OBJ)/bo.c \
+	$(HTTP)/core/httpd.c
 	
 	
 
